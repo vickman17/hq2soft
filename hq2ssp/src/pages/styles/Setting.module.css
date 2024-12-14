@@ -1,0 +1,63 @@
+.head{
+    border: 0px solid black;
+    padding-block: 1rem;
+    text-align: center;
+    font-weight: 600;
+    font-size: 1.6rem;
+}
+
+.profile{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: auto;
+    border: 0px solid;
+    margin-top: 1rem;
+    width: 90%;
+}
+
+
+.image{
+    border: 0px solid;
+}
+
+.identity{
+    border: 0px solid;
+}
+
+.name{
+    font-weight: 580;
+}
+
+.badge{
+    font-size: 15px;
+    margin-top: .4rem;
+}
+
+.chevron{
+    font-size: 2.3rem;
+    border: 0px solid black;
+    height: fit-content;
+    color: grey;
+}
+
+.sets{
+    margin-top: 1.5rem;
+}
+
+.setName{
+    font-size: 1.5rem;
+    margin-left: 1rem;
+}
+
+.demo{
+    border: none;
+    margin-top: 2.5rem;
+}
+
+.signOut{
+    border: 0px solid ;
+    margin-top: 2rem;
+    text-align: center;
+    font-size: 1.8rem;
+}

@@ -1,0 +1,111 @@
+.page{
+    background: linear-gradient(270deg, #18c729, #fef500);
+}
+
+.content{
+    --background: transparent;
+}
+
+.details{
+    border: 0px solid;
+    margin-top: 7rem;
+}
+
+.single{
+    border: 0px solid;
+    text-align: center;
+    width: 95%;
+    margin: auto;
+    margin-top: 2rem;
+    border-radius: .2rem;
+    padding: 1px;
+}
+
+.input:focus{
+    outline: 1px solid white;
+}
+
+.input{
+    width: 100%;
+    text-align: center;
+    height: 40px;
+    border: none;
+    padding: 3px;
+    outline: none;
+    background: transparent;
+}
+
+.input::placeholder{
+    color: black;
+}
+
+.tripple{
+    border: 0px solid;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 95%;
+    margin: auto;
+    margin-top: 2rem;
+}
+
+.col{
+    width: 28%;
+    border-radius: .4rem;
+    border: 0px solid;
+    padding: 1px;
+}
+
+.double{
+    display: flex;
+    width: 95%;
+    border: 0px solid;
+    margin: auto;
+    margin-top: 2rem;
+    justify-content: space-between;
+}
+
+.col1{
+    width: 45%;
+    border-radius: .4rem;
+    padding: 1px;
+}
+
+.auto{
+    margin-top: 4rem;
+}
+
+
+.butCont{
+    border: 0px solid ;
+    text-align: center;
+    margin-top: 4rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.butCov{
+    border:0px solid;
+    width: 40%;
+}
+
+.but{
+    width: 80%;
+    padding-block: 1rem;
+    font-size: 19px;
+    border-radius: .2rem;
+    font-weight: .4rem;
+}
+
+.tag{
+    font-weight: 10px;
+    margin-top: 3rem;
+    text-align: center;
+    font-size: 10px;
+    color: rgb(225, 225, 225);
+}
+
+.foot{
+    background: transparent;
+    box-shadow: none;
+}

@@ -1,0 +1,30 @@
+.output {
+    font-size: 1.5rem;
+    font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+    border: 0px solid;
+    margin: auto;
+    display: inline-block;
+    border-right: 2px solid black;
+    animation: blink 0.7s steps(2, start) infinite;
+    color: rgb(255, 255, 255);
+      font-family: "montserrat";
+
+  }
+  
+  @keyframes blink {
+    from {
+      border-right-color: black;
+    }
+    to {
+      border-right-color: transparent;
+    }
+  }
+  
+
+  .cont{
+    border: 0px solid black;
+    text-align: center;
+    height: 50px;
+  }

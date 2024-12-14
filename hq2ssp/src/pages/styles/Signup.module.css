@@ -1,0 +1,264 @@
+.page{
+    border: 0px solid black;
+    overflow: hidden;
+}
+
+.head{
+    border: 0px solid black;
+    text-align: center;
+    margin-top: 1.5rem;
+    color: black;
+    font-weight: 800;
+}
+
+.topCircle{
+    background: linear-gradient(270deg, #18c729, #fef500);
+    height: 400px;
+    width: 400px;
+    border-radius: 50%;
+    margin-top: -19rem;
+    margin-left: 9rem;
+}
+
+
+.double{
+    height: 40px;
+    text-align: center;
+    border: none;
+}
+
+.double:focus{
+    outline: 1px solid #fef500;
+}
+
+
+
+.bottomCircle{
+    background: linear-gradient(270deg, #18c729, #fef500);
+    height: 400px;
+    width: 400px;
+    margin-left: -9rem;
+    margin-bottom: -19rem;
+    border-radius: 50%;
+}
+
+.tab{
+    border: 0px solid black;
+    width: 95%;
+    margin: auto;
+    margin-top: 2rem;
+}
+
+.info{
+    border: 0px solid black;
+    margin-top: 1rem;
+    --overflow-y: scroll;
+    --overflow-x: hidden;
+}
+
+.multiTab{
+    margin: auto;
+    border: 0px solid black;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.single{
+    margin: auto;
+    text-align: center;
+    width: 100%;
+    height: 45px;
+    font-size: 18px;
+    border: none;
+    outline:  none;
+}
+
+.single:focus{
+    outline: 1px solid #fef500;
+}
+
+.error{
+    border: 2px solid red;
+  }
+  
+
+.col{
+    border: 0px solid black;
+}
+
+.col1{
+    width: 32%;
+    border: 0px solid black;
+}
+
+.three{
+    width: 100%;
+    height: 40px;
+    text-align: center;
+    border: none;
+    outline: none;
+}
+
+.three:focus{
+    outline: 1px solid #fef500;
+}
+
+
+.multiTab3{
+    border: 0px solid black;
+    display: flex;
+    width: 95%;
+    margin: auto;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
+    text-align: center;
+}
+
+.butCont{
+    border: 0px solid black;
+    text-align: center;
+    margin-top: 1.8rem;
+}
+
+.button{
+    height: 40px;
+    background:#18c729;
+    width: 90%;
+    padding: 9px;
+    font-size: 19px;
+    border-radius: .4rem;
+    margin: auto;
+}
+
+@media (max-height: 740px){
+    .page{
+        border: 0px solid black;
+        overflow-y: hidden;
+    }
+    
+    
+    .head{
+        border: 0px solid black;
+        text-align: center;
+        margin-top: 1rem;
+        color: black;
+        font-weight: 800;
+        font-size: 18px;
+    }
+    
+    .cont{
+        border: 0px solid black;
+    }
+
+    .topCircle{
+        background: linear-gradient(270deg, #18c729, #fef500);
+        height: 300px;
+        width: 300px;
+        border-radius: 50%;
+        margin-top: -12rem;
+        margin-left: 9rem;
+    }
+    
+    
+    .double{
+        height: 20px;
+        width: 100%;
+        text-align: center;
+        border: 0px solid black;
+    }
+    
+    .double:focus{
+        outline: 1px solid #fef500;
+    }
+    
+    
+    
+    .bottomCircle{
+        background: linear-gradient(270deg, #18c729, #fef500);
+        height: 200px;
+        width: 200px;
+        margin-bottom: -10rem;
+        border-radius: 50%;
+    }
+    
+    .tab{
+        border: 0px solid black;
+        width: 95%;
+        margin: auto;
+        margin-top: 1rem;
+    }
+    
+    .info{
+        border: 0px solid black;
+        margin-top: 9rem;
+        overflow-y: auto;
+        --overflow-x: hidden;
+    }
+    
+    .single{
+        margin: auto;
+        text-align: center;
+        width: 100%;
+        height: 20px;
+        border: none;
+        outline:  none;
+    }
+    
+    .single:focus{
+        outline: 1px solid #fef500;
+    }
+    
+    .col{
+        border: 0px solid black;
+        width: 48%;
+    }
+    
+    .col1{
+        width: 30%;
+        border: 0px solid black;
+    }
+    
+    .three{
+        width: 100%;
+        height: 20px;
+        text-align: center;
+        border: none;
+        outline: none;
+    }
+    
+    .three:focus{
+        outline: 1px solid #fef500;
+    }
+    
+    
+    .multiTab3{
+        border: 0px solid black;
+        display: flex;
+        width: 95%;
+        margin: auto;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 1rem;
+        text-align: center;
+    }
+
+    .multiTab{
+        border: 0px solid black;
+        display: flex;
+        width: 95%;
+        margin: auto;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 1rem;
+        text-align: center;
+    }
+    
+    .butCont{
+        border: 0px solid black;
+        text-align: center;
+        margin-top: 1.8rem;
+    }   
+}

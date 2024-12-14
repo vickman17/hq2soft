@@ -1,0 +1,7 @@
+{
+  "name": "hq2ssp",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react-vite"
+}

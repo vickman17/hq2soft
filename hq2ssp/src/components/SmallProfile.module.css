@@ -1,0 +1,17 @@
+.proCont{
+    border: 9px solid #e0cc91;
+    border-radius: 50%;
+    width: fit-content;
+    margin: auto;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.image{
+    margin: auto;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+}
+

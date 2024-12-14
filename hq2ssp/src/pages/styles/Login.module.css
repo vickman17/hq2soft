@@ -1,0 +1,89 @@
+.topCircle{
+    height: 300px;
+    width: 300px;
+    background: linear-gradient(270deg, #18c729, #fef500);
+    border-radius: 50%;
+    margin-top: -12rem;
+    margin-left: -5rem;
+}
+
+.content{
+    overflow: hidden;
+}
+
+
+.bottomCircle{
+    height: 300px;
+    width: 300px;
+    background: linear-gradient(270deg, #18c729, #fef500);
+    border-radius: 50%;
+    margin-bottom: -12rem;
+    margin-right: -5rem;
+}
+
+
+.head{
+    margin-top: 4rem;
+}
+
+.bigHead{
+    font-weight: 800;
+    font-size: 4rem;
+    border: 0px solid;
+    text-align: center;
+}
+
+.smallHead{
+    text-align: center;
+    font-size: 14px;
+    letter-spacing: -1px;    
+}
+
+.input{
+    border: 0px solid black;
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.details{
+    width: 80%;
+    height: 35px;
+    border: none;
+    text-align: center;
+    outline: none;
+}
+
+.but{
+    margin-top: 2rem;
+    text-align: center;
+}
+
+.login{
+    background: #fef500;
+    height: 40px;
+    width: 80%;
+    border-radius: 6px;
+    font-size: 19px;
+    color: rgb(90, 88, 88);
+}
+
+.cap{
+    text-align: center;
+    margin-top: 1rem;
+    color: grey;
+}
+
+.google{
+    background: grey;
+    height: 40px;
+    width: 80%;
+    border-radius: 6px;
+    font-size: 19px;
+    color: white;
+    margin-top: -.6rem;
+}
+
+.not{
+    text-align: center;
+    margin-top: 1rem;
+}

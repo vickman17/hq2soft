@@ -1,0 +1,87 @@
+.earnings{
+    border-bottom-left-radius: 1rem;
+    padding-bottom: 5rem;
+    border: 0px solid black;
+    background: linear-gradient(145deg, #e0cc91, #fef500);
+}
+
+.acct{
+    border: 0px solid black;
+    margin: auto;
+    width: 90%;
+}
+
+.place{
+    display: flex;
+    border: 0px solid black;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: .6rem;
+    font-weight: 600;
+}
+
+.eye{
+    font-size: 1.2rem;
+}
+
+.earnHead{
+    font-size: 12.5px;
+    color: rgb(101, 101, 101);
+}
+
+.content{
+    --background: #f7f7f7;
+}
+
+.bal{
+    font-size: 2.2rem;
+}
+
+.option{
+    border: 0px solid black;
+    margin: auto;
+    width: 85%;
+    margin-top: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.withdraw{
+    border: 0px solid black;
+    border-top-left-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    padding: 1rem;
+    width: 120px;
+    font-size: 1.3rem;
+    text-align: center;
+    background-color: #e0cc91;
+}
+
+
+.add{
+    border: 0px solid black;
+    padding: 1rem;
+    border-top-left-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    font-size: 1.3rem;
+    width: 120px;
+    text-align: center;
+    background-color: white;
+}
+
+.transaction{
+    border: 0px solid black;
+    padding-top: 2rem;
+    margin: auto;
+    border-top-left-radius: 2rem;
+    border-top-right-radius: 2rem;
+    margin-top: -3rem;
+    background: #f7f7f7;
+}
+
+.transHead{
+    border: 0px solid;
+    width: 90%;
+    margin: auto;
+}
