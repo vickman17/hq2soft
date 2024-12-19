@@ -21,7 +21,7 @@ const BottomNav: React.FC = () => {
   const icons = {
     home: '/assets/Home.lottie',
     chat: '/assets/Chat.lottie',
-    settings: '/assets/Settings.lottie',
+    settings: '/assets/setting.lottie',
   };
 
   // Handle tab click and animation
@@ -43,15 +43,17 @@ const BottomNav: React.FC = () => {
   };
 
   return (
-    <IonFooter style={{ '--background': 'transparent' }}>
+    <IonFooter className={edit.navbar} style={{ '--background': 'transparent', "--boxShadow": "none", border:"none" }}>
       <IonTabBar
         slot="bottom"
-        style={{ boxShadow: '1px 3px 19px grey', '--background': 'transparent' }}
+        style={{ boxShadow: 'none', '--background': 'transparent', border:"none" }}
       >
         {/* Home Tab */}
         <IonTabButton
           tab="home"
+          style={{width:"10%"}}
           onClick={() => handleTabClick('home', '/dashboard')}
+           // Apply active class
         >
           {loading[0] ? (
             <IonSkeletonText
@@ -62,9 +64,10 @@ const BottomNav: React.FC = () => {
           ) : (
             <DotLottieReact
               src={icons.home}
-              loop={true} // Animate only when 'home' is active
+              loop={true}
               autoplay
-              className={edit.icon}
+              style={{width:"50px"}}
+              className={activeTab === 'home' ? edit.activeTab : ''}
               dotLottieRefCallback={dotLottieRefCallback}
             />
           )}
@@ -74,6 +77,7 @@ const BottomNav: React.FC = () => {
         <IonTabButton
           tab="chat"
           onClick={() => handleTabClick('chat', '/inbox')}
+          
         >
           {loading[1] ? (
             <IonSkeletonText
@@ -83,9 +87,12 @@ const BottomNav: React.FC = () => {
             />
           ) : (
             <DotLottieReact
-              loop={activeTab === 'chat'} // Animate only when 'chat' is active
-              autoplay={activeTab === 'chat'}
-              className={edit.icon}
+              src={icons.chat}
+              loop={true}
+              autoplay
+              style={{width:"60px"}}
+              className={activeTab === 'chat' ? edit.activeTab : ''}
+              dotLottieRefCallback={dotLottieRefCallback}
             />
           )}
         </IonTabButton>
@@ -103,9 +110,12 @@ const BottomNav: React.FC = () => {
             />
           ) : (
             <DotLottieReact
-              loop={activeTab === 'settings'} // Animate only when 'settings' is active
-              autoplay={activeTab === 'settings'}
-              className={edit.icon}
+              src={icons.settings}
+              loop={true}
+              autoplay
+              style={{width:"50px"}}
+              className={activeTab === 'settings' ? edit.activeTab : ''}
+              dotLottieRefCallback={dotLottieRefCallback}
             />
           )}
         </IonTabButton>

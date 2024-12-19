@@ -11,9 +11,12 @@
     justify-content: space-around;
     align-items: center;
     margin: auto;
+    background: rgba(235, 235, 235, 0.792);
     border: 0px solid;
     margin-top: 1rem;
     width: 90%;
+    padding: 12px;
+    border-radius: 1rem;
 }
 
 
@@ -42,17 +45,39 @@
 }
 
 .sets{
-    margin-top: 1.5rem;
+    margin: auto;
+    border: 0px solid black;
+    margin-top: 3rem;
+    padding-block: 10px;
+    width: 90%;
+    background: rgba(235, 235, 235, 0.792);
+    border-radius: 1rem;
 }
 
 .setName{
-    font-size: 1.5rem;
+    font-size: 1.1rem;
     margin-left: 1rem;
 }
 
 .demo{
-    border: none;
-    margin-top: 2.5rem;
+    border: 0px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    --background: transparent;
+    margin: 0px 12px 12px;
+}
+
+.demoIn{
+    display: flex;
+    border: 0px solid;
+    justify-content:start;
+    align-items: center;
+    width: 80%;
+}
+
+.enter{
+    margin-left: auto;
 }
 
 .signOut{
@@ -60,4 +85,14 @@
     margin-top: 2rem;
     text-align: center;
     font-size: 1.8rem;
+}
+
+.icon{
+    font-size: 1.6rem;
+}
+
+.foot{
+    text-align: center;
+    border: 0px solid;
+    color: rgb(213, 210, 210);
 }

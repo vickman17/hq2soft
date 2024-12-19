@@ -33,6 +33,16 @@ const CompleteProfile: React.FC = () => {
   const [categories, setCategories] = useState<Category[]>([]);
   const [subcategories, setSubcategories] = useState<Subcategory[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string>("");
+  const [selectedSubcategories, setSelectedSubcategories] = useState<string[]>(["", "", ""]);
+  const [residentialAddress, setResidentialAddress] = useState<string>("");
+  const [workAddress, setWorkAddress] = useState<string>("");
+  const [otherNumber, setOtherNumber] = useState<string>("");
+  const [qualification, setQualification] = useState<string>("");
+  const userData = JSON.parse(sessionStorage.getItem('Info')); // Replace 'userInfo' with the correct key if different
+    const sspId = userData?.ssp_id;
+    console.log(sspId); // This will log the ssp_id
+    
+  
 
   const API_BASE_URL = "http://localhost/hq2sspapi"; // Replace with your backend URL
 
@@ -44,7 +54,6 @@ const CompleteProfile: React.FC = () => {
         console.log("Categories response:", response.data);
         if (Array.isArray(response.data)) {
           setCategories(response.data);
-          console.log(response.data)
         } else {
           console.error("Categories response is not an array");
         }
@@ -73,14 +82,43 @@ const CompleteProfile: React.FC = () => {
     }
   }, [selectedCategory]);
 
-  return(
+  // Handle form submission
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    // Prepare the data to send
+    const formData = {
+      selectedCategory,
+      selectedSubcategories,
+      residentialAddress,
+      workAddress,
+      otherNumber,
+      qualification,
+      sspId
+    };
+
+    // Send data to backend
+    axios
+      .post(`${API_BASE_URL}/completeProfile.php`, formData)
+      .then((response) => {
+        console.log("Save response:", response.data);
+        alert("Profile saved successfully!");
+        history.push("/dashboard")
+      })
+      .catch((error) => {
+        console.error("Error saving profile:", error);
+        alert("Failed to save profile. Please try again.");
+      });
+  };
+
+  return (
     <IonPage className={style.page}>
       <IonContent className={style.content}>
         <div className={style.auto}>
           <AutoType strings={stringArr} typingSpeed={100} reverseSpeed={100} delay={1000} />
         </div>
         <div className={style.details}>
-          <form>
+          <form onSubmit={handleSubmit}>
             {/* Profession Category Dropdown */}
             <div className={style.single}>
               <select
@@ -101,39 +139,92 @@ const CompleteProfile: React.FC = () => {
             </div>
             {/* Skill Subcategories Dropdown */}
             <div className={style.tripple}>
-              {Array(3)
-                .fill("")
-                .map((_, index) => (
-                  <div className={style.col} key={index}>
-                    <select className={style.input}>
-                      <option value="">Select Skill</option>
-                      {Array.isArray(subcategories) &&
-                        subcategories.map((subcategory) => (
-                          <option key={subcategory.id} value={subcategory.id}>
-                            {subcategory.subcategory_name}
-                          </option>
-                        ))}
-                    </select>
-                  </div>
-                ))}
+              {selectedSubcategories.map((_, index) => (
+                <div className={style.col} key={index}>
+                  <select
+                    className={style.input}
+                    value={selectedSubcategories[index]}
+                    onChange={(e) => {
+                      const updatedSubcategories = [...selectedSubcategories];
+                      updatedSubcategories[index] = e.target.value;
+                      setSelectedSubcategories(updatedSubcategories);
+                    }}
+                  >
+                    <option value="">Select Skill</option>
+                    {Array.isArray(subcategories) &&
+                      subcategories.map((subcategory) => (
+                        <option key={subcategory.id} value={subcategory.id}>
+                          {subcategory.subcategory_name}
+                        </option>
+                      ))}
+                  </select>
+                </div>
+              ))}
             </div>
             <div className={style.single}>
-              <input type="text" className={style.input} placeholder="Residential Address" />
+              <input
+                type="text"
+                className={style.input}
+                placeholder="Residential Addr. Plot 1232 Ikeja, Lagos, Nigeria"
+                value={residentialAddress}
+                onChange={(e) => setResidentialAddress(e.target.value)}
+              />
             </div>
             <div className={style.double}>
               <div className={style.col1}>
-                <input type="text" className={style.input} placeholder="Work Address" />
+                <input
+                  type="text"
+                  className={style.input}
+                  placeholder="Work Address"
+                  value={workAddress}
+                  onChange={(e) => setWorkAddress(e.target.value)}
+                />
               </div>
               <div className={style.col1}>
-                <input type="text" className={style.input} placeholder="Other number" />
+                <input
+                  type="text"
+                  className={style.input}
+                  placeholder="Other number"
+                  value={otherNumber}
+                  onChange={(e) => setOtherNumber(e.target.value)}
+                />
               </div>
+            </div>
+            <div className={style.single}>
+              <select
+                className={style.input}
+                value={qualification}
+                onChange={(e) => setQualification(e.target.value)}
+              >
+                <option value="">Select qualification</option>
+                <option value="Academic">Academic</option>
+                <option value="Apprenticeship">Apprenticeship</option>
+                <option value="Certified">Certification</option>
+              </select>
             </div>
             <div className={style.butCont}>
               <div className={style.butCov}>
-                <button style={{background:"red", color:"white"}} className={style.but}>Cancel</button>
+                <button
+                  type="button"
+                  style={{ background: "red", color: "white" }}
+                  className={style.but}
+                  onClick={() => alert("Cancelled!")}
+                >
+                  Cancel
+                </button>
               </div>
               <div className={style.butCov}>
-                <button style={{background:"transparent", border:"1px solid white", color:"white"}} className={style.but}>Done</button>
+                <button
+                  type="submit"
+                  style={{
+                    background: "transparent",
+                    border: "1px solid white",
+                    color: "white",
+                  }}
+                  className={style.but}
+                >
+                  Done
+                </button>
               </div>
             </div>
           </form>
@@ -141,8 +232,8 @@ const CompleteProfile: React.FC = () => {
       </IonContent>
       <IonFooter className={style.foot}>
         <div className={style.tag}>
-            <p>&copy;Powered by Strive inc</p>
-          </div>
+          <p>&copy; Powered by Strive inc</p>
+        </div>
       </IonFooter>
     </IonPage>
   );

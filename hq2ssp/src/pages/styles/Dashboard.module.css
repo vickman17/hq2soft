@@ -4,6 +4,7 @@
     border-bottom-left-radius: 3rem;
     border-bottom-right-radius: 3rem;
     background: linear-gradient(245deg, #e0cc91, #fef500);
+    box-shadow: 1px 1px 9px #e0cc91;
 }
 
 .content{
@@ -27,12 +28,13 @@
     width: fit-content;
     margin: auto;
     padding-inline: 5px;
+    font-size: 12px;
+    letter-spacing: 2px;
     padding-block: 5px;
     margin-top: .5rem;
     border-radius: 1rem;
-    background: rgba(255, 255, 255, 0.482);
     color: black;
-    backdrop-filter: blur(2px);
+    background: rgba(255, 255, 255, 0.447);
 }
 
 .pick{

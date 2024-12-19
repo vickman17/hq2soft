@@ -85,12 +85,13 @@ const Signup: React.FC = () => {
 
   return (
     <IonPage className={style.page}>
-      <div className={style.topCircle}></div>
       <IonContent className={style.info}>
+      <div className={style.topCircle}>
         <div className={style.head}>
-          <div style={{ fontSize: "3rem" }}>SIGN UP</div>
+          <div style={{ fontSize: "50px" }}>SIGN UP</div>
           <div>Sign up as soft service provider today!</div>
         </div>
+      </div>
         <form onSubmit={handleFormSubmit}>
           <div className={style.cont}>
             <div className={style.tab}>
@@ -181,7 +182,6 @@ const Signup: React.FC = () => {
         </form>
         <IonToast isOpen={toast} position="top" color={toastColor} onDidDismiss={() => setToast(false)} duration={5000} message={toastText} />
       </IonContent>
-      <div className={style.bottomCircle}></div>
     </IonPage>
   );
 };

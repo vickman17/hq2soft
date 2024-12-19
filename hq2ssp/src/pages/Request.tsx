@@ -12,7 +12,6 @@ const Request: React.FC = () =>{
                 <Back/>
                 <div className={style.head}>Jobs Requests</div>
             </IonContent>
-            <BottomNav/>
         </IonPage>
     )
 }

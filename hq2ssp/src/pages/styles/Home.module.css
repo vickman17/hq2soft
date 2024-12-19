@@ -1,0 +1,185 @@
+.videoContainer {
+    position: relative;
+    width: 100%;
+    height: 100vh; /* Full viewport height */
+    overflow: hidden;
+    background: black;
+  }
+  
+  /* Video Styling */
+  .videobg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100vh;
+    object-fit: cover; /* Ensures the video covers the entire background */
+    transform: translate(-50%, -50%);
+    z-index: -1; /* Sends the video behind content */
+  }
+
+  .action{
+    border: 0px solid black;
+    text-align: center;
+  }
+
+  .logo{
+    margin: auto;
+    width: 20%;
+    border: 0px solid white;
+    padding-top: 4rem;
+    opacity: 0; /* Initially hidden */
+    transform: scale(0.8); /* Slightly scaled down */
+    transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+    pointer-events: none; /* Prevent interactions when hidden */
+  }
+
+  .logo.showLogo {
+    opacity: 1; /* Fully visible */
+    transform: scale(1); /* Normal size */
+    pointer-events: all;
+  }
+
+  .glass{
+    background: rgba(255, 217, 0, 0.323); /* Gold color with transparency */
+    background-image: linear-gradient(45deg, rgba(255, 215, 0, 0.5), rgba(255, 215, 0, 0.7)); /* Light gradient */
+    border-radius: 15px; /* Optional, to give rounded corners */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2), inset 0 4px 6px rgba(255, 255, 255, 0.4); /* Shadow for depth */
+    backdrop-filter: blur(1px); /* Glassy blur effect */
+    -webkit-backdrop-filter: blur(10px); /* For Safari */
+    height: 100vh;
+    position: relative;
+  }
+
+  .partialModal {
+    height: 40vh; /* Adjust the height as needed */
+    margin-top: auto; /* Positions modal at the bottom */
+    border-top-right-radius: 1.3rem;
+    border-top-left-radius: 1.3rem; /* Rounded top corners for better visual appeal */
+    overflow-y: auto; /* Enable scroll for long content */ 
+    --background:rgb(197, 197, 197);
+    margin-bottom: -1rem;
+    bottom: 0;/* Padding for content inside */
+    align-content: center;
+  }
+
+  .or{
+    text-align: center;
+    padding-block: 1rem;
+    color: rgb(74, 74, 74);
+  }
+
+  .tag{
+    border: 0px solid;
+    bottom: 20px;
+    position: absolute;
+    margin: auto;
+    width: 100%;
+    text-align: center;
+    color: rgb(142, 142, 142);
+  }
+
+  .modalCont{
+    border: 0px solid black;
+    margin-top: 4rem;
+  }
+
+.enter{
+  border: 1px solid white;
+  padding-block: 20px;
+  width: 85%;
+  border-radius: 1rem;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+  .write{
+    border: 0px solid white;
+    position: absolute;
+    bottom: 0;
+    height: 30vh;
+    background: linear-gradient(transparent, black);
+  }
+
+  .writeup{
+    font-size: 35px;
+    font-weight: bold; 
+    color: white;
+    margin-top: auto;
+    padding-inline: 10px;
+  }
+
+  .butCov{
+    margin: auto;
+    text-align: center;
+    border-radius: 0px solid white;
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 2rem;
+    width: 100%;
+  }
+
+  .but{
+    width: 60%;
+    margin: auto;
+    padding-block: 15px;
+    font-size: 19px;
+    border-radius: 1.3rem;
+    color: white;
+    background: linear-gradient(270deg, #18c729, #fef500);
+    box-shadow: 1px 1px 3px #fef60062;
+  }
+
+
+
+  @media (max-height: 750px){
+    .write{
+      border: 0px solid white;
+      position: absolute;
+      bottom: 0;
+      height: 30vh;
+      background: linear-gradient(transparent, black);
+    }
+  
+    .writeup{
+      font-size: 35px;
+      font-weight: bold; 
+      color: white;
+      border: 0px solid white;
+      padding-inline: 10px;
+    }
+  
+    .butCov{
+      margin: auto;
+      text-align: center;
+      border-radius: 0px solid white;
+      position: absolute;
+      bottom: 0;
+      margin-bottom: 2rem;
+      width: 100%;
+    }
+  
+    .but{
+      width: 60%;
+      margin: auto;
+      padding: 9px;
+      font-size: 19px;
+      border-radius: 1rem;
+      color: white;
+      background: linear-gradient(270deg, #18c729, #fef500);
+    }
+  
+    
+  }
+
+
+  @media (max-width: 400px){
+    .writeup{
+      font-size: 30px;
+      font-weight: bold; 
+      color: white;
+      border: 0px solid white;
+      padding-inline: 10px;
+    }
+  
+  }

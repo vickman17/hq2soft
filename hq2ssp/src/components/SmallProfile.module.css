@@ -3,6 +3,7 @@
     border-radius: 50%;
     width: fit-content;
     margin: auto;
+    background-image: url("/assets/goldplace.jpg");
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;

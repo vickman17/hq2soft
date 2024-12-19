@@ -32,8 +32,10 @@ const Login: React.FC = () => {
       if (response.data.status === "success") {
         setToastMessage("Login successful");
         setShowToast(true);
-        const profession = response.data.user.profession;
+        sessionStorage.setItem("Info", JSON.stringify(response.data.user));
+        const profession = response.data.user.category_id;
         console.log(profession)
+
 
         if(profession === null){
             history.push("/completeprofile");

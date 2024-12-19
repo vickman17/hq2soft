@@ -10,16 +10,30 @@ import { useHistory } from "react-router";
 const Dashboard: React.FC =()=>{
 
     const history = useHistory();
+    const storedInfo = sessionStorage.getItem("Info");
+
+    const info = storedInfo ? JSON.parse(storedInfo) : {};
+
+    // Capitalize the first letter and make the rest lowercase
+    const capitalizeFirstLetter = (name: string) => {
+        if (!name) return '';
+        return name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
+    };
+
+    const Name = `${capitalizeFirstLetter(info?.first_name || "")} ${capitalizeFirstLetter(info?.last_name || "")}`;
+    const qualification = info?.qualification || "N/A";
 
 
+
+    
     return(
         <IonPage>
             <IonContent className={style.content}>
                 <div className={style.dash}>
                     <Profile/>
                     <div className={style.info}>
-                        <div className={style.name}>Victory Madumere</div>
-                        <div className={style.work}>Software Engineer</div>
+                        <div className={style.name}>{Name}</div>
+                        <div className={style.work}>{qualification}</div>
                     </div>
                 </div>
                 <div className={style.pick}>
@@ -45,8 +59,6 @@ const Dashboard: React.FC =()=>{
                     </div>
                 </div>
             </IonContent>
-            <BottomNav/>
-            
         </IonPage>
     )
 }

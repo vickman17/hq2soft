@@ -53,12 +53,11 @@ const Jobs: React.FC = () => {
             <IonLabel>Cancelled</IonLabel>
           </IonSegmentButton>
         </IonSegment>
-        <div style={{ padding: '16px', border:"1px solid black" }}>
+        <div style={{ padding: '16px', border:"0px solid black" }}>
           {renderSegmentContent()}
         </div>
   
       </IonContent>
-      <BottomNav/>
     </IonPage>
   );
 };

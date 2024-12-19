@@ -1,23 +1,82 @@
-.page{
-    border: 0px solid black;
-    overflow: hidden;
-}
-
+.page {
+    /* Base Glassy Gold Effect */
+    background: linear-gradient(
+      135deg,
+      rgba(255, 223, 0, 0.8),
+      rgba(140, 119, 2, 0.4)
+    ); /* Base gradient for gold tone */
+    backdrop-filter: blur(15px); /* Stronger blur for glassy effect */
+    -webkit-backdrop-filter: blur(15px); /* Safari compatibility */
+    border-radius: 15px; /* Smooth edges */
+    box-shadow: 
+      0 8px 16px rgba(0, 0, 0, 0.3), /* Outer shadow for depth */
+      inset 0 8px 12px rgba(255, 255, 255, 0.4), /* Inner glow for glass */
+      inset 0 -6px 10px rgba(255, 223, 0, 0.5); /* Bottom glow for gold sheen */
+    position: relative;
+    overflow: hidden; /* Hide the pseudo-elements */
+  }
+  
+  /* Adding Glossy Highlight */
+  .page::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(
+      circle at 50% 30%,
+      rgba(255, 255, 255, 0.6),
+      rgba(255, 255, 255, 0.1) 60%
+    ); /* Circular highlight for gloss */
+    opacity: 0.7;
+    pointer-events: none; /* Allow interactions with the background */
+  }
+  
+  /* Adding Subtle Reflective Streaks */
+  .page::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 150%;
+    height: 150%;
+    background: linear-gradient(
+      75deg,
+      rgba(255, 255, 255, 0.15) 25%,
+      rgba(255, 255, 255, 0) 50%,
+      rgba(255, 255, 255, 0.15) 75%
+    ); /* Diagonal streaks for reflections */
+    transform: rotate(15deg);
+    opacity: 0.4;
+    pointer-events: none;
+    animation: moveStreaks 8s linear infinite; /* Smooth streak movement */
+  }
+  
+  /* Animation for reflective streaks */
+  @keyframes moveStreaks {
+    from {
+      transform: translateX(0) rotate(15deg);
+    }
+    to {
+      transform: translateX(-100%) rotate(15deg);
+    }
+  }
+  
 .head{
     border: 0px solid black;
-    text-align: center;
-    margin-top: 1.5rem;
+    text-align: left;
     color: black;
     font-weight: 800;
+    position: absolute;
+    bottom: 10px;
 }
 
 .topCircle{
-    background: linear-gradient(270deg, #18c729, #fef500);
-    height: 400px;
-    width: 400px;
-    border-radius: 50%;
-    margin-top: -19rem;
-    margin-left: 9rem;
+    background: transparent;
+    width: 100%;
+    height: 200px;
+    position: relative;
 }
 
 
@@ -33,15 +92,6 @@
 
 
 
-.bottomCircle{
-    background: linear-gradient(270deg, #18c729, #fef500);
-    height: 400px;
-    width: 400px;
-    margin-left: -9rem;
-    margin-bottom: -19rem;
-    border-radius: 50%;
-}
-
 .tab{
     border: 0px solid black;
     width: 95%;
@@ -52,6 +102,7 @@
 .info{
     border: 0px solid black;
     margin-top: 1rem;
+    --background: transparent;
     --overflow-y: scroll;
     --overflow-x: hidden;
 }
@@ -133,132 +184,3 @@
     margin: auto;
 }
 
-@media (max-height: 740px){
-    .page{
-        border: 0px solid black;
-        overflow-y: hidden;
-    }
-    
-    
-    .head{
-        border: 0px solid black;
-        text-align: center;
-        margin-top: 1rem;
-        color: black;
-        font-weight: 800;
-        font-size: 18px;
-    }
-    
-    .cont{
-        border: 0px solid black;
-    }
-
-    .topCircle{
-        background: linear-gradient(270deg, #18c729, #fef500);
-        height: 300px;
-        width: 300px;
-        border-radius: 50%;
-        margin-top: -12rem;
-        margin-left: 9rem;
-    }
-    
-    
-    .double{
-        height: 20px;
-        width: 100%;
-        text-align: center;
-        border: 0px solid black;
-    }
-    
-    .double:focus{
-        outline: 1px solid #fef500;
-    }
-    
-    
-    
-    .bottomCircle{
-        background: linear-gradient(270deg, #18c729, #fef500);
-        height: 200px;
-        width: 200px;
-        margin-bottom: -10rem;
-        border-radius: 50%;
-    }
-    
-    .tab{
-        border: 0px solid black;
-        width: 95%;
-        margin: auto;
-        margin-top: 1rem;
-    }
-    
-    .info{
-        border: 0px solid black;
-        margin-top: 9rem;
-        overflow-y: auto;
-        --overflow-x: hidden;
-    }
-    
-    .single{
-        margin: auto;
-        text-align: center;
-        width: 100%;
-        height: 20px;
-        border: none;
-        outline:  none;
-    }
-    
-    .single:focus{
-        outline: 1px solid #fef500;
-    }
-    
-    .col{
-        border: 0px solid black;
-        width: 48%;
-    }
-    
-    .col1{
-        width: 30%;
-        border: 0px solid black;
-    }
-    
-    .three{
-        width: 100%;
-        height: 20px;
-        text-align: center;
-        border: none;
-        outline: none;
-    }
-    
-    .three:focus{
-        outline: 1px solid #fef500;
-    }
-    
-    
-    .multiTab3{
-        border: 0px solid black;
-        display: flex;
-        width: 95%;
-        margin: auto;
-        justify-content: space-between;
-        align-items: center;
-        margin-top: 1rem;
-        text-align: center;
-    }
-
-    .multiTab{
-        border: 0px solid black;
-        display: flex;
-        width: 95%;
-        margin: auto;
-        justify-content: space-between;
-        align-items: center;
-        margin-top: 1rem;
-        text-align: center;
-    }
-    
-    .butCont{
-        border: 0px solid black;
-        text-align: center;
-        margin-top: 1.8rem;
-    }   
-}
