@@ -12,12 +12,12 @@ const SmallProfile: React.FC = () => {
     useEffect(() => {
         const fetchProfilePicture = async () => {
             try {
-                const response = await axios.get('http://localhost/hq2sspapi/getprofile.php', {
+                const response = await axios.get('https://www.globalbills.com.ng/hq2sspapi/getProfile.php', {
                     params: { user_id: userId }, // Replace with actual user ID
                 });
 
                 if (response.data.success) {
-                    setProfilePicture('http://localhost/hq2sspapi/' + response.data.profile_picture);
+                    setProfilePicture('https://www.globalbills.com.ng/hq2sspapi/' + response.data.profile_picture);
                 } else {
                     console.error('Failed to fetch profile picture:', response.data.message);
                 }

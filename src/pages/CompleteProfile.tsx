@@ -34,7 +34,7 @@ const CompleteProfile: React.FC = () => {
   const userData = JSON.parse(sessionStorage.getItem("Info") || "{}");
   const sspId = "new id" //userData?.ssp_id;
 
-  const API_BASE_URL = "http://localhost/hq2sspapi";
+  const API_BASE_URL = "https://www.globalbills.com.ng/hq2sspapi";
 
   const stepTitles = ["Skills", "Address", "Summary"];
 

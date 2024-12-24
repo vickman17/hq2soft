@@ -65,7 +65,7 @@ const togglePasswordVisibility = () => {
     setIsLoading(true); // Disable button
 
     try {
-      const response = await axios.post("http://localhost/hq2sspapi/login.php", formData, {
+      const response = await axios.post("https://www.globalbills.com.ng/hq2sspapi/login.php", formData, {
         headers: { "Content-Type": "application/json" },
       });
 
@@ -128,7 +128,7 @@ const togglePasswordVisibility = () => {
     };
 
     try {
-      const response = await axios.post("http://localhost/hq2sspapi/signup.php",
+      const response = await axios.post("https://www.globalbills.com.ng/hq2sspapi/signup.php",
         JSON.stringify(dataToSend), {
         headers: {
           "Content-Type": "application/json",

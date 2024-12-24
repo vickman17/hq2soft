@@ -53,7 +53,7 @@ const EditProfile: React.FC = () => {
             formData.append('user_id', userId); 
 
             try {
-                const response = await axios.post('http://localhost/hq2sspapi/uploadProfile.php', formData, {
+                const response = await axios.post('https://www.globalbills.com.ng/hq2sspapi/uploadProfile.php', formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                     },

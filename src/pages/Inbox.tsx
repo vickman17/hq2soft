@@ -8,12 +8,9 @@ const Inbox: React.FC = () => {
 
     return(
         <IonPage>
-            <IonHeader>
-                <Back/>     
-                <div>Inbox</div>
-            </IonHeader>
             <IonContent>
-                
+            <Back/>     
+            <div>Inbox</div>                
             </IonContent>
         </IonPage>
     )
