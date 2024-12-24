@@ -58,6 +58,19 @@ const App: React.FC = () => {
           <>
             <Route exact path="/" component={Onboarding} />
             <Route exact path="/home" component={Home} />
+            <Route exact path="/signup" component={Signup} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/profile" component={Profile} />
+            <Route exact path="/earning" component={Earning} />
+            <Route exact path="/inbox" component={Inbox} />
+            <Route exact path="/jobs" component={Jobs} />
+            <Route exact path="/request" component={Request} />
+            <Route exact path="/dashboard" component={Dashboard} />
+            <Route exact path="/setting" component={Setting} />
+            <Route exact path="/editprofile" component={EditProfile} />
+            <Route exact path="/completeprofile" component={CompleteProfile} />
+            <Route exact path="/finish" component={Finish} />
+            <Route exact path="/faceenroll" component={FaceEnroll} />
           </>
         ) : (
           <>
