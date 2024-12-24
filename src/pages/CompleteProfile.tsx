@@ -34,7 +34,7 @@ const CompleteProfile: React.FC = () => {
   const [qualification, setQualification] = useState<string>("");
   const [currentStep, setCurrentStep] = useState<number>(0);
   const userData = JSON.parse(sessionStorage.getItem("Info") || "{}");
-  const sspId = "new id" //userData?.ssp_id;
+  const sspId =  userData?.ssp_id;
   const [toast, setToast] = useState<boolean>(false);
   const [toastText, setToastText] = useState<string>("");
 
@@ -520,6 +520,7 @@ const handleWorkSuiteChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     )}
   </div>
 </form>
+<IonToast isOpen={toast} message={toastText} duration={3000} onDidDismiss={()=>setToast(false)} />
 
       </IonContent>
     </IonPage>
