@@ -351,10 +351,15 @@ setIsLoading(false);// Re-enable the button after submission
                     className={style.details}
                     required
                     placeholder="Password"
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     value={signData.password}
                     onChange={(e) => setSignData({ ...signData, password: e.target.value })}
                   />
+                  <IonIcon
+                      icon={showPassword ? eyeOffOutline : eyeOutline}
+                      className={style.passwordToggleIcon}
+                      onClick={togglePasswordVisibility}
+                    />
                 </div>
                 <div className={style.input}>
                   <div className={style.iconCont}>
@@ -364,11 +369,16 @@ setIsLoading(false);// Re-enable the button after submission
                     className={`${style.details} ${confirmPasswordError ? style.error : ""}`}
                     required
                     placeholder="Confirm password"
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     value={signData.confirmpassword}
                     onChange={(e) => setSignData({ ...signData, confirmpassword: e.target.value })}
                     onBlur={handleConfirmPasswordBlur}
                   />
+                  <IonIcon
+                      icon={showPassword ? eyeOffOutline : eyeOutline}
+                      className={style.passwordToggleIcon}
+                      onClick={togglePasswordVisibility}
+                    />
                 </div>
                 <hr/>
                 <div className={style.loginCont}>
