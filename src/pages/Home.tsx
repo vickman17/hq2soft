@@ -1,0 +1,420 @@
+import React, { useState, useEffect } from "react";
+import { IonContent, IonPage, IonModal, IonHeader, IonIcon, IonToast } from "@ionic/react";
+import style from "./styles/Home.module.css";
+import { useHistory } from "react-router";
+import { lockClosedOutline, lockOpenOutline, atSharp, eyeOutline, eyeOffOutline, phonePortraitSharp } from "ionicons/icons";
+import facebook from "/assets/facebook.svg";
+import google from "/assets/google.svg";
+
+import axios from "axios";
+
+const Home: React.FC = () => {
+  const [showModal, setShowModal] = useState(false);
+  const [showLogo, setShowLogo] = useState(false); // State to control logo visibility
+  const [modalContent, setModalContent] = useState<'login' | 'signup' | null>(null); // State to switch content in modal
+  const history = useHistory();
+  const [toast, setToast] = useState<boolean>(false);
+  const [toastText, setToastText] = useState<string>("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [toastColor, setToastColor] = useState<string>('');
+
+const togglePasswordVisibility = () => {
+  setShowPassword(!showPassword);
+};
+
+  const closeModal = () => {
+    if (showModal) {
+      setShowModal(false);
+      setShowLogo(false);
+      console.log("close");
+    }
+  };
+
+  const openModal = (content: 'login' | 'signup') => {
+    setModalContent(content); // Set the content based on button clicked
+    setShowModal(true);
+    setShowLogo(true); // Show the logo when the modal is opened
+    console.log("modal opened");
+  };
+
+  const signup = () => {
+    setShowModal(false);
+    setShowLogo(false);
+    history.push('/signup');
+  }
+
+  const login = () => {
+    openModal('login'); // Open modal with login content
+  }
+
+  /***********************************Login***********************************/
+  const [formData, setFormData] = useState({ emailOrPhone: "", password: "" });
+  // State for login button
+  const [isLoading, setIsLoading] = useState(false);
+  // State for toast notification
+  const [toastMessage, setToastMessage] = useState("");
+  const [showToast, setShowToast] = useState(false);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prevState) => ({ ...prevState, [name]: value }));
+  };
+
+  const LoginSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsLoading(true); // Disable button
+
+    try {
+      const response = await axios.post("http://localhost/hq2sspapi/login.php", formData, {
+        headers: { "Content-Type": "application/json" },
+      });
+
+      if (response.data.status === "success") {
+        setToastText("Login successful");
+        setToast(true);
+        sessionStorage.setItem("Info", JSON.stringify(response.data.user));
+        const profession = response.data.user.category_id;
+        console.log(profession);
+
+        if (profession === null) {
+          history.push("/completeprofile");
+        } else {
+          history.push("/dashboard");
+        }
+        // Redirect after toast
+      } else {
+        setToastText(response.data.message);
+        setToast(true);
+      }
+    } catch (error) {
+      setToastText("An error occurred during login.");
+      setToast(true);
+      console.error("Login failed:", error);
+    } finally {
+      setIsLoading(false); // Re-enable button
+    }
+  };
+
+  /************************END OF LOGIN ****************************************/
+
+  const [confirmPasswordError, setConfirmPasswordError] = useState(false);
+  const [signData, setSignData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone1: "",
+    password: "",
+    confirmpassword: "",
+  });
+
+
+  const handleFormSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    // Check if passwords match befnore proceeding
+    if (signData.password !== signData.confirmpassword) {
+      setToast(true);
+      setToastText("Passwords do not match.");
+      return;
+    }
+
+    const dataToSend = {
+      first_name: signData.firstName,
+      last_name: signData.lastName,
+      email: signData.email,
+      phone1: signData.phone1,
+      confirmpassword: signData.confirmpassword,
+      password: signData.password,
+    };
+
+    try {
+      const response = await axios.post("http://localhost/hq2sspapi/signup.php",
+        JSON.stringify(dataToSend), {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (response.data.status === "success") {
+        setToastText("Signup Successful!");
+        setToast(true);
+        openModal("login"); // Navigate to login page after successful signup
+      } else {
+        setToastText("Signup Failed: " + response.data.message);
+        setToast(true);
+      }
+    } catch (error) {
+      console.error("Error during signup:", error);
+      setToastText("An error occurred during signup.");
+      setToast(true);
+    } finally {
+setIsLoading(false);// Re-enable the button after submission
+    }
+  };
+
+  const handleConfirmPasswordBlur = () => {
+    if (signData.password !== signData.confirmpassword) {
+      setConfirmPasswordError(true);
+      setToast(true);
+      setToastColor("danger")
+      setToastText("Passwords do not match.");
+    } else {
+      setConfirmPasswordError(false);
+    }
+  };
+
+
+
+
+
+  /********************SIGN UP ******************/
+  const logo = "/assets/icon.png";
+
+  return (
+    <IonPage className={style.page}>
+        <IonToast isOpen={toast} message={toastText}
+           onDidDismiss={() => setToast(false)} 
+           duration={2000}
+           position="top"/>
+      <IonContent className={style.videoContainer}>
+        {/* Glass Container */}
+        <div onClick={closeModal} className={style.glass}>
+          {/* Conditionally Rendered Logo */}
+          <div className={`${style.logo} ${showLogo ? style.showLogo : ""}`}>
+            <img src={logo} alt="Logo" />
+          </div>
+
+          {/* Content */}
+          <div className={style.write}>
+            <div className={style.writeup}>
+              Your Skills, Our Platform - Seamless Opportunities Await.
+            </div>
+            <div className={style.butCov}>
+              <div className={style.action}>
+                <button onClick={() => openModal('signup')} className={style.but}>
+                  Sign Up
+                </button>
+              </div>
+              <div className={style.action}>
+                <button onClick={login} style={{ background: "white", color: "black" }} className={style.but}>
+                  Login
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </IonContent>
+
+      {/* Modal */}
+      <IonModal className={style.partialModal} isOpen={showModal} onDidDismiss={closeModal}>
+        <IonContent className={style.content}>
+          <div className={style.head}>
+            <div className={style.smallHead}>{modalContent === 'login' ? 'Ready to get your hands dirty?' : 'Sign Up'}</div>
+            <div className={style.bigHead}>{modalContent === 'login' ? 'Login' : 'Sign Up'}</div>
+          </div>
+          <div className={style.cont}>
+            {modalContent === 'login' ? (
+              // Login Form
+              <form autoComplete="off" onSubmit={LoginSubmit}>
+                <div className={style.input}>
+                  <div className={style.iconCont}>
+                    <IonIcon className={style.icon} icon={atSharp} />
+                  </div>
+                  <input
+                    className={style.details}
+                    type="text"
+                    name="emailOrPhone"
+                    value={formData.emailOrPhone}
+                    onChange={handleInputChange}
+                    autoComplete="off"
+                    autoCorrect="off"
+                    autoCapitalize="off"
+                    placeholder="Email Address"
+                    required
+                  />
+                </div>
+                <div className={style.input}>
+                  <div className={style.iconCont}>
+                    <IonIcon className={style.icon} icon={lockClosedOutline} />
+                  </div>
+                  <input
+                    className={style.details}
+                    type={showPassword ? "text" : "password"}
+                    name="password"
+                    value={formData.password}
+                    onChange={handleInputChange}
+                    autoComplete="off"
+                    autoCorrect="off"
+                    autoCapitalize="off"
+                    placeholder="Password"
+                    required
+                  />
+                    <IonIcon
+                      icon={showPassword ? eyeOffOutline : eyeOutline}
+                      className={style.passwordToggleIcon}
+                      onClick={togglePasswordVisibility}
+                    />
+                </div>
+                <div className={style.forgot}>
+                  Forgot Password?
+                </div>
+                <hr/>
+                <div className={style.loginCont}>
+                  <button className={style.login} type="submit" disabled={isLoading}>
+                    {isLoading ? "Logging in..." : "Login"}
+                  </button>
+                </div>
+                <div className={style.cap}>or continue with</div>
+                <div className={style.butCont}>
+                  <div className={style.button}>
+                    <button className={style.google} type="button">
+                      <div className={style.svg}>
+                        <img src={facebook} width={30} height={30}/>
+                      </div>
+                      <div>
+                        facebook
+                      </div>
+                    </button>
+                  </div>
+                  <div className={style.button}>
+                  <button className={style.google} type="button">
+                      <div className={style.svg}>
+                        <img src={google} width={30} height={30}/>
+                      </div>
+                      <div>
+                      Google
+                      </div>
+                    </button>
+                  </div>
+                </div>
+                <div className={style.not}>
+                  Not a member?
+                  <span
+                    onClick={() => openModal('signup')}
+                    style={{ color: "#19fb04", cursor: "pointer" }}
+                  >
+                    Signup
+                  </span>
+                </div>
+              </form>
+            ) : (
+              <form autoComplete="off" onSubmit={handleFormSubmit}>
+                <div className={style.name}>
+                  <div className={style.inputs}>
+                    <input
+                      className={style.details}
+                      required
+                      placeholder="First name"
+                      value={signData.firstName}
+                      onChange={(e) => setSignData({ ...signData, firstName: e.target.value })}
+                    />
+                  </div>
+                  <div className={style.inputs}>
+                    <input
+                      className={style.details}
+                      required
+                      placeholder="Last name"
+                      value={signData.lastName}
+                      onChange={(e) => setSignData({ ...signData, lastName: e.target.value })}
+                    />
+                  </div>
+                </div>
+                <div className={style.input}>
+                  <div className={style.iconCont}>
+                    <IonIcon className={style.icon} icon={atSharp} />
+                  </div>
+                  <input
+                    className={style.details}
+                    required
+                    placeholder="Email"
+                    value={signData.email}
+                    onChange={(e) => setSignData({ ...signData, email: e.target.value })}
+                  />
+                </div>
+                <div className={style.input}>
+                  <div className={style.iconCont}>
+                    <IonIcon className={style.icon} icon={phonePortraitSharp} />
+                  </div>
+                  <input
+                    className={style.details}
+                    required
+                    placeholder="Phone number"
+                    value={signData.phone1}
+                    onChange={(e) => setSignData({ ...signData, phone1: e.target.value })}
+                  />
+                </div>
+                <div className={style.input}>
+                  <div className={style.iconCont}>
+                    <IonIcon className={style.icon} icon={lockOpenOutline} />
+                  </div>
+                  <input
+                    className={style.details}
+                    required
+                    placeholder="Password"
+                    type="password"
+                    value={signData.password}
+                    onChange={(e) => setSignData({ ...signData, password: e.target.value })}
+                  />
+                </div>
+                <div className={style.input}>
+                  <div className={style.iconCont}>
+                    <IonIcon className={style.icon} icon={lockClosedOutline} />
+                  </div>
+                  <input
+                    className={`${style.details} ${confirmPasswordError ? style.error : ""}`}
+                    required
+                    placeholder="Confirm password"
+                    type="password"
+                    value={signData.confirmpassword}
+                    onChange={(e) => setSignData({ ...signData, confirmpassword: e.target.value })}
+                    onBlur={handleConfirmPasswordBlur}
+                  />
+                </div>
+                <hr/>
+                <div className={style.loginCont}>
+                  <button className={style.login} type="submit" disabled={isLoading}>
+                    {isLoading ? "Signing in..." : "Sign Up"}
+                  </button>
+                </div>
+                <div className={style.cap}>or continue with</div>
+                <div className={style.butCont}>
+                  <div className={style.button}>
+                    <button className={style.google} type="button">
+                      <div className={style.svg}>
+                        <img src={facebook} width={30} height={30}/>
+                      </div>
+                      <div>
+                        facebook
+                      </div>
+                    </button>
+                  </div>
+                  <div className={style.button}>
+                  <button className={style.google} type="button">
+                      <div className={style.svg}>
+                        <img src={google} width={30} height={30}/>
+                      </div>
+                      <div>
+                      Google
+                      </div>
+                    </button>
+                  </div>
+                </div>
+                <div className={style.not}>
+                  Already an artisan
+                  <span
+                    onClick={() => openModal('login')}
+                    style={{ color: "#19fb04", cursor: "pointer" }}
+                  >
+                    Login
+                  </span>
+                </div>
+              </form>
+            )}
+          </div>
+        </IonContent>
+      </IonModal>
+    </IonPage>
+  );
+};
+
+export default Home;

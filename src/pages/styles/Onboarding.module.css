@@ -1,0 +1,79 @@
+.slider{
+    border: 0px solid black;
+    align-items: end;
+    margin-top: auto;
+    position: relative;
+}
+
+.write{
+    border: 0px solid ;
+    text-align: center;
+    padding-top: 35rem;
+    margin-top: 1rem;
+}
+
+.writeup{
+    border: 0px solid;
+    font-size: 19px;
+}
+
+
+.butCont{
+    border: 0px solid white;
+    width: 50%;
+    margin-left: auto;
+}
+
+.button{
+    width: 50px;
+    height: 50px;
+    margin: auto 29px 29px auto;
+    border-radius: 50%;
+    background: #cac401;
+    bottom: 0;
+    position: absolute;
+    right: auto;
+}
+
+.icon{
+    font-size: 1.4rem;
+    font-weight: 900;
+    color: white;
+}
+
+
+/* Glass container */
+.glass {
+    height: 100vh;
+    /* justify-content: center;
+    align-items: center; */
+    width: 100%;
+    background: linear-gradient(rgba(255, 255, 255, 0.15), rgba(0, 0, 0, 0.787)); /* Semi-transparent white */
+ /* Smooth corners */
+    backdrop-filter: blur(4px) saturate(180%); /*Soft blur and color enhancement */
+    -webkit-backdrop-filter: blur(15px) saturate(180%); /* Support for Safari */
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); /*Subtle shadow for depth */
+ /*   border: 1px solid rgba(255, 255, 255, 0.3);/* Light border for contrast */
+    text-align: center;
+     transition: all 0.3s ease-in-out;
+    }
+  
+  
+
+@media (max-height: 780px){
+    .write{
+        border: 0px solid ;
+        text-align: center;
+        padding-top: 25rem;
+        bottom: 0;
+    }
+}
+
+@media (max-height: 820px){
+    .write{
+        border: 0px solid ;
+        text-align: center;
+        padding-top: 30rem;
+        bottom: 0;
+    }
+}

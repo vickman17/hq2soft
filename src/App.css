@@ -1,0 +1,18 @@
+/* Correct way to import Slick Carousel styles in Vite */
+@import 'node_modules/slick-carousel/slick/slick.css';
+@import 'node_modules/slick-carousel/slick/slick-theme.css';
+
+/* Default dot style */
+.slick-dots li button::before {
+    color: #83838378; /* Default dot color */
+    font-size: 10px; /* Default size */
+    opacity: 1; /* Ensure full visibility */
+    transition: all 0.3s ease; /* Smooth transition for all properties */
+  }
+  
+  /* Active dot style */
+  .slick-dots li.slick-active button::before {
+    color: #cac301c0; /* Active dot color */
+    font-size: 9px; /* Active size */
+  }
+  

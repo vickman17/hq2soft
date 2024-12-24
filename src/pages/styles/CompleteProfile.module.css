@@ -1,0 +1,239 @@
+.stepIndicator {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    border: 0px solid;
+    position: relative;
+    margin-top: 2rem;
+  }
+  
+  .step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    flex: 1;
+    text-align: center;
+  }
+  
+  .circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid #ccc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    z-index: 1;
+  }
+  
+  .active {
+    border-color: #4caf50;
+    background-color: #4caf50;
+    color: white;
+  }
+  
+  .completed {
+    background-color: #4caf50;
+    color: white;
+    border-color: #4caf50;
+  }
+  
+  .checkmark {
+    font-size: 20px;
+    color: white;
+  }
+  
+  .stepTitle {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #666;
+  }
+  
+  .activeTitle {
+    color: #4caf50;
+  }
+  
+  .stepLine {
+    position: absolute;
+    top: 20px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background-color: #ccc;
+    z-index: 0;
+  }
+  
+  .stepLine.completed {
+    background-color: #4caf50;
+  }
+  
+
+
+
+  /* Add this to your styles */
+
+.step {
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+  
+  .circle {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 2px solid #ccc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    z-index: 1;
+  }
+  
+  .checkIcon {
+    color: white;
+  }
+  
+  .stepTitle {
+    margin-left: 10px;
+  }
+  
+  .line {
+    position: absolute;
+    top: 30%;
+    left: 75%;
+    width: 50px;
+    height: 2px;
+    background-color: #ccc;
+    transform: translateY(-50%);
+  }
+  
+  .activeLine {
+    background-color: #4caf50;
+  }
+  
+  .active {
+    background-color: #4caf50;
+    border-color: #4caf50;
+  }
+  
+  .activeTitle {
+    font-weight: bold;
+  }
+  
+
+  /*****************MAIN STYLE**********************/
+
+  .single{
+    border: 0px solid;
+    width: 90%;
+    margin: auto;
+  }
+
+  .field{
+    border-radius: 7px; /* Adjust the border-radius */
+    border: 2px solid #ccc; /* Customize the border color and width */
+    padding: 5px; /* Add padding inside the fieldset */
+    margin: 10px 0; /* Optional: Add margin for spacing around the fieldset */
+  }
+
+  .legend{
+    font-weight:600;
+    font-size: 13px;
+    color: rgb(70, 70, 70);
+  }
+
+  .input{
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    width: 100%;
+  }
+  
+  .head{
+    font-size: 19px;
+    font-weight: 800;
+    text-align: left;
+    padding-left: 1rem;
+    margin-top: 3rem;
+  }
+
+  .selectPlace{
+    color: rgb(169, 169, 169);
+    font-size: 16px;
+    font-weight: 700;
+  }
+
+
+  .cont{
+    margin-top: 1rem;
+  }
+
+  .tripple{
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    margin: auto;
+    border: 0px solid;
+    margin-top: 1rem;
+  }
+
+  .col{
+    width: 30%;
+  }
+
+  .butCont{
+    margin: auto;
+    border: 0px solid black;
+    margin-top: 2rem;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    width: 90%;
+  }
+
+  .qualification{
+    width: 90%;
+    margin: auto;
+  }
+
+  .but{
+    width: 25%;
+    padding: 10px;
+    background: #18c729;
+    border-radius: 5px;
+  }
+  .nextBut{
+    width: 25%;
+    padding: 10px;
+    background: #18c729;
+    border-radius: 5px;
+    position: absolute;
+    right: 0;
+    font-size: 17px;
+  }
+
+  .double{
+    width: 90%;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .fieldCol{
+    width: 45%;
+  }
+
+  .smallHead{
+    border: 0px solid;
+    width: 90%;
+    margin: auto;
+    margin-top: 2rem;
+    font-size: 14px;
+    font-weight: 700;
+  }
