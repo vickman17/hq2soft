@@ -16,3 +16,37 @@
     font-size: 9px; /* Active size */
   }
   
+
+  .tour-button {
+    background-color: #007aff;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+
+/* React Tour specific styles */
+.react-tour .ReactTour__overlay {
+  z-index: 9999 !important;
+}
+
+.react-tour .ReactTour__content {
+  z-index: 10000 !important;
+  background-color: white;
+  border-radius: 5px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.react-tour .ReactTour__step {
+  position: relative;
+  z-index: 10001;
+}
+
+/* Ensure that the targeted elements are visible */
+.earning, .request, .jobs {
+  position: relative;
+  z-index: 1000; /* Make sure the elements are visible on top */
+}

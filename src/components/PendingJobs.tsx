@@ -1,8 +1,11 @@
 import React from "react";
 
 const PendingJobs: React.FC = () => {
+    const empty = "/assets/empty.jpeg";
     return(
-        <>You have no pending job</>
+        <div>
+            <img src={empty} />
+        </div>
     )
 }
 

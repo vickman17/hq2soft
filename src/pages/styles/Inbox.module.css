@@ -1,0 +1,15 @@
+.head{
+    border: 0px solid black;
+    width: 90%;
+    padding-left: 2rem;
+    margin: auto;
+    font-size: 25px;
+    font-weight: 800;
+}
+
+
+.messageCont{
+    width: 80%;
+    margin: auto;
+    margin-top: 4rem;
+}

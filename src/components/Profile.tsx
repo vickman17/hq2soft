@@ -38,7 +38,7 @@ const Profile: React.FC = () => {
                 <img 
                     className={style.image} 
                     src={profilePicture || ""} 
-                    alt="Profile" 
+                    
                 />
             ) : (
                 <div className={style.emptyImage}></div> // Empty div when no profile picture

@@ -1,8 +1,11 @@
 import React from "react";
 
 const CompletedJobs: React.FC = () => {
+    const empty = "/assets/empty.jpeg";
     return(
-        <>You have no completed job</>
+        <div>
+            <img src={empty} />
+        </div>
     )
 }
 

@@ -7,12 +7,14 @@ import {
   IonRadioGroup,
   IonLabel,
   IonRadio,
-  IonItem
+  IonItem,
+  IonToast
 } from "@ionic/react";
 import { checkmarkOutline } from "ionicons/icons";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import style from "./styles/CompleteProfile.module.css";
+import welcome from "/assets/welcome.jpeg";
 
 interface Category {
   id: string;
@@ -33,10 +35,12 @@ const CompleteProfile: React.FC = () => {
   const [currentStep, setCurrentStep] = useState<number>(0);
   const userData = JSON.parse(sessionStorage.getItem("Info") || "{}");
   const sspId = "new id" //userData?.ssp_id;
+  const [toast, setToast] = useState<boolean>(false);
+  const [toastText, setToastText] = useState<string>("");
 
   const API_BASE_URL = "https://www.globalbills.com.ng/hq2sspapi";
 
-  const stepTitles = ["Skills", "Address", "Summary"];
+  const stepTitles = ["Skills", "Address", "Onboard"];
 
   useEffect(()=>{
     document.body.style.fontFamily = "Rubik, san serif";
@@ -69,7 +73,8 @@ const CompleteProfile: React.FC = () => {
           }
         })
         .catch((error) => {
-          console.error("Error fetching subcategories:", error);
+          setToast(true);
+          setToastText("Check your internet connect!")
         });
     }
   }, [selectedCategory]);
@@ -79,7 +84,8 @@ const CompleteProfile: React.FC = () => {
     if (currentStep === 0) {
       // Ensure category and subcategories are selected
       if (!selectedCategory || selectedSubcategories.some(sub => !sub)) {
-        alert("Please select a profession and all skills.");
+        setToast(true);
+        setToastText("Please select a profession and all skills.");
         return;
       }
     }
@@ -88,7 +94,8 @@ const CompleteProfile: React.FC = () => {
       // Ensure all address fields are filled
       if (!selectedState || !selectedLga || !selectedWorkState || !selectedWorkLga) {
         console.log(`${selectedState} || ${selectedLga} || ${selectedWorkState} || ${selectedWorkLga}`)
-        alert("Please fill in all address fields.");
+        setToast(true)
+        setToastText("Please fill in all address fields.");
         console.log
         return;
       }
@@ -120,14 +127,16 @@ const CompleteProfile: React.FC = () => {
     };
 
     axios
-      .post('`${API_BASE_URL}/completeProfile.php`', formData)
+      .post(`${API_BASE_URL}/completeProfile.php`, formData)
       .then(() => {
-        alert("Profile saved successfully!");
+        setToast(true)
+        setToastText("Onboarding successful!");
         window.location.href = "/dashboard";
       })
       .catch((error) => {
         console.error("Error saving profile:", error);
-        alert("Failed to save profile. Please try again.");
+        setToast(true)
+        setToastText("Failed to save profile. Please try again.");
       });
   };
 
@@ -164,7 +173,8 @@ const handleWorkSuiteChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       const json = await response.json();
       return json || []; // Ensure empty array if no states
     } catch (error) {
-      console.error('Error fetching states:', error);
+      setToast(true)
+      setToastText('Check your internet connection!');
       return []; // Return an empty array in case of error
     }
   };
@@ -190,7 +200,8 @@ const handleWorkSuiteChange = (e: React.ChangeEvent<HTMLInputElement>) => {
           const json = await response.json();
           setLgas(json || []); // Ensure empty array if no LGAs
         } catch (error) {
-          console.error('Error fetching residential LGAs:', error);
+          setToast(true)
+          setToastText('Check your internet connection!');
           setLgas([]); // Ensure empty array if error occurs
         } finally {
           setLoadingLgas(false); // Stop the loading indicator for residential LGAs
@@ -213,7 +224,8 @@ const handleWorkSuiteChange = (e: React.ChangeEvent<HTMLInputElement>) => {
           const json = await response.json();
           setWorkLgaList(json || []); // Ensure empty array if no LGAs
         } catch (error) {
-          console.error('Error fetching work LGAs:', error);
+          setToast(true)
+          setToastText('Check your internet connection!');
           setWorkLgaList([]); // Ensure empty array if error occurs
         } finally {
           setLoadingWorkLgas(false); // Stop the loading indicator for work LGAs
@@ -474,14 +486,10 @@ const handleWorkSuiteChange = (e: React.ChangeEvent<HTMLInputElement>) => {
   )}
   {currentStep === 2 && (
     <div>
-      <legend>Summary</legend>
-      <p>Category: {selectedCategory || "Not selected"}</p>
-      <p>Skills: {selectedSubcategories.filter(Boolean).join(", ")}</p>
-      <p>Qualification: {qualification || "Not selected"}</p>
-      <p>Residential state: {selectedState}</p>
-      <p>Residential Lga: {selectedLga}</p>
-      <p>Work state: {selectedWorkState}</p>
-      <p>Work lga: {selectedWorkLga}</p>
+      <div className={style.vector}>
+        <img src={welcome} />
+      </div>
+      <div className={style.welcome}>Welcome aboard, Artisan!</div>
     </div>
   )}
   <div className={style.butCont}>
@@ -505,14 +513,9 @@ const handleWorkSuiteChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     ) : (
       <button
         type="submit"
-        className={style.but}
-        style={{
-          background: "transparent",
-          border: "1px solid white",
-          color: "white",
-        }}
+        className={style.butDone}
       >
-        Done
+        Get to work!
       </button>
     )}
   </div>

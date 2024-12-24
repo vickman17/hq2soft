@@ -1,8 +1,12 @@
 import React from "react";
 
 const CancelledJobs: React.FC =()=>{
+
+    const empty = "/assets/empty.jpeg";
     return(
-        <>You have no cancelled jobs</>
+        <div>
+            <img src={empty} />
+        </div>
     )
 }
 
