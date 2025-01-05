@@ -1,0 +1,152 @@
+
+  
+ .otpContainer {
+    background: #fff;
+    border: 0px solid ;
+    margin-top: 3rem;
+  }
+  
+  .otpContainer h1 {
+    margin-bottom: 10px;
+    font-size: 24px;
+  }
+  
+  .otpContainer p {
+    margin-bottom: 20px;
+    color: #666;
+  }
+  
+  .otpInputs {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    padding-top: 1.5rem;
+    margin-bottom: 25px;
+    border: 0px solid black;
+  }
+  
+.inputBorder{
+    border: 0px solid black;
+    padding: 2px;
+    border-radius: 50%;
+}
+
+  .otpInput {
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    font-size: 18px;
+    border: 0px solid red;
+    border-radius: 50%;
+    outline: none;
+    background: rgb(230, 230, 230);
+  }
+  
+  .otpInput:focus{
+    outline: 1px solid var(--ion-company-primary);
+  }
+
+
+
+  
+  .submitBtn {
+    background: var(--ion-company-primary);
+    color: black;
+    width: 80%;
+    font-size: 15px;
+    padding: 12px;
+    border-radius: 2rem;
+  }
+  
+  .resendBtn {
+    margin-top: 10px;
+    color: #007bff;
+  }
+  
+  .verify{
+    border: 0px solid;
+    text-align: center;
+    margin-top: 3rem;
+  }
+  
+  .head{
+    border: 0px solid black;
+    text-align: left;
+    padding-left: 30px;
+  }
+
+  .bigHead{
+    font-size: 2rem;
+    font-weight: 800;
+    border: 0px solid black;
+    width: fit-content;
+  }
+
+  .smallHead{
+    width: 90%;
+    font-weight: 500;
+  }
+
+  .resendBtn{
+    border: 0px solid black;
+    text-align: center;
+    width: fit-content;
+    margin: auto;
+    margin-top: 2rem;
+  }
+
+
+  /* Existing styles... */
+
+/* Styles for the OTP input */
+.otpInput {
+    width: 50px;
+    height: 50px;
+    font-size: 24px;
+    text-align: center;
+    border: 2px solid #ccc;
+    border-radius: 8p;
+    background-color: #f9f9f9;
+    transition: all 0.3s ease;
+  }
+  
+  /* Border and background change when input is filled */
+  .otpInput.filled {
+    background-color: #d0f0c0; /* Light green for filled input */
+    border-color: #4CAF50; /* Green border for filled input */
+  }
+  
+  /* Other styles... */
+  
+
+  .modalCard{
+    text-align: center;
+    margin-top: 7rem;
+  }
+
+
+  .modalTitle{
+    border: 0px solid black;
+    text-align: center;
+    font-size: 3rem;
+    font-weight: 700;
+  }
+
+  .modalMessage{
+    border: 0px solid black;
+    text-align: center;
+    font-size: 21px;
+    font-weight: 700;
+    width: 95%;
+    margin: auto;
+  }
+
+  .modalButton{
+    margin: auto;
+    width: 70%;
+    margin-top: 1.6rem;
+    padding-block: .6rem;
+    font-size: 21px;
+    border-radius: 25px;
+    background: #c6ff00;
+  }

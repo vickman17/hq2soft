@@ -3,8 +3,10 @@ import { IonContent, IonPage, IonModal, IonHeader, IonIcon, IonToast } from "@io
 import style from "./styles/Home.module.css";
 import { useHistory } from "react-router";
 import { lockClosedOutline, lockOpenOutline, atSharp, eyeOutline, eyeOffOutline, phonePortraitSharp } from "ionicons/icons";
-import facebook from "/assets/facebook.svg";
-import google from "/assets/google.svg";
+import facebook from "/assets/svg/facebook.svg";
+import google from "/assets/svg/google.svg";
+import { Client as PusherPushNotifications } from '@pusher/push-notifications-web';
+
 
 import axios from "axios";
 
@@ -60,12 +62,53 @@ const togglePasswordVisibility = () => {
     setFormData((prevState) => ({ ...prevState, [name]: value }));
   };
 
+
+/******************************Get device token for push notification********************************/
+
+
+const updateDeviceToken = (userId: string) => {  // Explicitly typing userId
+  // Initialize Pusher Beams client
+  const beamsClient = new PusherPushNotifications({
+    instanceId: 'fef21ad9-18fb-4c2a-9bac-64eb6f197664',
+  });
+
+  // Start the Pusher Beams client
+  beamsClient.start()
+    .then(() => beamsClient.getDeviceId())  // Get the device token
+    .then((deviceToken: string) => {  // Explicitly typing deviceToken
+      console.log('Device token:', deviceToken);
+
+      // Send device token to the server to update it in the database
+      fetch('https://hq2soft.com/hq2sspapi/updateDeviceToken.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          userId: userId,  // User's ID
+          deviceToken: deviceToken  // New device token
+        })
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.success) {
+            console.log('Device token updated successfully');
+          } else {
+            console.error('Failed to update device token');
+          }
+        });
+    })
+    .catch((error: Error) => {  // Explicitly typing error
+      console.error('Error retrieving device token:', error);
+    });
+};
+
+
+/***************************Token function end**************************/
   const LoginSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true); // Disable button
 
     try {
-      const response = await axios.post("https://www.globalbills.com.ng/hq2sspapi/login.php", formData, {
+      const response = await axios.post("https://hq2soft.com/hq2sspapi/login.php", formData, {
         headers: { "Content-Type": "application/json" },
       });
 
@@ -76,11 +119,31 @@ const togglePasswordVisibility = () => {
         const profession = response.data.user.category_id;
         console.log(profession);
 
-        if (profession === null) {
-          history.push("/completeprofile");
-        } else {
-          history.push("/dashboard");
-        }
+        const verified = response.data.user.numberVerified;
+        const userId = response.data.user.ssp_id;
+        console.log(verified)
+
+        const navigateTo = () => {
+          let route = "";
+        
+          switch (true) {
+            case verified === null:
+              route = "/otppage";
+              break;
+            case profession === null:
+              route = "/completeprofile";
+              break;
+            default:
+              route = "/dashboard";
+              break;
+          }
+        
+          history.push(route);
+        };
+        updateDeviceToken(userId);
+        navigateTo();
+        
+        
         // Redirect after toast
       } else {
         setToastText(response.data.message);
@@ -128,7 +191,7 @@ const togglePasswordVisibility = () => {
     };
 
     try {
-      const response = await axios.post("https://www.globalbills.com.ng/hq2sspapi/signup.php",
+      const response = await axios.post("https://hq2soft.com/hq2sspapi/signup.php",
         JSON.stringify(dataToSend), {
         headers: {
           "Content-Type": "application/json",
@@ -140,7 +203,7 @@ const togglePasswordVisibility = () => {
         setToast(true);
         openModal("login"); // Navigate to login page after successful signup
       } else {
-        setToastText("Signup Failed: " + response.data.message);
+        setToastText(response.data.message);
         setToast(true);
       }
     } catch (error) {
@@ -209,7 +272,7 @@ setIsLoading(false);// Re-enable the button after submission
       <IonModal className={style.partialModal} isOpen={showModal} onDidDismiss={closeModal}>
         <IonContent className={style.content}>
           <div className={style.head}>
-            <div className={style.smallHead}>{modalContent === 'login' ? 'Ready to get your hands dirty?' : 'Sign Up'}</div>
+            <div className={style.smallHead}>{modalContent === 'login' ? 'Ready to get your hands dirty?' : 'Become an artisan today!'}</div>
             <div className={style.bigHead}>{modalContent === 'login' ? 'Login' : 'Sign Up'}</div>
           </div>
           <div className={style.cont}>
@@ -237,8 +300,9 @@ setIsLoading(false);// Re-enable the button after submission
                   <div className={style.iconCont}>
                     <IonIcon className={style.icon} icon={lockClosedOutline} />
                   </div>
+                  <div className={style.passCont}>
                   <input
-                    className={style.details}
+                    className={style.passDetails}
                     type={showPassword ? "text" : "password"}
                     name="password"
                     value={formData.password}
@@ -254,6 +318,8 @@ setIsLoading(false);// Re-enable the button after submission
                       className={style.passwordToggleIcon}
                       onClick={togglePasswordVisibility}
                     />
+
+                  </div>
                 </div>
                 <div className={style.forgot}>
                   Forgot Password?
@@ -303,6 +369,7 @@ setIsLoading(false);// Re-enable the button after submission
                   <div className={style.inputs}>
                     <input
                       className={style.details}
+                      style={{margin:"auto"}}
                       required
                       placeholder="First name"
                       value={signData.firstName}
@@ -312,6 +379,7 @@ setIsLoading(false);// Re-enable the button after submission
                   <div className={style.inputs}>
                     <input
                       className={style.details}
+                      style={{margin:"auto"}}
                       required
                       placeholder="Last name"
                       value={signData.lastName}
@@ -347,8 +415,9 @@ setIsLoading(false);// Re-enable the button after submission
                   <div className={style.iconCont}>
                     <IonIcon className={style.icon} icon={lockOpenOutline} />
                   </div>
+                  <div className={style.passCont}>
                   <input
-                    className={style.details}
+                    className={style.passDetails}
                     required
                     placeholder="Password"
                     type={showPassword ? "text" : "password"}
@@ -360,13 +429,15 @@ setIsLoading(false);// Re-enable the button after submission
                       className={style.passwordToggleIcon}
                       onClick={togglePasswordVisibility}
                     />
+                  </div>
                 </div>
                 <div className={style.input}>
                   <div className={style.iconCont}>
                     <IonIcon className={style.icon} icon={lockClosedOutline} />
                   </div>
+                  <div className={style.passCont}>
                   <input
-                    className={`${style.details} ${confirmPasswordError ? style.error : ""}`}
+                    className={`${style.passDetails} ${confirmPasswordError ? style.error : ""}`}
                     required
                     placeholder="Confirm password"
                     type={showPassword ? "text" : "password"}
@@ -379,6 +450,7 @@ setIsLoading(false);// Re-enable the button after submission
                       className={style.passwordToggleIcon}
                       onClick={togglePasswordVisibility}
                     />
+                  </div>  
                 </div>
                 <hr/>
                 <div className={style.loginCont}>
@@ -410,7 +482,7 @@ setIsLoading(false);// Re-enable the button after submission
                   </div>
                 </div>
                 <div className={style.not}>
-                  Already an artisan
+                  Already an artisan? 
                   <span
                     onClick={() => openModal('login')}
                     style={{ color: "#19fb04", cursor: "pointer" }}
@@ -428,3 +500,5 @@ setIsLoading(false);// Re-enable the button after submission
 };
 
 export default Home;
+
+

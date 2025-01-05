@@ -1,9 +1,9 @@
 .proCont{
-    border: 9px solid #e0cc91;
+    border: 5px solid #e0cc91;
     border-radius: 50%;
-    width: 70px;
-    height: 70px;
     margin: auto;
+    width: 60px;
+    height: 60px;
     background-image: url("/assets/goldplace.jpg");
     background-position: center;
     background-repeat: no-repeat;
@@ -12,9 +12,8 @@
 
 
 .image{
-    margin: auto;
-    width: 60px;
-    height: 60px;
+    width: 100%;
+    aspect-ratio: 1;
     border-radius: 50%;
 }
 

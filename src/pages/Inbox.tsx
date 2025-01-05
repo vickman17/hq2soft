@@ -2,7 +2,7 @@ import { IonContent, IonHeader, IonPage } from "@ionic/react";
 import React from "react";
 import Back from "../components/Back";
 import style from "./styles/Inbox.module.css";
-
+import Header from "../components/Header";
 
 const Inbox: React.FC = () => {
 
@@ -11,9 +11,8 @@ const Inbox: React.FC = () => {
 
     return(
         <IonPage>
+            <Header title="Messages" />
             <IonContent>
-            <Back/>     
-            <div className={style.head}>Inbox</div>     
             <div className={style.messageCont}>
                 <img src={notext} />
                 </div>           

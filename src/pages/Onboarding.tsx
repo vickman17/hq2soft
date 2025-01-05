@@ -18,10 +18,6 @@ const Onboarding: React.FC = () => {
     beforeChange: (_oldIndex: number, newIndex: number) => setCurrentSlide(newIndex),
   };
 
-  useEffect(()=>{
-    localStorage.setItem('hasSeenOnboarding', 'true');
-  }, [])
-
   const slides = [
     {
       title: 'Boost Your Income',
@@ -39,6 +35,11 @@ const Onboarding: React.FC = () => {
       image: '/assets/tools.jpeg',
     },
   ];
+
+  const handleFinishOnboarding = () => {
+    localStorage.setItem('hasSeenOnboarding', 'true'); // Set the flag in local storage
+    history.push('/home'); // Redirect to the home page
+  };
 
   return (
     <IonPage
@@ -72,10 +73,7 @@ const Onboarding: React.FC = () => {
         </Slider>
 
         <div className={style.butCont}>
-          <button
-            className={style.button}
-            onClick={()=>history.push("/home")}
-          >
+          <button className={style.button} onClick={handleFinishOnboarding}>
             <IonIcon className={style.icon} icon={arrowForward} />
           </button>
         </div>

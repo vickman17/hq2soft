@@ -16,6 +16,9 @@
     font-size: 9px; /* Active size */
   }
   
+  body{
+    background-color: white;
+  }
 
   .tour-button {
     background-color: #007aff;

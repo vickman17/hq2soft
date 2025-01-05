@@ -3,15 +3,17 @@ import React from "react";
 import Back from "../components/Back";
 import style from './styles/Earning.module.css';
 import { eyeOutline } from "ionicons/icons";
+import Header from "../components/Header";
+
+
+
 const Earning: React.FC = () => {
 
     return(
         <IonPage>
             <IonContent className={style.content}>
             <div className={style.earnings}>
-                <div>
-                    <Back/>
-                </div>
+                <Header title="Wallet" />
                 <div className={style.acct}>
                     <div className={style.earnHead}>Earnings</div>
                     <div className={style.place}>

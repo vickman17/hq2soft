@@ -6,6 +6,8 @@
     font-size: 1.6rem;
 }
 
+
+
 .profile{
     display: flex;
     justify-content: space-around;
@@ -81,14 +83,23 @@
 }
 
 .signOut{
+    left: 40%;
     border: 0px solid ;
-    margin-top: 2rem;
     text-align: center;
-    font-size: 1.8rem;
+    font-size: 20px;
+    color: red;
+    bottom: 80px;
+    position: absolute;
 }
 
 .icon{
     font-size: 1.6rem;
+}
+
+
+.cont{
+    border: 0px solid black;
+    position: relative;
 }
 
 .foot{

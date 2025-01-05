@@ -48,7 +48,7 @@ const Signup: React.FC = () => {
     };
 
     try {
-      const response = await axios.post("https://www.globalbills.com.ng/hq2sspapi/signup.php",
+      const response = await axios.post("https://hq2soft.com/hq2sspapi/signup.php",
         JSON.stringify(dataToSend), {
         headers: {
           "Content-Type": "application/json",

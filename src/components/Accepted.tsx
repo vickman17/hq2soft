@@ -1,6 +1,9 @@
 import React from "react";
 
-const CompletedJobs: React.FC = () => {
+
+
+const Accepted: React.FC = () => {
+
     const empty = "/assets/empty.png";
     return(
         <div>
@@ -9,4 +12,4 @@ const CompletedJobs: React.FC = () => {
     )
 }
 
-export default CompletedJobs;
+export default Accepted;

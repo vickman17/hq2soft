@@ -1,6 +1,6 @@
-import { IonApp, IonRouterOutlet, setupIonicReact } from '@ionic/react';
-import { Route, useLocation } from 'react-router-dom'; // Ensure useLocation is imported
 import React, { useEffect, useState } from 'react';
+import { IonApp, IonRouterOutlet, setupIonicReact } from '@ionic/react';
+import { Route, useLocation } from 'react-router-dom';
 import Home from './pages/Home';
 import Dashboard from './pages/Dashboard';
 import Signup from './pages/Signup';
@@ -17,6 +17,11 @@ import BottomNav from './components/BottomNav';
 import Onboarding from './pages/Onboarding';
 import Inbox from './pages/Inbox';
 import Finish from './pages/Finish';
+import ResetPassword from './pages/ResetPassword';
+import ConfirmEmail from './pages/ConfirmEmail';
+import OtpPage from './pages/OtpPage';
+import NotificationPage from './pages/NotificationPage';
+import { LocalNotifications, LocalNotification } from '@capacitor/local-notifications';
 
 /* CSS imports */
 import '@ionic/react/css/core.css';
@@ -30,14 +35,58 @@ import '@ionic/react/css/text-alignment.css';
 import '@ionic/react/css/text-transformation.css';
 import '@ionic/react/css/flex-utils.css';
 import '@ionic/react/css/display.css';
-import './theme/variables.css';
+import '../src/theme/variables.css';
 
 setupIonicReact();
 
 const App: React.FC = () => {
-  const [showOnboarding, setShowOnboarding] = useState<boolean | null>(null);
 
-  // This will be used to conditionally display the bottom navigation
+  useEffect(() => {
+    requestPermission();
+  }, []);
+
+  const requestPermission = async () => {
+    const permission = await LocalNotifications.requestPermissions();
+    if (permission?.display === "granted") {
+      console.log('Notification permission granted');
+    } else {
+      console.log('Notification permission denied');
+    }
+  };
+
+  const sendTestNotification = async () => {
+    await LocalNotifications.schedule({
+      notifications: [
+        {
+          title: 'Test Notification',
+          body: 'This is a test notification sent from your app!',
+          id: new Date().getTime(),
+          schedule: { at: new Date(Date.now()) }, // Immediate notification
+          sound: 'default',
+          attachments: [], // Updated to empty array instead of null
+          extra: null,
+        },
+      ],
+    });
+  };
+
+  useEffect(() => {
+    // Notification event listeners
+    const handleNotification = (notification: LocalNotification) => {
+      console.log('Notification received:', notification);
+    };
+
+    LocalNotifications.addListener('localNotificationReceived', handleNotification);
+
+    return () => {
+      // Remove all listeners when the component unmounts
+      LocalNotifications.removeAllListeners();
+    };
+  }, []);
+
+
+  const [showOnboarding, setShowOnboarding] = useState<boolean>(localStorage.getItem('hasSeenOnboarding') === null);
+
   const location = useLocation();
   const pagesWithBottomNav = ['/dashboard', '/inbox', '/setting'];
 
@@ -45,21 +94,11 @@ const App: React.FC = () => {
     document.body.style.fontFamily = 'Quicksand, sans-serif';
   }, []);
 
-  useEffect(() => {
-    const hasSeenOnboarding = localStorage.getItem('hasSeenOnboarding');
-    setShowOnboarding(hasSeenOnboarding === null); // Show onboarding if not seen
-  }, []);
-
   return (
     <IonApp>
       <IonRouterOutlet>
-        {/* Onboarding or Main app routes */}
-        {showOnboarding ? (
-          <>
-            <Route exact path="/" component={Onboarding} />
+            <Route exact path="/" component={showOnboarding ? Onboarding : Home} />
             <Route exact path="/home" component={Home} />
-            <Route exact path="/signup" component={Signup} />
-            <Route exact path="/login" component={Login} />
             <Route exact path="/profile" component={Profile} />
             <Route exact path="/earning" component={Earning} />
             <Route exact path="/inbox" component={Inbox} />
@@ -71,30 +110,13 @@ const App: React.FC = () => {
             <Route exact path="/completeprofile" component={CompleteProfile} />
             <Route exact path="/finish" component={Finish} />
             <Route exact path="/faceenroll" component={FaceEnroll} />
-          </>
-        ) : (
-          <>
-            <Route exact path="/signup" component={Signup} />
-            <Route exact path="/" component={Home} />
-            <Route exact path="/home" component={Home} />
-            <Route exact path="/login" component={Login} />
-            <Route exact path="/profile" component={Profile} />
-            <Route exact path="/earning" component={Earning} />
-            <Route exact path="/inbox" component={Inbox} />
-            <Route exact path="/jobs" component={Jobs} />
-            <Route exact path="/request" component={Request} />
-            <Route exact path="/dashboard" component={Dashboard} />
-            <Route exact path="/setting" component={Setting} />
-            <Route exact path="/editprofile" component={EditProfile} />
-            <Route exact path="/completeprofile" component={CompleteProfile} />
-            <Route exact path="/finish" component={Finish} />
-            <Route exact path="/faceenroll" component={FaceEnroll} />
-          </>
-        )}
+            <Route exact path="/resetpassword" component={ResetPassword} />
+            <Route exact path="/confirmemail" component={ConfirmEmail} />
+            <Route exact path="/otppage" component={OtpPage} />
+            <Route exact path="/notificationpage" component={NotificationPage} />
       </IonRouterOutlet>
-
-      {/* Bottom Nav visibility logic */}
-      {showOnboarding === false && pagesWithBottomNav.includes(location.pathname) && (
+      {/* Bottom Nav visibility */}
+      {!showOnboarding && pagesWithBottomNav.includes(location.pathname) && (
         <BottomNav />
       )}
     </IonApp>

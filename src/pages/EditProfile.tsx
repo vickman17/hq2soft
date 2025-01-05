@@ -6,6 +6,7 @@ import { cameraOutline } from 'ionicons/icons';
 import Back from '../components/Back';
 import axios from 'axios';
 import { useHistory } from 'react-router';
+import Header from '../components/Header';
 
 const EditProfile: React.FC = () => {
     const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -53,7 +54,7 @@ const EditProfile: React.FC = () => {
             formData.append('user_id', userId); 
 
             try {
-                const response = await axios.post('https://www.globalbills.com.ng/hq2sspapi/uploadProfile.php', formData, {
+                const response = await axios.post('https://hq2soft.com/hq2sspapi/uploadProfile.php', formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                     },
@@ -98,8 +99,8 @@ const EditProfile: React.FC = () => {
     
     return (
         <IonPage>
+            <Header title='Edit Profile' />
             <IonContent>
-                <Back />
                 <div className={style.profile}>
                     <div className={style.proCont}>
                         <Profile />

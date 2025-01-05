@@ -225,6 +225,7 @@
   .iconCont{
     width: 12%;
     text-align: center;
+    border: 0px solid black;
   }
 
   .icon{
@@ -236,7 +237,7 @@
     border: 0px solid;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     width: 90%;
     margin: auto;
     background: rgb(230, 230, 230);
@@ -246,12 +247,30 @@
     text-align: center;
   }
 
-  .details{
-    width: 80%;
+  .passDetails{
+    width: 90%;
     background: transparent;
     border: none;
+    margin-right: auto;
     outline: none;
   }
+
+  .details{
+    width: 85%;
+    background: transparent;
+    border: none;
+    margin-right: auto;
+    outline: none;
+  }
+
+  .passCont{
+    border: 0px solid black;
+    display: flex;
+    justify-content: space-around;
+    margin-right: auto;
+    width: 85%;
+  }
+
 
   .details:-webkit-autofill {
     background-color: rgb(230, 230, 230) !important;

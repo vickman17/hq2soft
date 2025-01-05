@@ -1,14 +1,18 @@
 .dash{
     border-bottom: 0px solid black;
-    padding-block: 2rem;
-    border-bottom-left-radius: 3rem;
-    border-bottom-right-radius: 3rem;
-    background: linear-gradient(245deg, #e0cc91, #fef500);
+    padding-block: 1rem;
+    border-bottom-left-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    background: linear-gradient(365deg, var(--ion-company-secondary), #fef500);
     box-shadow: 1px 1px 9px #e0cc91;
 }
 
 .content{
     --background: #f7f7f7;
+    border: 0px solid black;
+    --height: 40vh;
+    color: #2f7d32;
+    font-family: "Quicksand";
 }
 
 .info{
@@ -18,33 +22,37 @@
 }
 
 .name{
-    font-size: 18px;
-    font-weight: 600;
+    font-size: 20px;
+    color: white;
+    font-weight: 900;
 }
 
 .work{
-    color: #e0cc91;
+    --color: black;
     border: 0px solid;
     width: fit-content;
     margin: auto;
     padding-inline: 5px;
-    font-size: 12px;
+    font-size: 14px;
     letter-spacing: 2px;
     padding-block: 5px;
+    font-weight: bold;
     margin-top: .5rem;
-    border-radius: 1rem;
-    color: black;
-    background: rgba(255, 255, 255, 0.447);
+    color: #2f7d32;
+    background: rgba(255, 255, 255, 0.715);
 }
 
 .pick{
     margin: auto;
     width: 90%;
-    border-radius: 2rem;
+    border-radius: 1rem;
     margin-top: 2rem;
     background: white;
     border: 0px solid black;
     display: flex;
+    color: #2f7d32;
+    font-size: 15px;
+    font-weight: 600;
     justify-content: space-around;
 }
 
@@ -58,18 +66,68 @@
     text-align: center;
     padding-top: .8rem;
 }
+.nextSection{
+    margin: auto;
+    color: #2f7d32;
+    margin-top: 1rem;
+    border: 0px solid;
+    font-weight: 600;
+    width: 90%;
+}
 
 .recent{
     margin: auto;
-    margin-top: 2rem;
+    margin-top: 1rem;
     width: 90%;
+    border: 0px solid black;
+    height: 45vh;
+    overflow-y: scroll;
 }
 
 .icon{
     border: 0px solid black;
-    padding: 8px;
-    height: 40px;
-    width: 40px;
-    border-radius: 1rem;
-    background: #f7f7f7;
+    height: 18px;
+    width: 18px;
+}
+
+.iconCont{
+    margin: auto;
+    border: px solid black;
+    width: 32px;
+    height: 32px;
+    padding-block: 6px;
+    border-radius: .5rem;
+    background: #2f7d322c;
+}
+
+.container{
+    border: 0px solid black;
+}
+
+@media (max-height: 750px){
+    .recent{
+        margin: auto;
+        margin-top: 1rem;
+        width: 90%;
+        border: 0px solid black;
+        height: 32vh;
+        overflow-y: scroll;
+    }
+}
+
+@media (max-height: 820px){
+    .recent{
+        margin: auto;
+        margin-top: 1rem;
+        width: 90%;
+        border: px solid black;
+        height: 40vh;
+        overflow-y: scroll;
+    }
+}
+
+.fab{
+    border: 0px solid black;
+    bottom: 90px;
+    --color: #fef500;
 }

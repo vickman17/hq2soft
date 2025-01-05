@@ -6,6 +6,7 @@ import CancelledJobs from "../components/CancelledJobs";
 import PendingJobs from "../components/PendingJobs";
 import CompletedJobs from "../components/CompletedJobs";
 import Back from '../components/Back';
+import Header from "../components/Header";
 
 const Jobs: React.FC = () => {
   useEffect(() => {
@@ -37,22 +38,25 @@ const Jobs: React.FC = () => {
   };
 
 
+  
   return (
     <IonPage>
+      <Header title='Jobs' />
       <IonContent className={style.content}>
-      <Back/>
-      <p className={style.head}>My Jobs</p>
-        <IonSegment className={style.segment} onIonChange={handleSegmentChange} value={selectedSegment} mode="ios" >
-          <IonSegmentButton  value="Completed">
-            <IonLabel>Completed</IonLabel>
-          </IonSegmentButton>
-          <IonSegmentButton value="Pending">
-            <IonLabel>Pending</IonLabel>
-          </IonSegmentButton>
-          <IonSegmentButton value="Cancelled">
-            <IonLabel>Cancelled</IonLabel>
-          </IonSegmentButton>
-        </IonSegment>
+        <div className={style.seg}>
+          <IonSegment className={style.segment} onIonChange={handleSegmentChange} value={selectedSegment} mode="ios" >
+            <IonSegmentButton  value="Completed">
+              <IonLabel>Completed</IonLabel>
+            </IonSegmentButton>
+            <IonSegmentButton value="Pending">
+              <IonLabel>Pending</IonLabel>
+            </IonSegmentButton>
+            <IonSegmentButton value="Cancelled">
+              <IonLabel>Cancelled</IonLabel>
+            </IonSegmentButton>
+          </IonSegment>
+        </div>
+
         <div style={{ padding: '16px', border:"0px solid black" }}>
           {renderSegmentContent()}
         </div>

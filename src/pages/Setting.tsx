@@ -7,6 +7,7 @@ import { chevronForwardOutline, locationOutline, lockClosedOutline, languageOutl
 import BottomNav from "../components/BottomNav";
 import {useHistory} from "react-router-dom";
 import Back from "../components/Back";
+import Header from "../components/Header";
 //import {DotLottieReact} from "@lottie/dotlottie-react"
 
 
@@ -36,9 +37,8 @@ const Setting: React.FC = () => {
 
     return(
         <IonPage>
-            <IonContent>
-                <Back/>
-                <div className={style.head}>Settings</div>
+            <Header title="Setting" />
+            <IonContent className={style.cont}>
                 <div className={style.all}>
                     <div onClick={()=>{history.push('/editprofile')}} className={style.profile}>
                         <div className={style.image}>
@@ -74,19 +74,6 @@ const Setting: React.FC = () => {
                                     </div>
                                     <div className={style.setName}>
                                         Security
-                                    </div>
-                                </div>
-                                <div className={style.enter}>
-                                    <IonIcon icon={chevronForwardOutline} />
-                                </div>
-                            </IonItem>
-                            <IonItem lines="none" className={style.demo}>
-                                <div className={style.demoIn}>
-                                    <div className={style.icon}>
-                                        <IonIcon icon={eyeOffOutline} />
-                                    </div>
-                                    <div className={style.setName}>
-                                        Privacy
                                     </div>
                                 </div>
                                 <div className={style.enter}>

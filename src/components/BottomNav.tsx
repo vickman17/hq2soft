@@ -55,10 +55,11 @@ const BottomNav: React.FC = () => {
         {/* Home Tab */}
         <IonTabButton
           tab="home"
-          style={{width:"10%"}}
+          className={edit.tab}
           onClick={() => handleTabClick('home', '/dashboard')}
            // Apply active class
         >
+          <div className={activeTab === 'home' ? edit.activeTab : ''}>
           {loading[0] ? (
             <IonSkeletonText
               animated
@@ -66,16 +67,19 @@ const BottomNav: React.FC = () => {
               style={{ width: '40px', height: '40px' }}
             />
           ) : (
-            <img src={home} className={activeTab === 'home' ? edit.activeTab : ''} width={30} height={30}/>
+            <img src={home}  width={25} height={25}/>
           )}
+          </div>
         </IonTabButton>
 
         {/* Chat Tab */}
         <IonTabButton
           tab="chat"
           onClick={() => handleTabClick('chat', '/inbox')}
+          className={edit.tab}
           
         >
+          <div className={activeTab === 'chat' ? edit.activeTab : ''}>
           {loading[1] ? (
             <IonSkeletonText
               animated
@@ -83,15 +87,18 @@ const BottomNav: React.FC = () => {
               style={{ width: '40px', height: '40px' }}
             />
           ) : (
-<img src={chat} width={30} height={30} className={activeTab === 'chat' ? edit.activeTab : ''}/>
+<img src={chat} width={25} height={25} />
           )}
+          </div>
         </IonTabButton>
 
         {/* Settings Tab */}
         <IonTabButton
           tab="settings"
           onClick={() => handleTabClick('settings', '/setting')}
+          className={edit.tab}
         >
+          <div className={activeTab === 'settings' ? edit.activeTab : ''}>
           {loading[2] ? (
             <IonSkeletonText
               animated
@@ -99,8 +106,9 @@ const BottomNav: React.FC = () => {
               style={{ width: '40px', height: '40px' }}
             />
           ) : (
-<img src={setting} width={30} height={30} className={activeTab === 'settings' ? edit.activeTab : ''} />
+<img src={setting} width={25} height={25}  />
           )}
+          </div>
         </IonTabButton>
       </IonTabBar>
     </IonFooter>
