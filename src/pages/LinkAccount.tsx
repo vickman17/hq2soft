@@ -28,7 +28,7 @@ const LinkAccount: React.FC = () => {
 
     const fetchBanks = async (currentPage: number) => {
         try {
-            const response = await axios.get('https://hq2soft.com/hq2sspapi/fetchBank.php');
+            const response = await axios.get('http://localhost/hq2sspapi/fetchBank.php');
             const data = response.data;
             setBanks(data.data); 
             setTotalPages(Math.ceil(data.total / 10)); // Assuming 'total' is the total number of records
@@ -52,7 +52,7 @@ const LinkAccount: React.FC = () => {
         };
     
         try {
-            const response = await fetch('https://hq2soft.com/hq2sspapi/linkAccount.php', {
+            const response = await fetch('http://localhost/hq2sspapi/linkAccount.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

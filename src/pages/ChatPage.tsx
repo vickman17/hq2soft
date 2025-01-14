@@ -104,7 +104,7 @@ const ChatPage: React.FC = () => {
 
     try {
       const response = await axios.post(
-        'https://hq2soft.com/hq2sspapi/getMessage.php',
+        'http://localhost/hq2sspapi/getMessage.php',
         JSON.stringify({ chat_room_id: chatRoomId, ssp_id: sspId }),
         { headers: { 'Content-Type': 'application/json' } }
       );
@@ -131,7 +131,7 @@ const ChatPage: React.FC = () => {
       if (!jobId) return;
     try {
       const response = await axios.post(
-        'https://hq2soft.com/hq2sspapi/getJobDetails.php',
+        'http://localhost/hq2sspapi/getJobDetails.php',
         { job_id: jobId },
         { headers: { 'Content-Type': 'application/json' } }
       );
@@ -156,7 +156,7 @@ const ChatPage: React.FC = () => {
     if (!newMessage || !chatRoomId || !sspId || !clientId || !jobId) return;
 
     try {
-      const response = await axios.post('https://hq2soft.com/hq2sspapi/sendMessage.php', {
+      const response = await axios.post('http://localhost/hq2sspapi/sendMessage.php', {
         sender_id: sspId,
         receiver_id: clientId,
         message: newMessage,

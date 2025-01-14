@@ -38,7 +38,7 @@ const CompleteProfile: React.FC = () => {
   const [toast, setToast] = useState<boolean>(false);
   const [toastText, setToastText] = useState<string>("");
 
-  const API_BASE_URL = "https://hq2soft.com/hq2sspapi";
+  const API_BASE_URL = "http://localhost/hq2sspapi";
 
   const stepTitles = ["Skills", "Address", "Onboard"];
 

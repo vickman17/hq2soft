@@ -29,7 +29,7 @@ const Inbox: React.FC = () => {
   useEffect(() => {
     if (sspId) {
       // Fetch chats with last message for the user
-      fetch(`https://hq2soft.com/hq2sspapi/inbox.php?userId=${sspId}`, {
+      fetch(`http://localhost/hq2sspapi/inbox.php?userId=${sspId}`, {
         method: 'GET',
       })
         .then((response) => {

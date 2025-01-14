@@ -79,7 +79,7 @@ const PinModal: React.FC<PinModalProps> = ({ isOpen, mode, onClose }) => {
         if (enteredPin === enteredConfirmPin) {
           // Save PIN to backend
           try {
-            const response = await fetch("https://hq2soft.com/hq2sspapi/savePin.php", {
+            const response = await fetch("http://localhost/hq2sspapi/savePin.php", {
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({ pin: enteredPin, ssp_id: ssp_id }),
@@ -106,7 +106,7 @@ const PinModal: React.FC<PinModalProps> = ({ isOpen, mode, onClose }) => {
     } else if (mode === "validate") {
       if (enteredPin.length === 4) {
         try {
-          const response = await fetch("https://hq2soft.com/hq2sspapi/validatePin.php", {
+          const response = await fetch("http://localhost/hq2sspapi/validatePin.php", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ pin: enteredPin, ssp_id: ssp_id }),

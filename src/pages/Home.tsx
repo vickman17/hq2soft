@@ -79,7 +79,7 @@ const updateDeviceToken = (userId: string) => {  // Explicitly typing userId
       console.log('Device token:', deviceToken);
 
       // Send device token to the server to update it in the database
-      fetch('https://hq2soft.com/hq2sspapi/updateDeviceToken.php', {
+      fetch('http://localhost/hq2sspapi/updateDeviceToken.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -108,7 +108,7 @@ const updateDeviceToken = (userId: string) => {  // Explicitly typing userId
     setIsLoading(true); // Disable button
 
     try {
-      const response = await axios.post("https://hq2soft.com/hq2sspapi/login.php", formData, {
+      const response = await axios.post("http://localhost/hq2sspapi/login.php", formData, {
         headers: { "Content-Type": "application/json" },
       });
 
@@ -193,7 +193,7 @@ const updateDeviceToken = (userId: string) => {  // Explicitly typing userId
     };
 
     try {
-      const response = await axios.post("https://hq2soft.com/hq2sspapi/signup.php",
+      const response = await axios.post("http://localhost/hq2sspapi/signup.php",
         JSON.stringify(dataToSend), {
         headers: {
           "Content-Type": "application/json",

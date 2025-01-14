@@ -25,7 +25,7 @@ const Login: React.FC = () => {
     setIsLoading(true); // Disable button
 
     try {
-      const response = await axios.post("https://hq2soft.com/hq2sspapi/login.php", formData, {
+      const response = await axios.post("http://localhost/hq2sspapi/login.php", formData, {
         headers: { "Content-Type": "application/json" },
       });
 
