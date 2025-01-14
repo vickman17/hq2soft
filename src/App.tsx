@@ -21,7 +21,9 @@ import ResetPassword from './pages/ResetPassword';
 import ConfirmEmail from './pages/ConfirmEmail';
 import OtpPage from './pages/OtpPage';
 import NotificationPage from './pages/NotificationPage';
-import { LocalNotifications, LocalNotification } from '@capacitor/local-notifications';
+import { messaging } from '../firebase/firebaseConfig';
+
+
 
 /* CSS imports */
 import '@ionic/react/css/core.css';
@@ -36,53 +38,46 @@ import '@ionic/react/css/text-transformation.css';
 import '@ionic/react/css/flex-utils.css';
 import '@ionic/react/css/display.css';
 import '../src/theme/variables.css';
+import ChatPage from './pages/ChatPage';
+import Withdrawal from './pages/Withdrawal';
+
+import Chat from "./pages/Chat";
+import linkAccount from './pages/LinkAccount';
+import SlidingCard from './components/Sliding';
 
 setupIonicReact();
 
 const App: React.FC = () => {
 
-  useEffect(() => {
-    requestPermission();
-  }, []);
+  // useEffect(() => {
+  //   // Request permission for notifications
+  //   const requestPermission = async () => {
+  //     try {
+  //       const permission = await Notification.requestPermission();
+  //       if (permission === 'granted') {
+  //         // Get the FCM token
+  //         const token = await messaging.getToken({
+  //           vapidKey: 'BKhchly4Dnm0NHV8rBdm1YIwuXI8A0IRAkkhTwO2sjByFskp4-Qef3UWIocHnu_uNjJ2pb4DLV3ZFOzv1HNOohQ' // Replace with your actual VAPID key
+  //         });
+  //         console.log('Token:', token);
+  //       }
+  //     } catch (error) {
+  //       console.error('Error requesting notification permission:', error);
+  //     }
+  //   };
 
-  const requestPermission = async () => {
-    const permission = await LocalNotifications.requestPermissions();
-    if (permission?.display === "granted") {
-      console.log('Notification permission granted');
-    } else {
-      console.log('Notification permission denied');
-    }
-  };
+  //   // Register for messages while the app is in the foreground
+  //   const handleMessages = () => {
+  //     messaging.onMessage((payload) => {
+  //       console.log('Message received. ', payload);
+  //       // Customize this part based on how you want to handle the notification
+  //     });
+  //   };
 
-  const sendTestNotification = async () => {
-    await LocalNotifications.schedule({
-      notifications: [
-        {
-          title: 'Test Notification',
-          body: 'This is a test notification sent from your app!',
-          id: new Date().getTime(),
-          schedule: { at: new Date(Date.now()) }, // Immediate notification
-          sound: 'default',
-          attachments: [], // Updated to empty array instead of null
-          extra: null,
-        },
-      ],
-    });
-  };
+  //   requestPermission();
+  //   handleMessages(); // Listen for messages
 
-  useEffect(() => {
-    // Notification event listeners
-    const handleNotification = (notification: LocalNotification) => {
-      console.log('Notification received:', notification);
-    };
-
-    LocalNotifications.addListener('localNotificationReceived', handleNotification);
-
-    return () => {
-      // Remove all listeners when the component unmounts
-      LocalNotifications.removeAllListeners();
-    };
-  }, []);
+  // }, []);
 
 
   const [showOnboarding, setShowOnboarding] = useState<boolean>(localStorage.getItem('hasSeenOnboarding') === null);
@@ -114,9 +109,14 @@ const App: React.FC = () => {
             <Route exact path="/confirmemail" component={ConfirmEmail} />
             <Route exact path="/otppage" component={OtpPage} />
             <Route exact path="/notificationpage" component={NotificationPage} />
+            <Route path="/chatpage/:clientId/:chatRoomId/:jobId" component={ChatPage} />
+            <Route exact path="/chat" component={Chat} />
+            <Route exact path="/linkaccount" component={linkAccount} />
+            <Route exact path="/withdrawal" component={Withdrawal} />
+            <Route exact path="/slidingcard" component={SlidingCard} />
       </IonRouterOutlet>
       {/* Bottom Nav visibility */}
-      {!showOnboarding && pagesWithBottomNav.includes(location.pathname) && (
+      {pagesWithBottomNav.includes(location.pathname) && (
         <BottomNav />
       )}
     </IonApp>

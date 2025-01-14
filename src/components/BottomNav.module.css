@@ -3,7 +3,7 @@
 }
 
 .activeTab {
-    padding: 6px;
+    padding: 1px;
     border: 0px solid; /* Blue border color */
     border-radius: 9px; /* Rounded corners *//* Optional: Adjust padding to fit your design */
     transition: all 0.3s ease-in-out; /* Smooth transition for the border */
@@ -13,10 +13,11 @@
   
   .navbar{
     position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
+    bottom: 20px;
+    border-radius: 2rem;
+    left: 5%;
+    width: 90%;
     z-index: 1000;
     background: white;
-    padding: 2px;
+    padding: 0;
   }

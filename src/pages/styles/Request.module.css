@@ -1,9 +1,13 @@
+.pageCont{
+    overflow: hidden;
+}
+
 
 .seg{
+    margin: auto;
     margin-top: .5rem;
+    width: 90%;
 }
 
-.segment{
-    color: rgb(47, 47, 47);
-    background: white;
-}
+
+

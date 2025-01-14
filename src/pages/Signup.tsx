@@ -15,6 +15,10 @@ const Signup: React.FC = () => {
     confirmpassword: "",
   });
 
+  const formattedPhone = formData.phone1?.startsWith("0") ? "+234" + formData.phone1.slice(1) : formData.phone1;
+
+
+
   const [confirmPasswordError, setConfirmPasswordError] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false); // Track submission state
   const [toast, setToast] = useState<boolean>(false);
@@ -42,13 +46,13 @@ const Signup: React.FC = () => {
       first_name: formData.firstName,
       last_name: formData.lastName,
       email: formData.email,
-      phone1: formData.phone1,
+      phone1: formattedPhone,
       confirmpassword: formData.confirmpassword,
       password: formData.password,
     };
 
     try {
-      const response = await axios.post("https://hq2soft.com/hq2sspapi/signup.php",
+      const response = await axios.post("https://hq2ssp.free.beeceptor.com",
         JSON.stringify(dataToSend), {
         headers: {
           "Content-Type": "application/json",

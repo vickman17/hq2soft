@@ -324,7 +324,7 @@ const handleWorkSuiteChange = (e: React.ChangeEvent<HTMLInputElement>) => {
                 >
                   <option value="">Choose skill</option>
                   {subcategories.map((subcategory) => (
-                    <option key={subcategory.id} value={subcategory.id}>
+                    <option key={subcategory.id} value={subcategory.subcategory_name}>
                       {subcategory.subcategory_name}
                     </option>
                   ))}

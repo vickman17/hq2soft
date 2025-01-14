@@ -1,0 +1,198 @@
+.head{
+    font-size: 16px;
+    font-weight: 400;
+    border: 0px solid black;
+    width: 90%;
+    margin: auto;
+    color: var(--ion-company-secondary);
+    margin-top: 2.5rem;
+    font-family: "Quicksand";
+}
+
+.page{
+    font-family: "Quicksand";
+}
+
+.inputCont{
+    border-bottom: 1px solid black;
+    width: 90%;
+    margin: auto;
+    margin-top: 2rem;
+    color: var(--ion-company-secondary);
+    height: 50px;
+    display: flex;
+    align-items: center;
+    font-family: "Quicksand";
+}
+
+.input{
+    width: 100%;
+    border: none;
+    font-size: 2rem;
+    outline: none;
+    background: transparent;
+}
+
+.butCont{
+    border: 0px solid black;
+    margin: auto;
+    width: 90%;
+    text-align: center;
+    margin-top: 4rem;
+}
+
+.naira{
+    font-size: 2rem;
+    border: none;
+}
+
+.but{
+    width: 100%;
+    font-size: 18px;
+    font-family: "Quicksand";
+    border-radius: 1rem;
+    padding-block: .7rem;
+    color: white;
+    background: var(--ion-company-secondary);
+}
+
+.bal{
+    border: 0px solid black;
+    width: 90%;
+    text-align: center;
+    font-family: "Quicksand";
+    margin: auto;
+    margin-top: 1rem;
+    color: var(--ion-company-secondary);
+}
+
+.modalContent{
+    font-family: "Quicksand";
+}
+
+.conHead{
+    border: 0px solid;
+    margin-top: 2rem;
+    font-size: 19px;
+    text-align: center;
+}
+
+.field{
+    margin: auto;
+    width: 90%;
+    margin-top: 2.5rem;
+    padding-block: 1rem;
+    border-radius: 1rem;
+    background: #fdb10022;
+    border: none;
+}
+
+.legend{
+    font-size: 17px;
+}
+
+.row{
+    display: flex;
+    border: 0px solid;
+    margin-bottom: 1rem;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.col1{
+    border: 0px solid;
+    width: 40%;
+    font-weight: 600;
+}
+
+.col{
+    border: 0px solid;
+    width: 50%;
+    text-align: right;
+}
+
+.note{
+    border: 0px solid;
+    margin: auto;
+    width: 90%;
+    font-size: 15px;
+    padding: .5rem;
+    border-radius: .5rem;
+    margin-top: 1rem;
+    background: #fdb10022;
+}
+
+.amount{
+    text-align: center;
+    font-size: 25px;
+    margin-top: 2rem;
+    font-weight: 600;
+}
+
+.conButCont{
+    border: 0px solid;
+    width: 90%;
+    margin: auto;
+    margin-top: 4rem;
+    text-align: center;
+}
+
+.conBut{
+    width: 100%;
+    font-size: 18px;
+    padding-block: .7rem;
+    color: white;
+    background: var(--ion-company-secondary);
+    border-radius: 1rem;
+}
+
+.toast{
+    font-family: "Quicksand";
+}
+
+.img{
+    width: 30%;
+    margin: auto;
+    margin-top: 3rem;
+}
+
+.successWrite{
+    width: 95%;
+    margin: auto;
+    border: 0px solid;
+    text-align: center;
+    margin-top: 2rem;
+    font-size: 18px;
+    color: var(--ion-company-secondary);
+}
+
+.loadModal{
+    font-family: "Quicksand";
+    color: var(--ion-company-secondary);
+}
+
+.action{
+    font-weight: 800;
+}
+
+
+
+
+.loadButCont{
+    border: 0px solid ;
+    width: 90%;
+    margin: auto;
+    text-align: center;
+    margin-top: 6rem
+}
+
+
+.loadBut{
+    width: 100%;
+    padding-block: .7rem;
+    font-size: 18px;
+    border-radius: 1.3rem;
+    background: transparent;
+    color: var(--ion-company-secondary);
+    border: 1px solid var(--ion-company-secondary);
+}

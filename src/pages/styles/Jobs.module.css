@@ -4,13 +4,11 @@
     border-color: var(--ion-job);
 }
 
-.segment{
-    background: var(--ion-menu-head);
-    width: 95%;
-    margin: auto;
-}
+
 
 .seg{
+    margin: auto;
     border: 0px solid black;
     margin-top: .5rem;
+    width: 90%;
 }

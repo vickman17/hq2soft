@@ -30,8 +30,6 @@ const Jobs: React.FC = () => {
         return <CompletedJobs/>;
       case 'Pending':
         return <PendingJobs/>;
-      case 'Cancelled':
-        return <CancelledJobs/>;
       default:
         return null;
     }
@@ -50,9 +48,6 @@ const Jobs: React.FC = () => {
             </IonSegmentButton>
             <IonSegmentButton value="Pending">
               <IonLabel>Pending</IonLabel>
-            </IonSegmentButton>
-            <IonSegmentButton value="Cancelled">
-              <IonLabel>Cancelled</IonLabel>
             </IonSegmentButton>
           </IonSegment>
         </div>

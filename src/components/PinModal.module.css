@@ -1,0 +1,47 @@
+.pinInput {
+    font-size: 18px;
+    text-align: center;
+    background-color: #f4f4f4;
+    border-radius: 5px;
+    padding: 0.5rem;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: transparent;
+    border: 1px solid #2f7d3266;
+    outline: none;
+  }
+  
+  .content{
+    font-family: "Quicksand";
+  }
+
+  .inputCont{
+    margin: auto;
+    width: 75%;
+    display: flex;
+    border: 0px solid black;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 2rem;
+  }
+
+
+ 
+
+  .butCont{
+    border: 0px solid black;
+    margin: auto;
+    width: 70%;
+    text-align: center;
+    margin-top: 2.5rem;
+  }
+
+  .but{
+    width: 100%;
+    padding-block: .7rem;
+    font-size: 18px;
+    border-radius: 1.2rem;
+    background:var(--ion-company-secondary);
+    color: white;
+  }

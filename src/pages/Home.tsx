@@ -170,6 +170,8 @@ const updateDeviceToken = (userId: string) => {  // Explicitly typing userId
     confirmpassword: "",
   });
 
+  const formattedPhone = signData.phone1?.startsWith("0") ? "+234" + signData.phone1.slice(1) : signData.phone1;
+
 
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -185,7 +187,7 @@ const updateDeviceToken = (userId: string) => {  // Explicitly typing userId
       first_name: signData.firstName,
       last_name: signData.lastName,
       email: signData.email,
-      phone1: signData.phone1,
+      phone1: formattedPhone,
       confirmpassword: signData.confirmpassword,
       password: signData.password,
     };

@@ -5,7 +5,7 @@ import style from './styles/Request.module.css'
 import BottomNav from '../components/BottomNav';
 import Accepted from "../components/Accepted";
 import Declined from '../components/Declined';
-import Incoming from '../components/Incomig';
+import Incoming from '../components/Incoming';
 import Header from '../components/Header';
 
 
@@ -25,8 +25,6 @@ const Request: React.FC = () =>{
           return <Incoming/>;
         case 'Accepted':
           return <Accepted/>;
-        case 'Declined':
-          return <Declined/>;
         default:
           return null;
       }
@@ -39,22 +37,20 @@ const Request: React.FC = () =>{
             <Header title='Requests' />
             <IonContent className={style.pageCont}>
                 <div className={style.seg}>
-                <IonSegment className={style.segment} onIonChange={handleSegmentChange} value={selectedSegment} mode="ios" >
-                    <IonSegmentButton value="Incoming">
-                        <IonLabel>Incoming</IonLabel>
-                    </IonSegmentButton>
-                    <IonSegmentButton value="Accepted">
-                        <IonLabel>Accepted</IonLabel>
-                    </IonSegmentButton>
-                    <IonSegmentButton value="Declined">
-                        <IonLabel>Declined</IonLabel>
-                    </IonSegmentButton>
-                </IonSegment>
+                  <IonSegment className={style.segment} onIonChange={handleSegmentChange} value={selectedSegment} mode="ios" >
+                      <IonSegmentButton class={style.segbut} value="Incoming">
+                          <IonLabel>Incoming</IonLabel>
+                      </IonSegmentButton>
+                      <IonSegmentButton class={style.segbut} value="Accepted">
+                          <IonLabel>Accepted</IonLabel>
+                      </IonSegmentButton>
+                  </IonSegment>
+                </div>            
+                <div className={style.content}>
+                <div style={{ padding: '0', border:"0px solid black" }}>
+                    {renderSegmentContent()}
+                  </div>
                 </div>
-                
-        <div style={{ padding: '16px', border:"0px solid black" }}>
-          {renderSegmentContent()}
-        </div>
 
             </IonContent>
         </IonPage>

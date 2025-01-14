@@ -2,7 +2,7 @@
     border-bottom-left-radius: 1rem;
     padding-bottom: 5rem;
     border: 0px solid black;
-    background: linear-gradient(145deg, #e0cc91, #fef500);
+    background: linear-gradient(145deg, var(--ion-company-primary), var(--ion-company-secondary));
 }
 
 .acct{
@@ -20,21 +20,36 @@
     font-weight: 600;
 }
 
+
+
+.page{
+    --overflow: hidden;
+}
+
+.content{
+    --overflow: hidden;
+    font-family: "Quicksand";
+}
+
 .eye{
-    font-size: 1.2rem;
+    font-size: 2rem;
+    color: rgb(34, 34, 34);
 }
 
 .earnHead{
-    font-size: 12.5px;
-    color: rgb(101, 101, 101);
+    font-size: 15px;
+    color: rgb(255, 255, 255);
 }
 
 .content{
     --background: #f7f7f7;
+    font-family: "Quicksand";
+    overflow: hidden;
 }
 
 .bal{
     font-size: 2.2rem;
+    color: rgb(48, 48, 48);
 }
 
 .option{
@@ -53,10 +68,12 @@
     border-bottom-right-radius: 1rem;
     padding: 1rem;
     width: 120px;
-    font-size: 1.3rem;
+    color: white;
+    font-size: 16px;
     text-align: center;
-    background-color: #e0cc91;
+    background-color: var(--ion-company-secondary);
 }
+
 
 
 .add{
@@ -64,7 +81,7 @@
     padding: 1rem;
     border-top-left-radius: 1rem;
     border-bottom-right-radius: 1rem;
-    font-size: 1.3rem;
+    font-size: 16px;
     width: 120px;
     text-align: center;
     background-color: white;
@@ -84,4 +101,52 @@
     border: 0px solid;
     width: 90%;
     margin: auto;
+    font-weight: 600;
+}
+
+.transactionList{
+    border: 0px solid ;
+    width: 90%;
+    margin: auto;
+    margin-top: 2rem;
+    height: 60vh;
+    overflow-y: scroll; /* Enable vertical scrolling */
+    scrollbar-width: none; /* For Firefox */
+  }
+  
+  .transactionList::-webkit-transationList {
+    display: none; /* For Chrome, Safari, and Edge */
+  }
+
+.listHead{
+    display: flex;
+    justify-content: space-between;
+}
+
+.transList{
+    list-style: none;
+    border: 0px solid yellow;
+}
+
+.transItem{
+    border: 0px solid;
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.type{
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.below{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5px;
+}
+
+.amount{
+    color: var(--ion-company-secondary);
+    font-size: 19px;
+    font-weight: 800;
 }

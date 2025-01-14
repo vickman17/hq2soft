@@ -14,9 +14,15 @@ const Dashboard: React.FC = () => {
   const [unreadCount, setUnreadCount] = useState<number>(0);
   const storedInfo = sessionStorage.getItem("Info");
   const info = storedInfo ? JSON.parse(storedInfo) : {};
+  const sspId = info?.ssp_id
   const empty = "/assets/empty.png";
 
 
+  useEffect(()=>{
+    if(!sspId){
+      history.push("/home");
+    }
+  }, [])
 
   // Capitalize the first letter and make the rest lowercase
   const capitalizeFirstLetter = (name: string) => {
