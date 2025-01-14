@@ -21,7 +21,7 @@ import ResetPassword from './pages/ResetPassword';
 import ConfirmEmail from './pages/ConfirmEmail';
 import OtpPage from './pages/OtpPage';
 import NotificationPage from './pages/NotificationPage';
-import { messaging } from '../firebase/firebaseConfig';
+//import { messaging } from '../firebase/firebaseConfig';
 
 
 
