@@ -22,8 +22,9 @@ import ConfirmEmail from './pages/ConfirmEmail';
 import OtpPage from './pages/OtpPage';
 import NotificationPage from './pages/NotificationPage';
 //import { messaging } from '../firebase/firebaseConfig';
-
-
+import { requestPermission, onMessageListener } from "./firebase/firebaseMessaging";
+import { getMessaging, onMessage } from "firebase/messaging";
+import { firebaseApp } from "./firebase/firebaseConfig"; 
 
 /* CSS imports */
 import '@ionic/react/css/core.css';
@@ -40,6 +41,8 @@ import '@ionic/react/css/display.css';
 import '../src/theme/variables.css';
 import ChatPage from './pages/ChatPage';
 import Withdrawal from './pages/Withdrawal';
+import Assets from "./pages/Assets";
+import About from "./pages/About";
 
 import Chat from "./pages/Chat";
 import linkAccount from './pages/LinkAccount';
@@ -48,6 +51,32 @@ import SlidingCard from './components/Sliding';
 setupIonicReact();
 
 const App: React.FC = () => {
+
+
+  useEffect(() => {
+    const messaging = getMessaging(firebaseApp);
+
+    // Request permission for notifications
+    const requestPermission = async () => {
+      try {
+        const token = await Notification.requestPermission();
+        if (token === "granted") {
+          console.log("Notification permission granted.");
+        } else {
+          console.log("Notification permission denied.");
+        }
+      } catch (error) {
+        console.error("Error requesting notification permission: ", error);
+      }
+    };
+
+    requestPermission();
+
+    // Listen for messages
+    onMessage(messaging, (payload) => {
+      console.log("Message received: ", payload);
+    });
+  }, []);
 
   // useEffect(() => {
   //   // Request permission for notifications
@@ -114,6 +143,8 @@ const App: React.FC = () => {
             <Route exact path="/linkaccount" component={linkAccount} />
             <Route exact path="/withdrawal" component={Withdrawal} />
             <Route exact path="/slidingcard" component={SlidingCard} />
+            <Route exact path="/assets" component={Assets} />
+            <Route exact path="/about" component={About} />
       </IonRouterOutlet>
       {/* Bottom Nav visibility */}
       {pagesWithBottomNav.includes(location.pathname) && (

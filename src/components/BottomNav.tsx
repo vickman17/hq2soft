@@ -8,7 +8,7 @@ import {
 import { useHistory } from 'react-router-dom';
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import edit from './BottomNav.module.css';
-import home from "/assets/svg/realhome.svg";
+import home from "/assets/svg/home.svg";
 import chat from '/assets/svg/comment.svg';
 import setting from '/assets/svg/setting.svg';
 
@@ -70,6 +70,7 @@ const BottomNav: React.FC = () => {
             <img src={home}  width={25} height={25}/>
           )}
           </div>
+          <div>Home</div>
         </IonTabButton>
 
         {/* Chat Tab */}
@@ -90,6 +91,7 @@ const BottomNav: React.FC = () => {
 <img src={chat} width={25} height={25} />
           )}
           </div>
+          <div>Inbox</div>
         </IonTabButton>
 
         {/* Settings Tab */}
@@ -109,6 +111,27 @@ const BottomNav: React.FC = () => {
 <img src={setting} width={25} height={25}  />
           )}
           </div>
+          <div>Notification</div>
+        </IonTabButton>
+
+        {/* Settings Tab */}
+        <IonTabButton
+          tab="settings"
+          onClick={() => handleTabClick('settings', '/setting')}
+          className={edit.tab}
+        >
+          <div className={activeTab === 'settings' ? edit.activeTab : ''}>
+          {loading[2] ? (
+            <IonSkeletonText
+              animated
+              className={edit.icon}
+              style={{ width: '40px', height: '40px' }}
+            />
+          ) : (
+<img src={setting} width={25} height={25}  />
+          )}
+          </div>
+          <div>Profile</div>
         </IonTabButton>
       </IonTabBar>
     </IonFooter>

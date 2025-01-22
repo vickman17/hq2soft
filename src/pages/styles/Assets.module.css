@@ -1,0 +1,75 @@
+.total{
+    border: 0px solid black;
+    width: 90%;
+    margin: auto;
+    text-align: center;
+    margin-top: 12px;
+}
+
+.totalHead{
+    font-size: 15px;
+    font-weight: 800;
+    color:rgba(47, 125, 50, 0.52);
+}
+
+.totalBal{
+    font-size: 27px;
+    font-weight: 900;
+    color: var(--ion-company-secondary);
+    margin-top: 5px;
+}
+
+
+.box{
+    border: 0px solid black;
+    width: 95%;
+    margin: auto;
+    margin-top: 1rem;
+    background: var(--ion-company-secondary);
+    color: white;
+    padding-inline: 10px;
+    border-radius: 12px;
+    padding-block: 10px;
+}
+
+.topBox{
+    display: flex;
+    border: 0px solid;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.boxName{
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.infoIcon{
+    font-size: 22px;
+    font-weight: 900;
+    color: white;
+}
+
+.bottomBox{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.bal{
+    font-size: 22px;
+    font-weight: 800;
+    margin-top: 7px;
+}
+
+.withdrawBut{
+    border: 0px solid black;
+    text-align: center;
+    font-size: 13px;
+    width: 20%;
+    padding-block: 5px;
+    border-radius: 12px;
+    color: var(--ion-company-secondary);
+    background: white;
+}

@@ -3,8 +3,8 @@ import { IonContent, IonPage, IonModal, IonHeader, IonIcon, IonToast } from "@io
 import style from "./styles/Home.module.css";
 import { useHistory } from "react-router";
 import { lockClosedOutline, lockOpenOutline, atSharp, eyeOutline, eyeOffOutline, phonePortraitSharp } from "ionicons/icons";
-import facebook from "/assets/svg/facebook.svg";
-import google from "/assets/svg/google.svg";
+// import facebook from "/assets/svg/facebook.svg";
+// import google from "/assets/svg/google.svg";
 import { Client as PusherPushNotifications } from '@pusher/push-notifications-web';
 
 

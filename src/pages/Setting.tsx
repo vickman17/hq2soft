@@ -3,11 +3,12 @@ import React from "react";
 import style from "./styles/Setting.module.css";
 import Profile from "../components/Profile";
 import SmallProfile from "../components/SmallProfile";
-import { chevronForwardOutline, locationOutline, lockClosedOutline, languageOutline, moon, moonOutline, notificationsCircleOutline, eyeOffOutline } from "ionicons/icons";
+import { chevronForwardOutline, locationOutline, lockClosedOutline, exclamationCirle, languageOutline, moon, moonOutline, notificationsCircleOutline, eyeOffOutline } from "ionicons/icons";
 import BottomNav from "../components/BottomNav";
 import {useHistory} from "react-router-dom";
 import Back from "../components/Back";
 import Header from "../components/Header";
+import {version} from "/package.json";
 //import {DotLottieReact} from "@lottie/dotlottie-react"
 
 
@@ -36,7 +37,7 @@ const Setting: React.FC = () => {
 
 
     return(
-        <IonPage>
+        <IonPage className="page">
             <Header title="Setting" />
             <IonContent className={style.cont}>
                 <div className={style.all}>
@@ -54,67 +55,73 @@ const Setting: React.FC = () => {
                     </div>
                     <div className={style.sets}>
                         <div className={style.contSets}>
-                            <IonItem lines="none" className={style.demo}>
+                            <div lines="none" className={style.demo}>
                                 <div className={style.demoIn}>
                                     <div className={style.icon}>
                                         <IonIcon icon={moonOutline} />
                                     </div>
                                     <div className={style.setName}>
-                                        Theme
+                                        Account & Security Settings
                                     </div>
                                 </div>
                                 <div className={style.enter}>
                                     <IonIcon icon={chevronForwardOutline} />
                                 </div>
-                            </IonItem>
-                            <IonItem lines="none" className={style.demo}>
+                            </div>
+                            <div lines="none" className={style.demo}>
                                 <div className={style.demoIn}>
                                     <div className={style.icon}>
                                         <IonIcon icon={lockClosedOutline} />
                                     </div>
                                     <div className={style.setName}>
-                                        Security
+                                        Payment Account
                                     </div>
                                 </div>
                                 <div className={style.enter}>
                                     <IonIcon icon={chevronForwardOutline} />
                                 </div>
-                            </IonItem>
-                            <IonItem lines="none" className={style.demo}>
+                            </div>
+                            <div lines="none" className={style.demo}>
                                 <div className={style.demoIn}>
                                     <div className={style.icon}>
                                         <IonIcon icon={languageOutline} />
                                     </div>
                                     <div className={style.setName}>
-                                        Language
+                                        Customer Service Center
                                     </div>
                                 </div>
                                 <div className={style.enter}>
                                     <IonIcon icon={chevronForwardOutline} />
                                 </div>
-                            </IonItem>
-                            <IonItem lines="none" className={style.demo}>
-                                <div className={style.demoIn}>
-                                    <div className={style.icon}>
-                                        <IonIcon icon={locationOutline} />
-                                    </div>
-                                    <div className={style.setName}>
-                                        Work Address
-                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className={style.setBelow}>
+                        <div onClick={()=>history.push("/about")} lines="none" className={style.demo}>
+                            <div className={style.demoIn}>
+                                <div className={style.icon}>
+                                    <IonIcon icon={locationOutline} />
                                 </div>
-                                <div className={style.enter}>
-                                    <IonIcon icon={chevronForwardOutline} />
+                                <div className={style.setName}>
+                                    About
                                 </div>
-                            </IonItem>
+                            </div>
+                            <div className={style.enter}>
+                                <div style={{paddingRight: "8px"}}>
+                                    Version {version}
+                                </div>
+                                <IonIcon icon={chevronForwardOutline} />
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div className={style.signOut} onClick={signOut}>{userId ? "Signout" : "Login"}</div>
-            </IonContent>
-            <IonFooter className={style.foot}>
-                <p style={{width: "fit-content", border:"0px solid", margin:"auto"}}>&copy; Powered by strive inc</p>
-            </IonFooter>
-            
+                <div style={{marginTop: "4rem"}} className={style.setBelow}>
+                        <div lines="none" className={style.demo}>
+                        <div className={style.signOut} onClick={signOut}>{userId ? "Sign Out" : "Login"}</div>
+                        </div>
+                    </div>
+                
+            </IonContent>            
         </IonPage>
     )
 }

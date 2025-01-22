@@ -1,0 +1,64 @@
+.logo{
+    border: 0px solid black;
+    text-align: center;
+    color: var(--ion-company-secondary);
+}
+
+.image{
+    width: 20%;
+    margin: auto;
+}
+
+.version{
+    margin-top: 10px;
+}
+
+.sets{
+    margin: auto;
+    border: 0px solid black;
+    margin-top: 1rem;
+    width: 95%;
+    background: rgba(47, 125, 50, 0.17);
+    border-radius: 8px;
+    padding-block: 1px;
+}
+
+.setName{
+    font-size: 15px;
+    margin-left: 1rem;
+    border: 0px solid;
+    width: 100%;
+}
+
+.demo{
+    border: 0px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    --background: transparent;
+    margin: auto;
+    width: 95%;
+    padding-block: 13px;
+}
+
+.demoIn{
+    display: flex;
+    border: 0px solid;
+    justify-content:start;
+    align-items: center;
+    width: 95%;
+}
+
+.enter{
+    margin-left: auto;
+    border: 0px solid;
+    display: flex;
+    align-items: center;
+    width: 5%;
+    justify-content: right;
+}
+
+
+.icon{
+    font-size: 1.rem;
+}

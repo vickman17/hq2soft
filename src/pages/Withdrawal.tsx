@@ -193,7 +193,7 @@ const close = ()=> {
             />
           </div>
         </div>
-        <div className={style.bal}>Your active balance is : &#8358;{bal.toLocaleString()}</div>
+        <div className={style.bal}>Your active balance is : &#8358;{/*bal.toLocaleString()*/}</div>
         <div className={style.butCont}>
           <button className={style.but} onClick={confirm}>
             Withdraw

@@ -1,18 +1,26 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonInput, IonButton, IonList, IonItem, IonLabel, IonSpinner, IonIcon, IonModal, IonCard, IonCardContent } from '@ionic/react';
-import axios from 'axios';
+import {
+  IonPage,
+  IonHeader,
+  IonContent,
+  IonList,
+  IonItem,
+  IonIcon,
+  IonModal,
+  IonButton,
+  IonTextarea,
+} from '@ionic/react';
 import { useParams, useHistory } from 'react-router-dom';
-import { addCircleSharp, cameraReverseSharp, cameraSharp, checkmark, sendSharp } from 'ionicons/icons';
-import style from "./styles/ChatPage.module.css";
-import { addCircleOutline, arrowBack, chevronBack, informationSharp, sendOutline } from "ionicons/icons";
-import { io, WebSocket } from 'socket.io-client';
-
+import { sendSharp, cameraSharp, arrowBack, informationSharp } from 'ionicons/icons';
+import style from './styles/ChatPage.module.css';
+import { getDatabase, ref, onValue, push, set } from 'firebase/database';
+import {database, firebaseApp} from '../firebase/firebaseConfig'; // Your Firebase configuration file
 
 interface Message {
   sender_id: string;
   receiver_id: string;
   message: string;
-  timestamp: string
+  timestamp: string;
 }
 
 interface JobDetails {
@@ -29,37 +37,31 @@ const ChatPage: React.FC = () => {
   const { chatRoomId, clientId, jobId } = useParams<{ chatRoomId: string; clientId: string; jobId: string }>();
   const [messages, setMessages] = useState<Message[]>([]);
   const [newMessage, setNewMessage] = useState<string>('');
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
   const [jobDetails, setJobDetails] = useState<JobDetails | null>(null);
   const [isJobModalOpen, setIsJobModalOpen] = useState<boolean>(false);
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
   const history = useHistory();
 
+  const database = getDatabase(firebaseApp);
+  const messagesRef = ref(database, `chatRooms/${chatRoomId}/messages`);
+
   const info = sessionStorage.getItem('Info');
   const parsedInfo = info ? JSON.parse(info) : {};
   const sspId = parsedInfo?.ssp_id;
 
-  const handleInput = (event: React.FormEvent) => {
-    const inputText = (event.target as HTMLTextAreaElement).value;
-    setNewMessage(inputText);
-  
-    if (textareaRef.current) {
-      const textarea = textareaRef.current;
-      textarea.style.height = 'auto'; // Reset height to recalculate
-      const lineCount = inputText.split('\n').length; // Count the number of lines
-      const lineHeight = 32; // Height of a single line in pixels
-      const maxVisibleLines = 10; // Maximum lines before scroll is needed
-  
-      textarea.style.height = `${Math.min(lineCount * lineHeight, maxVisibleLines * lineHeight)}px`;
-    }
-  };
-  
+  useEffect(() => {
+    // Listen for new messages in the chat room
+    const unsubscribe = onValue(messagesRef, (snapshot) => {
+      const data = snapshot.val();
+      const loadedMessages: Message[] = data ? Object.values(data) : [];
+      setMessages(loadedMessages);
+    });
 
+    return () => unsubscribe();
+  }, [messagesRef]);
 
   useEffect(() => {
-    // Scroll to the bottom when messages are updated
     scrollToBottom();
   }, [messages]);
 
@@ -67,121 +69,54 @@ const ChatPage: React.FC = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  useEffect(()=>{
-      const socket = io('ws://localhost:8080', {
-        transports: ['websocket'],  // Force WebSocket transport (no fallback)
-        withCredentials: true,       // Allow cookies or credentials if needed
-        reconnection: true,         // Enable reconnection attempts
-      });
-  
-      // Handle successful connection
-      socket.on('connect', () => {
-        console.log('Connected to WebSocket server');
-        socket.emit('joinChatRoom', { chatRoomId, sspId });
-      });
-  
-      // Handle incoming messages
-      socket.on('message', (message) => {
-        setMessages((prevMessages) => [...prevMessages, message]);
-        console.log(messages)
-      });
-  
-      // Handle error
-      socket.on('error', (error) => {
-        console.error('WebSocket Error:', error);
-      });
-  
-      console.log(`${chatRoomId} and ${sspId}`)
-      // Cleanup on unmount
-      return () => {
-        socket.disconnect();
-      };      
-  },[])
-  
-  const fetchMessages = async () => {
-    setLoading(true);
-    setError(null);
-
-    try {
-      const response = await axios.post(
-        'http://localhost/hq2sspapi/getMessage.php',
-        JSON.stringify({ chat_room_id: chatRoomId, ssp_id: sspId }),
-        { headers: { 'Content-Type': 'application/json' } }
-      );
-
-      if (response.data.status === 'success') {
-        setMessages(response.data.messages || []);
-      } else {
-        setError(response.data.message || 'Failed to load messages.');
-      }
-    } catch (err) {
-      setError('Failed to load messages. Please try again.');
-    }
-
-    setLoading(false);
-  };
-
-
- const openDetails = () => {
-  setIsJobModalOpen(true);
- }
-  
-
-    const fetchJobDetails = async () => {
-      if (!jobId) return;
-    try {
-      const response = await axios.post(
-        'http://localhost/hq2sspapi/getJobDetails.php',
-        { job_id: jobId },
-        { headers: { 'Content-Type': 'application/json' } }
-      );
-
-      if (response.data.status === 'success') {
-        setJobDetails(response.data.jobDetails);
-      } else {
-        setError(response.data.message || 'Failed to fetch job details.');
-      }
-    } catch (err) {
-      setError('An error occurred while fetching job details.');
-    }
-  };
-
-  
-
-  useEffect(()=>{
-  fetchJobDetails();
-  },[jobId]);
-
   const sendMessage = async () => {
-    if (!newMessage || !chatRoomId || !sspId || !clientId || !jobId) return;
+    if (!newMessage || !chatRoomId || !sspId || !clientId) return;
+
+    const message: Message = {
+      sender_id: sspId,
+      receiver_id: clientId,
+      message: newMessage,
+      timestamp: new Date().toISOString(),
+    };
 
     try {
-      const response = await axios.post('http://localhost/hq2sspapi/sendMessage.php', {
-        sender_id: sspId,
-        receiver_id: clientId,
-        message: newMessage,
-        job_id: jobId,
-        chat_room_id: chatRoomId,
-      });
-
-      if (response.data.status === 'success') {
-        setMessages((prevMessages) => [
-          ...prevMessages,
-          {
-            sender_id: sspId,
-            receiver_id: clientId,
-            message: newMessage,
-            timestamp: new Date().toISOString(),
-          },
-        ]);
-        setNewMessage('');
-      } else {
-        setError(response.data.message || 'Failed to send the message.');
-      }
-    } catch (err) {
-      setError('An error occurred while sending the message.');
+      const newMessageRef = push(messagesRef);
+      await set(newMessageRef, message);
+      setNewMessage('');
+    } catch (error) {
+      console.error('Error sending message:', error);
     }
   };
+
+  const fetchJobDetails = async () => {
+    if (!jobId) return;
+
+    try {
+      const jobDetailsRef = ref(database, `jobs/${jobId}`);
+      onValue(jobDetailsRef, (snapshot) => {
+        const data = snapshot.val();
+        setJobDetails(data || null);
+      });
+    } catch (error) {
+      console.error('Error fetching job details:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchJobDetails();
+  }, [jobId]);
+
+  const handleInput = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const inputText = event.target.value;
+    setNewMessage(inputText);
+
+    if (textareaRef.current) {
+      textareaRef.current.style.height = 'auto';
+      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+    }
+  };
+
+  const openDetails = () => setIsJobModalOpen(true);
 
   return (
     <IonPage>
@@ -320,8 +255,7 @@ const ChatPage: React.FC = () => {
         </IonModal>
       </IonContent>
     </IonPage>
-  
-);
+    );
 };
 
 export default ChatPage;

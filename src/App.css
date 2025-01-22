@@ -53,3 +53,7 @@
   position: relative;
   z-index: 1000; /* Make sure the elements are visible on top */
 }
+
+.page{
+  font-family: "Quicksand";
+}

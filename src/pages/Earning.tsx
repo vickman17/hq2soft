@@ -17,7 +17,7 @@ const Earning: React.FC = () => {
 
   // Custom function to format the balance with commas
   const formatBalance = (balance: number) => {
-    return balance.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    //return balance.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
 
   useEffect(() => {
@@ -41,6 +41,7 @@ const Earning: React.FC = () => {
           const data = await response.json();
           if (data.success) {
             setTransactions(data.transactions);
+            console.log()
             console.log(transactions)
           } else {
             setTransactions([]);
@@ -80,7 +81,7 @@ const Earning: React.FC = () => {
               Withdraw
             </div>
 
-            <div className={style.add}>
+            <div onClick={()=>history.push('/assets')} className={style.add}>
               Assets
             </div>
           </div>
@@ -97,9 +98,9 @@ const Earning: React.FC = () => {
                         {trans.transaction_type}
                       </div>
                       <div className={style.amount}>
-                        {trans.transaction_type.toLowerCase() === "withdrawal" 
+                        {/* {trans.transaction_type.toLowerCase() === "withdrawal" 
                           ? `- ₦${parseInt(trans.amount).toLocaleString()}` 
-                          : `+ ₦${parseInt(trans.amount).toLocaleString()}`}
+                          : `+ ₦${parseInt(trans.amount).toLocaleString()}`} */}
                       </div>
                     </div>
                     <div className={style.below}>

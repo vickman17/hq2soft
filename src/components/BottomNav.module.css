@@ -13,11 +13,11 @@
   
   .navbar{
     position: fixed;
-    bottom: 20px;
-    border-radius: 2rem;
-    left: 5%;
-    width: 90%;
+    bottom: 0;
+    border-radius: 10px;
+    width: 100%;
     z-index: 1000;
     background: white;
+    box-shadow: none;
     padding: 0;
   }
