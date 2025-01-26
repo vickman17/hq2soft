@@ -6,7 +6,7 @@ import { chevronForwardOutline, locationOutline, lockClosedOutline, languageOutl
 import logo from "/assets/icon.png";
 import {version} from "../../package.json";
 import note from "/assets/svg/note.svg";
-import board from "../../assets/svg/clipboard.svg";
+import board from "/assets/svg/clipboard.svg";
 import { useHistory } from "react-router";
 
 const About: React.FC = () => {
