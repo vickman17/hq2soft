@@ -1,8 +1,8 @@
 // firebaseMessaging.ts
 import { getMessaging, getToken, onMessage } from "firebase/messaging";
-import {firebaseApp} from "./firebaseConfig";
+import {app} from "./firebaseConfig";
 
-const messaging = getMessaging(firebaseApp);
+const messaging = getMessaging(app);
 
 // Request permission to send notifications
 export const requestPermission = async () => {

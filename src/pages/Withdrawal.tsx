@@ -42,7 +42,7 @@ const Withdrawal: React.FC = () => {
     if (ssp_id) {
       const fetchAccountDetails = async () => {
         try {
-          const response = await axios.get(`http://localhost/hq2sspapi/fetchBankDetails.php?ssp_id=${ssp_id}`);
+          const response = await axios.get(`https://hq2soft.com/hq2sspapi/fetchBankDetails.php?ssp_id=${ssp_id}`);
           if (response.data.success) {
             setAccountDetails(response.data.data);
           }
@@ -65,7 +65,7 @@ const Withdrawal: React.FC = () => {
   useEffect(() => {
     const fetchBalance = async () => {
       try {
-        const response = await fetch(`http://localhost/hq2sspapi/fetchBal.php?ssp_id=${ssp_id}`);
+        const response = await fetch(`https://hq2soft.com/hq2sspapi/fetchBal.php?ssp_id=${ssp_id}`);
         const data = await response.json();
         setBal(response.ok ? data.balance : 0);
       } catch {
@@ -82,7 +82,7 @@ const Withdrawal: React.FC = () => {
 
     try {
       // Validate PIN
-      const pinValidationResponse = await axios.post('http://localhost/hq2sspapi/validatePin.php', {
+      const pinValidationResponse = await axios.post('https://hq2soft.com/hq2sspapi/validatePin.php', {
         ssp_id: ssp_id,
         pin: pin,
       });
@@ -96,7 +96,7 @@ const Withdrawal: React.FC = () => {
       }
 
       // Proceed with withdrawal
-      const response = await axios.post('http://localhost/hq2sspapi/withdrawal.php', {
+      const response = await axios.post('https://hq2soft.com/hq2sspapi/withdrawal.php', {
         amount: amount,
         ssp_id: ssp_id,
       });

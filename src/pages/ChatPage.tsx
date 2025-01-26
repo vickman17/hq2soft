@@ -18,7 +18,7 @@ import { collection, query, orderBy, onSnapshot, addDoc, Timestamp } from 'fireb
 
 interface Message {
   userId: string;
-  receiver_id: string;
+  senderId: string;
   message: string;
   timestamp: string;
 }
@@ -73,7 +73,7 @@ const ChatPage: React.FC = () => {
 
   const fetchJobDetails = async () => {
     try {
-      const response = await fetch("http://localhost/hq2sspapi/getJobDetails.php", {
+      const response = await fetch("https://hq2soft.com/hq2sspapi/getJobDetails.php", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ jobId }),

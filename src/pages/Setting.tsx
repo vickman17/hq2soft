@@ -3,12 +3,12 @@ import React from "react";
 import style from "./styles/Setting.module.css";
 import Profile from "../components/Profile";
 import SmallProfile from "../components/SmallProfile";
-import { chevronForwardOutline, locationOutline, lockClosedOutline, exclamationCirle, languageOutline, moon, moonOutline, notificationsCircleOutline, eyeOffOutline } from "ionicons/icons";
+import { chevronForwardOutline, locationOutline, lockClosedOutline, languageOutline, moon, moonOutline, notificationsCircleOutline, eyeOffOutline } from "ionicons/icons";
 import BottomNav from "../components/BottomNav";
 import {useHistory} from "react-router-dom";
 import Back from "../components/Back";
 import Header from "../components/Header";
-import {version} from "/package.json";
+import {version} from "../../package.json";
 import exclamation from "/assets/svg/exclamation.svg";
 import customer from "/assets/svg/headset.svg";
 import key from "/assets/svg/key.svg";
@@ -58,7 +58,7 @@ const Setting: React.FC = () => {
                     </div>
                     <div className={style.sets}>
                         <div className={style.contSets}>
-                            <div lines="none" className={style.demo}>
+                            <div className={style.demo}>
                                 <div className={style.demoIn}>
                                     <div className={style.icon}>
                                         <img src={key} />
@@ -71,7 +71,7 @@ const Setting: React.FC = () => {
                                     <IonIcon icon={chevronForwardOutline} />
                                 </div>
                             </div>
-                            <div lines="none" className={style.demo}>
+                            <div className={style.demo}>
                                 <div className={style.demoIn}>
                                     <div className={style.icon}>
                                         <IonIcon icon={lockClosedOutline} />
@@ -84,7 +84,7 @@ const Setting: React.FC = () => {
                                     <IonIcon icon={chevronForwardOutline} />
                                 </div>
                             </div>
-                            <div lines="none" className={style.demo}>
+                            <div className={style.demo}>
                                 <div className={style.demoIn}>
                                     <div className={style.icon}>
                                         <img src={customer} />
@@ -100,7 +100,7 @@ const Setting: React.FC = () => {
                         </div>
                     </div>
                     <div className={style.setBelow}>
-                        <div onClick={()=>history.push("/about")} lines="none" className={style.demo}>
+                        <div onClick={()=>history.push("/about")} className={style.demo}>
                             <div className={style.demoIn}>
                                 <div className={style.icon}>
                                     <img src={exclamation} />
@@ -119,7 +119,7 @@ const Setting: React.FC = () => {
                     </div>
                 </div>
                 <div style={{marginTop: "4rem"}} className={style.setBelow}>
-                        <div lines="none" className={style.demo}>
+                        <div className={style.demo}>
                         <div className={style.signOut} onClick={signOut}>{userId ? "Sign Out" : "Login"}</div>
                         </div>
                     </div>

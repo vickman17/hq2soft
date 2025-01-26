@@ -25,7 +25,7 @@ const Earning: React.FC = () => {
   useEffect(() => {
     const fetchBalance = async () => {
       try {
-        const response = await fetch(`http://localhost/hq2sspapi/fetchBal.php?ssp_id=${ssp_id}`);
+        const response = await fetch(`https://hq2soft.com/hq2sspapi/fetchBal.php?ssp_id=${ssp_id}`);
         const data = await response.json();
         setBal(response.ok ? data.balance : 0);
       } catch {
@@ -39,7 +39,7 @@ const Earning: React.FC = () => {
     useEffect(() => {
       const fetchTransactions = async () => {
         try {
-          const response = await fetch(`http://localhost/hq2sspapi/fetchTransactions.php?ssp_id=${ssp_id}`);
+          const response = await fetch(`https://hq2soft.com/hq2sspapi/fetchTransactions.php?ssp_id=${ssp_id}`);
           const data = await response.json();
           if (data.success) {
             setTransactions(data.transactions);

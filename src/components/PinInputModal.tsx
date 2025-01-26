@@ -50,7 +50,7 @@ const PinInputModal: React.FC<PinInputModalProps> = ({ isOpen, onClose, onSubmit
       
       try {
         // Send PIN and ssp_id to the backend for validation
-        const response = await fetch('http://localhost/hq2sspapi/validatePin.php', {
+        const response = await fetch('https://hq2soft.com/hq2sspapi/validatePin.php', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

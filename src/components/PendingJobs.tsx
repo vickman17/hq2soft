@@ -40,7 +40,7 @@ const PendingJobs: React.FC = () => {
       setError(null);
 
       try {
-        const response = await axios.post('http://localhost/hq2sspapi/fetchAcceptedJob.php', {
+        const response = await axios.post('https://hq2soft.com/hq2sspapi/fetchAcceptedJob.php', {
           ssp_id: providerId,
         }, {
           headers: {
@@ -79,7 +79,7 @@ const PendingJobs: React.FC = () => {
   
 
     try {
-      const response = await axios.post('http://localhost/hq2sspapi/joinChatRoom.php', {
+      const response = await axios.post('https://hq2soft.com/hq2sspapi/joinChatRoom.php', {
         ssp_id: sspId,
         chat_room_id: chatRoomId,
       });
