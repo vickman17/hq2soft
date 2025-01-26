@@ -5,7 +5,7 @@ import style from "./styles/About.module.css";
 import { chevronForwardOutline, locationOutline, lockClosedOutline, languageOutline, moon, moonOutline, notificationsCircleOutline, eyeOffOutline } from "ionicons/icons";
 import logo from "/assets/icon.png";
 import {version} from "../../package.json";
-import note from "../../assets/svg/note.svg";
+import note from "/assets/svg/note.svg";
 import board from "../../assets/svg/clipboard.svg";
 import { useHistory } from "react-router";
 
