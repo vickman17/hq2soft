@@ -116,17 +116,29 @@ const PendingJobs: React.FC = () => {
               <div className={style.item}>
                 <div className={style.top}>
                   <div className={style.skill}>{job.skill}</div>
-                  <div className={style.tag}><IonBadge>{job.job_request_status}</IonBadge></div>
+                  <div className={style.tag}><IonBadge style={{background: job.job_request_status === "awaiting_approval" ? "var(--ion-company-gold)" : "var(--ion-company-wood)"}}>{job.job_request_status}</IonBadge></div>
                 </div>
                 <div className={style.time}><p>{job.job_assignment_created_at}</p></div>
                 <div className={style.butCont}>
-                  <button 
-                    style={{background: "var(--ion-company-secondary)"}}
+                 
+                 <div>
+                   <button 
+                  
                     className={style.button}
                     onClick={() => contactClient(job.chat_room_id, job.client_id, job.job_request_id)}// Pass the specific chat room ID
                   >
-                    Contact Client
+                    Details
                   </button>
+                  </div>
+                  <div>
+                  <button 
+                  
+                  className={style.button}
+                  onClick={() => contactClient(job.chat_room_id, job.client_id, job.job_request_id)}// Pass the specific chat room ID
+                >
+                  Contact Job
+                </button>
+                  </div>
                 </div>
 
                 {expandedJobId === job.job_assignment_id && (

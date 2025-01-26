@@ -15,8 +15,10 @@
     --ion-modal: white;
     --ion-chat-box: hsl(0, 0%, 83%);
     --ion-send: blue;
-    --ion-company-primary: #fdb200;
-    --ion-company-secondary: #2f7d32;
+    --ion-company-gold: #DAA520;
+    --ion-company-wood: #4f7942;
+    --ion-company-silver: #b0c4de;
+    --ion-company-blue: #2b547e;
 }
 
 .dark{

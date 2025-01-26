@@ -6,7 +6,9 @@
     font-size: 1.6rem;
 }
 
-
+.all{
+    margin-top: 2rem;
+}
 
 .profile{
     display: flex;
@@ -82,7 +84,7 @@
     --background: transparent;
     margin: auto;
     width: 95%;
-    padding-block: 13px;
+    padding-block: 9px;
 }
 
 .demoIn{
@@ -104,9 +106,13 @@
 
 
 .icon{
-    font-size: 1.rem;
+    border: 0px solid;
+    width: 30px;
+    height: 30px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
 }
-
 
 .cont{
     border: 0px solid black;

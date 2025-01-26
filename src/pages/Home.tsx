@@ -326,34 +326,11 @@ setIsLoading(false);// Re-enable the button after submission
                 <div className={style.forgot}>
                   Forgot Password?
                 </div>
-                <hr/>
+                
                 <div className={style.loginCont}>
                   <button className={style.login} type="submit" disabled={isLoading}>
                     {isLoading ? "Logging in..." : "Login"}
                   </button>
-                </div>
-                <div className={style.cap}>or continue with</div>
-                <div className={style.butCont}>
-                  <div className={style.button}>
-                    <button className={style.google} type="button">
-                      <div className={style.svg}>
-                        <img src={facebook} width={30} height={30}/>
-                      </div>
-                      <div>
-                        facebook
-                      </div>
-                    </button>
-                  </div>
-                  <div className={style.button}>
-                  <button className={style.google} type="button">
-                      <div className={style.svg}>
-                        <img src={google} width={30} height={30}/>
-                      </div>
-                      <div>
-                      Google
-                      </div>
-                    </button>
-                  </div>
                 </div>
                 <div className={style.not}>
                   Not a member?
@@ -460,29 +437,7 @@ setIsLoading(false);// Re-enable the button after submission
                     {isLoading ? "Signing in..." : "Sign Up"}
                   </button>
                 </div>
-                <div className={style.cap}>or continue with</div>
-                <div className={style.butCont}>
-                  <div className={style.button}>
-                    <button className={style.google} type="button">
-                      <div className={style.svg}>
-                        <img src={facebook} width={30} height={30}/>
-                      </div>
-                      <div>
-                        facebook
-                      </div>
-                    </button>
-                  </div>
-                  <div className={style.button}>
-                  <button className={style.google} type="button">
-                      <div className={style.svg}>
-                        <img src={google} width={30} height={30}/>
-                      </div>
-                      <div>
-                      Google
-                      </div>
-                    </button>
-                  </div>
-                </div>
+                
                 <div className={style.not}>
                   Already an artisan? 
                   <span
@@ -491,6 +446,9 @@ setIsLoading(false);// Re-enable the button after submission
                   >
                     Login
                   </span>
+                </div>
+                <div className={style.term}>
+                  By signing up you agree to our <span onClick={()=>history.push("/terms")} className={style.linkSpan}>Terms of Services</span> and <span className={style.linkSpan} onClick={()=>{history.push('/dataprivacy')}}>Data Privacy</span>
                 </div>
               </form>
             )}

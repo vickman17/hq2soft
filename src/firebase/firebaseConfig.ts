@@ -1,9 +1,8 @@
-// src/firebase-config.ts
-import { initializeApp } from "firebase/app";
-import { getMessaging, Messaging } from "firebase/messaging";
-import { getDatabase } from 'firebase/database';
+// src/firebaseConfig.ts
+import { initializeApp } from 'firebase/app';
+import { getFirestore } from 'firebase/firestore';
+import { getMessaging, getToken } from 'firebase/messaging';
 
-// Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyBWtlmXELswMiorT5_guBd-qDEQZezfmMA",
   authDomain: "hq2-soft.firebaseapp.com",
@@ -13,10 +12,8 @@ const firebaseConfig = {
   appId: "1:1017953702184:web:c7326c54d22b432db6801d",
 };
 
-// Initialize Firebase app
-const firebaseApp = initializeApp(firebaseConfig);
-const database = getDatabase(firebaseApp);
-// Initialize Firebase Messaging
-const messaging: Messaging = getMessaging(firebaseApp);
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const messaging = getMessaging(app);
 
-export { firebaseApp, messaging, database };
+export { db, messaging, app, getToken };

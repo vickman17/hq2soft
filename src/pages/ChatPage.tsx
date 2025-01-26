@@ -11,13 +11,13 @@ import {
   IonTextarea,
 } from '@ionic/react';
 import { useParams, useHistory } from 'react-router-dom';
-import { sendSharp, cameraSharp, arrowBack, informationSharp } from 'ionicons/icons';
+import { sendSharp, cameraSharp, arrowBack, informationSharp, chevronBackOutline } from 'ionicons/icons';
 import style from './styles/ChatPage.module.css';
-import { getDatabase, ref, onValue, push, set } from 'firebase/database';
-import {database, firebaseApp} from '../firebase/firebaseConfig'; // Your Firebase configuration file
+import { db } from '../firebase/firebaseConfig';
+import { collection, query, orderBy, onSnapshot, addDoc, Timestamp } from 'firebase/firestore';
 
 interface Message {
-  sender_id: string;
+  userId: string;
   receiver_id: string;
   message: string;
   timestamp: string;
@@ -34,7 +34,7 @@ interface JobDetails {
 }
 
 const ChatPage: React.FC = () => {
-  const { chatRoomId, clientId, jobId } = useParams<{ chatRoomId: string; clientId: string; jobId: string }>();
+  const { chatRoomId, jobId } = useParams<{ chatRoomId: string; jobId: string }>();
   const [messages, setMessages] = useState<Message[]>([]);
   const [newMessage, setNewMessage] = useState<string>('');
   const [jobDetails, setJobDetails] = useState<JobDetails | null>(null);
@@ -42,69 +42,74 @@ const ChatPage: React.FC = () => {
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
   const history = useHistory();
+  const storedInfo = sessionStorage.getItem("Info");
+  const info = storedInfo ? JSON.parse(storedInfo) : {};
+  const sspId = info?.ssp_id;
+  const [status, setStatus] = useState(false);
 
-  const database = getDatabase(firebaseApp);
-  const messagesRef = ref(database, `chatRooms/${chatRoomId}/messages`);
+  const formatTime = (timestamp: any) => {
+    if (!timestamp) return '';
+    const date = timestamp.toDate();
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
 
-  const info = sessionStorage.getItem('Info');
-  const parsedInfo = info ? JSON.parse(info) : {};
-  const sspId = parsedInfo?.ssp_id;
+    const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
+    const formattedHours = hours < 10 ? `0${hours}` : hours;
 
-  useEffect(() => {
-    // Listen for new messages in the chat room
-    const unsubscribe = onValue(messagesRef, (snapshot) => {
-      const data = snapshot.val();
-      const loadedMessages: Message[] = data ? Object.values(data) : [];
-      setMessages(loadedMessages);
-    });
-
-    return () => unsubscribe();
-  }, [messagesRef]);
-
-  useEffect(() => {
-    scrollToBottom();
-  }, [messages]);
-
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    return `${formattedHours}:${formattedMinutes}`;
   };
 
-  const sendMessage = async () => {
-    if (!newMessage || !chatRoomId || !sspId || !clientId) return;
-
-    const message: Message = {
-      sender_id: sspId,
-      receiver_id: clientId,
-      message: newMessage,
-      timestamp: new Date().toISOString(),
-    };
-
-    try {
-      const newMessageRef = push(messagesRef);
-      await set(newMessageRef, message);
-      setNewMessage('');
-    } catch (error) {
-      console.error('Error sending message:', error);
+  useEffect(() => {
+    if (chatRoomId) {
+      const messagesRef = collection(db, 'chatRooms', chatRoomId, 'messages');
+      const q = query(messagesRef, orderBy('timestamp', 'asc'));
+      const unsubscribe = onSnapshot(q, (snapshot) => {
+        const newMessages = snapshot.docs.map((doc) => doc.data() as Message);
+        setMessages(newMessages);
+      });
+      return () => unsubscribe();
     }
-  };
+  }, [chatRoomId]);
 
   const fetchJobDetails = async () => {
-    if (!jobId) return;
-
     try {
-      const jobDetailsRef = ref(database, `jobs/${jobId}`);
-      onValue(jobDetailsRef, (snapshot) => {
-        const data = snapshot.val();
-        setJobDetails(data || null);
+      const response = await fetch("http://localhost/hq2sspapi/getJobDetails.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ jobId }),
       });
+      const data = await response.json();
+      setJobDetails(data.jobDetails);
     } catch (error) {
-      console.error('Error fetching job details:', error);
+      console.error("Error fetching job details:", error);
     }
-  };
+  }
 
   useEffect(() => {
     fetchJobDetails();
+    setStatus(false);
   }, [jobId]);
+
+  const sendMessage = async () => {
+    if (newMessage.trim() && chatRoomId) {
+      try {
+        const messagesRef = collection(db, 'chatRooms', chatRoomId, 'messages');
+        await addDoc(messagesRef, {
+          message: newMessage,
+          senderId: sspId, // Replace with the actual sender's info
+          timestamp: Timestamp.now(), // Firestore's timestamp
+        });
+        setNewMessage('');
+      } catch (error) {
+        console.error("Error sending message:", error);
+      }
+    }
+  };
+
+  useEffect(() => {
+    // Scroll to the bottom when the component mounts or when messages are updated
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]); // Runs when `messages` state changes
 
   const handleInput = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     const inputText = event.target.value;
@@ -116,96 +121,100 @@ const ChatPage: React.FC = () => {
     }
   };
 
-  const openDetails = () => setIsJobModalOpen(true);
+  const openDetails = () => {
+    setIsJobModalOpen(true);
+  };
 
   return (
     <IonPage>
-      <IonHeader className={style.head}>
-        <div onClick={()=>history.push('/inbox')} className={style.back}>
-          <IonIcon icon={arrowBack} />
-        </div>
-
-        <div className={style.chatName}>
-          {jobDetails?.skill} - {jobDetails?.client_firstName}
-        </div>
-
-        <div onClick={openDetails} className={style.back}>
-          <IonIcon icon={informationSharp} />
+      <IonHeader style={{border: "0px solid", boxShadow: "none"}}>
+        <div className={style.head}>
+          <div onClick={() => history.push('/inbox')} className={style.back}>
+            <IonIcon icon={chevronBackOutline} />
+          </div>
+          <div className={style.chatName}>
+            {jobDetails?.skill} {/*jobDetails?.client_firstName */}
+          </div>
+          <div onClick={openDetails} className={style.back}>
+            <IonIcon icon={informationSharp} />
+          </div>
         </div>
       </IonHeader>
-      <IonContent className={style.content} style={{  "--overflow": "hidden", position: "relative", marginTop:"14rem" }}>
+      <IonContent className={style.content} style={{ '--overflow': 'hidden', position: 'relative', marginTop: '14rem' }}>
         <div className={style.chatField}>
-        <IonList lines="none">
-          {messages.map((message, index) => (
-            <IonItem key={index}>
-              <div style={{border:"0px solid", width:"100%", marginTop:"12px"}}>
-              <div
-                style={{
-                  padding: "0",
-                  paddingBlock: "15px",
-                  paddingInline: "10px",
-                  fontSize: "16px",
-                  textAlign: "left",
-                  width: "fit-content",
-                  color: "white",
-                  maxWidth: "80%",
-                  wordBreak: "break-word",
-                  whiteSpace: 'pre-wrap',
-                  background: message.sender_id === sspId ? "linear-gradient(320deg, var(--ion-company-secondary), var(--ion-company-primary))" : "var(--ion-company-secondary)",
-                  borderTopLeftRadius: message.sender_id === sspId ? "1rem" : "1rem",
-                  borderTopRightRadius: message.sender_id === sspId ? "1rem" : "1rem",
-                  borderBottomLeftRadius: message.sender_id === sspId ? "1rem" : "0",
-                  borderBottomRightRadius: message.sender_id === sspId ? "0" : "1rem",
-                  margin: message.sender_id === sspId ? "7px 0 0 auto" : "7px auto 0 0",
-                }}
-              >
-                {message.message}
-              </div>
-              <p style={{
-                  fontSize: "11.5px",
-                  width: "fit-content",
-                  margin: message.sender_id === sspId ? "3px 0 0 auto" : "3px 0 auto 0",
-                  border: "0px solid",
-                  color: "grey"
-                }}>
-                  {new Date(message.timestamp).toLocaleTimeString(
-                    [],{
-                      hour: '2-digit', minute: '2-digit', second: '2-digit'
-                    }
-                  )}
-                </p>
+          <IonList lines="none">
+            {messages.map((message, index) => (
+              <IonItem key={index}>
+                <div style={{ border: '0px solid', width: '100%', marginTop: '12px' }}>
+                  <div
+                    style={{
+                      padding: '0',
+                      paddingBlock: '15px',
+                      paddingInline: '10px',
+                      fontSize: '16px',
+                      textAlign: 'left',
+                      width: 'fit-content',
+                      fontFamily: 'Rubik',
+                      color: 'white',
+                      maxWidth: '80%',
+                      wordBreak: 'break-word',
+                      whiteSpace: 'pre-wrap',
+                      background:
+                        message.senderId === sspId
+                          ? 'linear-gradient(320deg, var(--ion-company-wood), var(--ion-company-gold))'
+                          : 'var(--ion-company-wood)',
+                      borderTopLeftRadius: message.senderId === sspId ? '1rem' : '1rem',
+                      borderTopRightRadius: message.senderId === sspId ? '1rem' : '1rem',
+                      borderBottomLeftRadius: message.senderId === sspId ? '1rem' : '0',
+                      borderBottomRightRadius: message.senderId === sspId ? '0' : '1rem',
+                      margin: message.senderId === sspId ? '7px 0 0 auto' : '7px auto 0 0',
+                    }}
+                  >
+                    {message.message}
+                  </div>
+                  <p
+                    style={{
+                      fontSize: '11.5px',
+                      width: 'fit-content',
+                      margin: message.senderId === sspId ? '3px 0 0 auto' : '3px 0 auto 0',
+                      border: '0px solid',
+                      color: 'grey',
+                    }}
+                  >
+                    {formatTime(message.timestamp)}
+                  </p>
                 </div>
-            </IonItem>
-          ))}
-          <div ref={messagesEndRef}></div>
-        </IonList>
+                <div ref={messagesEndRef}></div>
+              </IonItem>
+            ))}
+          </IonList>
         </div>
-      <div className={style.bottomContent}>
-        <div className={style.chatBox}>
-        <textarea
-          ref={textareaRef}
-          value={newMessage}
-          onInput={handleInput}
-          className={style.textArea}
-          style={{
-            width: '100%',
-            overflow: 'hidden', // Prevents scrollbar until maxHeight is reached
-            resize: 'none', // Disables manual resizing
-            boxSizing: 'border-box',
-            outline: 'none',
-            height: newMessage.includes('\n') ? `${Math.min(textareaRef.current?.scrollHeight || 20, 200)}px` : '20px', // Dynamic height based on newline
-            minHeight: '32px', // Fixed initial single-line height
-            maxHeight: '200px', // Maximum height before scrollbar
-            border: '1px solid #ccc',
-            padding: '5px',
-            fontSize: '16px',
-            lineHeight: '1.5',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        ></textarea>
-     </div>
-     <div className={style.sendButton}>
+        <div className={style.bottomContent}>
+          <div className={style.chatBox}>
+            <textarea
+              ref={textareaRef}
+              value={newMessage}
+              onInput={handleInput}
+              className={style.textArea}
+              style={{
+                width: '100%',
+                overflow: 'hidden',
+                resize: 'none',
+                boxSizing: 'border-box',
+                outline: 'none',
+                height: newMessage.includes('\n') ? `${Math.min(textareaRef.current?.scrollHeight || 20, 200)}px` : '20px',
+                minHeight: '32px',
+                maxHeight: '200px',
+                border: '1px solid #ccc',
+                padding: '5px',
+                fontSize: '16px',
+                lineHeight: '1.5',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            ></textarea>
+          </div>
+          <div className={style.sendButton}>
             {newMessage.trim().length > 0 ? (
               <div className={style.iconCont}>
                 <IonIcon className={style.icon} onClick={sendMessage} icon={sendSharp} />
@@ -217,45 +226,47 @@ const ChatPage: React.FC = () => {
             )}
           </div>
         </div>
-	      <IonModal isOpen={isJobModalOpen} className={style.modal} onDidDismiss={() => setIsJobModalOpen(false)}>
-              {jobDetails ? (
-                <div>
-                  <div className={style.modalHead}>JOB DETAILS</div>
-                  <div className={style.skill}>{jobDetails?.skill}</div>
-                  <div className={style.set}>
-                    <fieldset className={style.field}>
-                      <legend className={style.add}>Address</legend>
-                      <div className={style.row}>
-                        <div className={style.colHead}>State</div>
-                        <div className={style.colBody}>{jobDetails?.state}</div>
-                      </div>
-                      <div className={style.row}>
-                        <div className={style.colHead}>LGA</div>
-                        <div className={style.colBody}>{jobDetails?.local_government}</div>
-                      </div>
-                      <div className={style.row}>
-                        <div className={style.colHead}>House / Street Address</div>
-                        <div className={style.colBody}>{jobDetails?.address}</div>
-                      </div>
-                    </fieldset>
+        <IonModal isOpen={isJobModalOpen} className={style.modal} onDidDismiss={() => setIsJobModalOpen(false)}>
+          {jobDetails ? (
+            <div>
+              <div className={style.modalHead}>JOB DETAILS</div>
+              <div className={style.skill}>{jobDetails?.skill}</div>
+              <div className={style.set}>
+                <fieldset className={style.field}>
+                  <legend className={style.add}>Address</legend>
+                  <div className={style.row}>
+                    <div className={style.colHead}>State</div>
+                    <div className={style.colBody}>{jobDetails?.state}</div>
                   </div>
-                  <div className={style.set}>
-                    <fieldset className={style.field}>
-                      <legend className={style.add}>Additional Details</legend>
-                     <div>{jobDetails?.additional_details}</div>
-                    </fieldset>
+                  <div className={style.row}>
+                    <div className={style.colHead}>Local Government</div>
+                    <div className={style.colBody}>{jobDetails?.local_government}</div>
                   </div>
-                </div>
-              ) : (
-                <p>Loading job details...</p>
-              )}
-              <IonButton className={style.closeModal} onClick={() => setIsJobModalOpen(false)} expand="block">
-                Close
-              </IonButton>
+                  <div className={style.row}>
+                    <div className={style.colHead}>Address</div>
+                    <div className={style.colBody}>{jobDetails?.address}</div>
+                  </div>
+                </fieldset>
+              </div>
+              <div className={style.set}>
+                <fieldset className={style.field}>
+                  <legend className={style.add}>Additional Details</legend>
+                  <div className={style.row}>
+                    <div className={style.colBody}>{jobDetails?.additional_details}</div>
+                  </div>
+                </fieldset>
+              </div>
+            </div>
+          ) : (
+            <div>Loading...</div>
+          )}
+          <button onClick={()=>setIsJobModalOpen(false)} style={{margin: "auto", paddingBlock: ".6rem", marginBottom: "5px", width: "90%", fontSize:"17px", borderRadius: "7px", background: "var(--ion-company-wood)", color: "white"}}>
+            Close
+          </button>
         </IonModal>
       </IonContent>
     </IonPage>
-    );
+  );
 };
 
 export default ChatPage;

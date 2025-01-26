@@ -4,7 +4,7 @@
     border: 0px solid black;
     width: 90%;
     margin: auto;
-    color: var(--ion-company-secondary);
+    color: var(--ion-company-wood);
     margin-top: 2.5rem;
     font-family: "Quicksand";
 }
@@ -18,7 +18,7 @@
     width: 90%;
     margin: auto;
     margin-top: 2rem;
-    color: var(--ion-company-secondary);
+    color: var(--ion-company-wood);
     height: 50px;
     display: flex;
     align-items: center;
@@ -53,7 +53,7 @@
     border-radius: 1rem;
     padding-block: .7rem;
     color: white;
-    background: var(--ion-company-secondary);
+    background: var(--ion-company-wood);
 }
 
 .bal{
@@ -63,7 +63,7 @@
     font-family: "Quicksand";
     margin: auto;
     margin-top: 1rem;
-    color: var(--ion-company-secondary);
+    color: var(--ion-company-wood);
 }
 
 .modalContent{
@@ -142,7 +142,7 @@
     font-size: 18px;
     padding-block: .7rem;
     color: white;
-    background: var(--ion-company-secondary);
+    background: var(--ion-company-wood);
     border-radius: 1rem;
 }
 
@@ -163,12 +163,12 @@
     text-align: center;
     margin-top: 2rem;
     font-size: 18px;
-    color: var(--ion-company-secondary);
+    color: var(--ion-company-wood);
 }
 
 .loadModal{
     font-family: "Quicksand";
-    color: var(--ion-company-secondary);
+    color: var(--ion-company-wood);
 }
 
 .action{
@@ -193,6 +193,6 @@
     font-size: 18px;
     border-radius: 1.3rem;
     background: transparent;
-    color: var(--ion-company-secondary);
-    border: 1px solid var(--ion-company-secondary);
+    color: var(--ion-company-wood);
+    border: 1px solid var(--ion-company-wood);
 }

@@ -2,7 +2,7 @@
     border-bottom-left-radius: 1rem;
     padding-bottom: 5rem;
     border: 0px solid black;
-    background: linear-gradient(145deg, var(--ion-company-primary), var(--ion-company-secondary));
+    background: linear-gradient(145deg, var(--ion-company-gold), var(--ion-company-wood));
 }
 
 .acct{
@@ -71,7 +71,7 @@
     color: white;
     font-size: 16px;
     text-align: center;
-    background-color: var(--ion-company-secondary);
+    background-color: var(--ion-company-wood);
 }
 
 
@@ -108,7 +108,7 @@
     border: 0px solid ;
     width: 90%;
     margin: auto;
-    margin-top: 2rem;
+    margin-top: 1rem;
     height: 60vh;
     overflow-y: scroll; /* Enable vertical scrolling */
     scrollbar-width: none; /* For Firefox */
@@ -146,7 +146,7 @@
 }
 
 .amount{
-    color: var(--ion-company-secondary);
+    color: var(--ion-company-wood);
     font-size: 19px;
     font-weight: 800;
 }

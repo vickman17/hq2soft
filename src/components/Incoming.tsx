@@ -122,7 +122,7 @@ const Incoming: React.FC = () => {
                 <div className={style.butCont}>
                   <div className={style.but}>
                     <button 
-                      style={{background: "var(--ion-company-secondary)"}}
+                      style={{background: "var(--ion-company-wood)"}}
                       onClick={() => toggleExpand(job.job_assignment_id)} 
                       className={style.button}
                     >

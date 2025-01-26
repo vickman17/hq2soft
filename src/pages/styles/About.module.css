@@ -1,7 +1,7 @@
 .logo{
     border: 0px solid black;
     text-align: center;
-    color: var(--ion-company-secondary);
+    color: var(--ion-company-wood);
 }
 
 .image{
@@ -60,5 +60,10 @@
 
 
 .icon{
-    font-size: 1.rem;
+    border: 0px solid;
+    width: 20px;
+    height: 25px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
 }

@@ -2,11 +2,16 @@ import React from "react";
 import {IonPage, IonContent, IonIcon} from "@ionic/react";
 import Header from "../components/Header";
 import style from "./styles/About.module.css";
-import { chevronForwardOutline, locationOutline, lockClosedOutline, exclamationCirle, languageOutline, moon, moonOutline, notificationsCircleOutline, eyeOffOutline } from "ionicons/icons";
+import { chevronForwardOutline, locationOutline, lockClosedOutline, languageOutline, moon, moonOutline, notificationsCircleOutline, eyeOffOutline } from "ionicons/icons";
 import logo from "/assets/icon.png";
 import {version} from "/package.json";
+import note from "/assets/svg/note.svg";
+import board from "/assets/svg/clipboard.svg";
+import { useHistory } from "react-router";
 
 const About: React.FC = () => {
+    const history = useHistory();
+
 
     return(
         <IonPage className="page">
@@ -21,10 +26,10 @@ const About: React.FC = () => {
                 <div>
                     <div className={style.sets}>
                         <div className={style.contSets}>
-                            <div lines="none" className={style.demo}>
-                                <div className={style.demoIn}>
+                            <div  className={style.demo}>
+                                <div onClick={()=>history.push('/terms')} className={style.demoIn}>
                                     <div className={style.icon}>
-                                        <IonIcon icon={moonOutline} />
+                                        <img  src={note}/>
                                     </div>
                                     <div className={style.setName}>
                                         Service Agreement & Payment Terms
@@ -34,13 +39,13 @@ const About: React.FC = () => {
                                     <IonIcon icon={chevronForwardOutline} />
                                 </div>
                             </div>
-                            <div lines="none" className={style.demo}>
-                                <div className={style.demoIn}>
+                            <div  className={style.demo}>
+                                <div onClick={()=>history.push('/dataprivacy')} className={style.demoIn}>
                                     <div className={style.icon}>
-                                        <IonIcon icon={lockClosedOutline} />
+                                        <img src={board} />
                                     </div>
                                     <div className={style.setName}>
-                                        Payment Account
+                                        Data Privacy
                                     </div>
                                 </div>
                                 <div className={style.enter}>
@@ -51,7 +56,7 @@ const About: React.FC = () => {
                     </div>
                     <div className={style.sets}>
                         <div className={style.contSets}>
-                            <div lines="none" className={style.demo}>
+                            <div className={style.demo}>
                                 <div className={style.demoIn}>
                                     <div className={style.icon}>
                                         <IonIcon icon={moonOutline} />

@@ -9,6 +9,9 @@ import {useHistory} from "react-router-dom";
 import Back from "../components/Back";
 import Header from "../components/Header";
 import {version} from "/package.json";
+import exclamation from "/assets/svg/exclamation.svg";
+import customer from "/assets/svg/headset.svg";
+import key from "/assets/svg/key.svg";
 //import {DotLottieReact} from "@lottie/dotlottie-react"
 
 
@@ -38,8 +41,8 @@ const Setting: React.FC = () => {
 
     return(
         <IonPage className="page">
-            <Header title="Setting" />
             <IonContent className={style.cont}>
+                {/* <div style={{width: "90%", margin: "auto", fontSize: "30px"}}>Profile</div> */}
                 <div className={style.all}>
                     <div onClick={()=>{history.push('/editprofile')}} className={style.profile}>
                         <div className={style.image}>
@@ -58,10 +61,10 @@ const Setting: React.FC = () => {
                             <div lines="none" className={style.demo}>
                                 <div className={style.demoIn}>
                                     <div className={style.icon}>
-                                        <IonIcon icon={moonOutline} />
+                                        <img src={key} />
                                     </div>
                                     <div className={style.setName}>
-                                        Account & Security Settings
+                                        Security Settings
                                     </div>
                                 </div>
                                 <div className={style.enter}>
@@ -84,10 +87,10 @@ const Setting: React.FC = () => {
                             <div lines="none" className={style.demo}>
                                 <div className={style.demoIn}>
                                     <div className={style.icon}>
-                                        <IonIcon icon={languageOutline} />
+                                        <img src={customer} />
                                     </div>
                                     <div className={style.setName}>
-                                        Customer Service Center
+                                        Customer Service
                                     </div>
                                 </div>
                                 <div className={style.enter}>
@@ -100,14 +103,14 @@ const Setting: React.FC = () => {
                         <div onClick={()=>history.push("/about")} lines="none" className={style.demo}>
                             <div className={style.demoIn}>
                                 <div className={style.icon}>
-                                    <IonIcon icon={locationOutline} />
+                                    <img src={exclamation} />
                                 </div>
                                 <div className={style.setName}>
                                     About
                                 </div>
                             </div>
                             <div className={style.enter}>
-                                <div style={{paddingRight: "8px"}}>
+                                <div style={{paddingRight: "2px"}}>
                                     Version {version}
                                 </div>
                                 <IonIcon icon={chevronForwardOutline} />

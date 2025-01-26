@@ -4,8 +4,8 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding-block: 20px;
-    border: none;
+    padding-block: 5px;
+    border: 0px solid;
     box-shadow: none;
 }
 
@@ -15,15 +15,14 @@
 
 .back{
     border: 0px solid;
-    width: 40px;
-    height: 40px;
-    color: white;
+    width: 25px;
+    color: black;
     display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 50%;
     font-size: 22px;
-    background: linear-gradient( 250deg, var(--ion-company-secondary), var(--ion-company-primary));
+  /*  background: linear-gradient( 250deg, var(--ion-company-wood), var(--ion-company-gold));*/
 }
 
 .chatField{
@@ -47,10 +46,11 @@
     max-width: 50%;
     white-space: nowrap;
     overflow: hidden;
-    color: white;
+    font-size: 19px;
+    color: var(--ion-company-wood);
     text-overflow: ellipsis;
     font-weight: bold;
-    background: linear-gradient( 250deg, var(--ion-company-secondary), var(--ion-company-primary));
+/*    background: linear-gradient( 250deg, var(--ion-company-wood), var(--ion-company-gold));*/
 }
 
 
@@ -94,7 +94,7 @@
     justify-content: center;
     text-align: center;
     left: 2px;
-    background: linear-gradient(var(--ion-company-primary), var(--ion-company-secondary));
+    background: linear-gradient(var(--ion-company-gold), var(--ion-company-wood));
 }
 
 
@@ -172,7 +172,7 @@
 
 
 .modal{
-    color: var(--ion-company-secondary);
+    color: var(--ion-company-wood);
 }
 
 .modalHead{
@@ -233,5 +233,5 @@
 
 .closeModal{
     font-size: 18px;
-    --background: linear-gradient(25deg, var(--ion-company-secondary), var(--ion-company-primary));
+    --background: linear-gradient(25deg, var(--ion-company-wood), var(--ion-company-primary));
 }

@@ -5,8 +5,9 @@ import { mailSharp } from "ionicons/icons";
 import Profile from "../components/Profile";
 import BottomNav from "../components/BottomNav";
 import wallets from "/assets/svg/wallet.svg";
-import inbox from "/assets/svg/inbox-in.svg";
-import tool from "/assets/svg/tool-box.svg";
+import jobs from "/assets/svg/request.svg";
+import request from "/assets/svg/jobs.svg";
+// import tool from "/assets/svg/tool-box.svg";
 import style from "./styles/Dashboard.module.css";
 
 const Dashboard: React.FC = () => {
@@ -65,7 +66,7 @@ const Dashboard: React.FC = () => {
               className={style.item + ' earning'}
             >
               <div className={style.iconCont}>
-                <img src={wallets} className={style.icon} />
+                <img src={wallets} className={style.icon}/>
               </div>
               <div className={style.sub}>Earnings</div>
             </div>
@@ -74,7 +75,7 @@ const Dashboard: React.FC = () => {
               className={style.item + ' request'}
             >
               <div className={style.iconCont}>
-                <img src={inbox} className={style.icon} />
+                <img src={request} className={style.icon} />
               </div>
               <div className={style.sub}>Requests</div>
             </div>
@@ -83,7 +84,7 @@ const Dashboard: React.FC = () => {
               className={style.item + ' jobs'}
             >
               <div className={style.iconCont}>
-                <img src={tool} className={style.icon} />
+               <img src={jobs} className={style.icon} />
               </div>
               <div className={style.sub}>Jobs</div>
             </div>
@@ -93,16 +94,6 @@ const Dashboard: React.FC = () => {
             <img src={empty} />
           </div>
         </div>
-        <IonFab vertical="bottom" className={style.fab} horizontal="end" slot="fixed">
-              <IonFabButton style={{"--background": "linear-gradient(var(--ion-company-primary), var(--ion-company-secondary))"}} onClick={handleNotificationPageOpen}>
-                <IonIcon icon={mailSharp} />
-                {unreadCount > 0 && (
-                  <IonBadge color="danger" style={{ position: "absolute", top: '3px', right: "5px", background: "transparent" }}>
-                    {unreadCount > 9 ? '9+' : unreadCount}
-                  </IonBadge>
-                )}
-              </IonFabButton>
-            </IonFab>
       </IonContent>
     </IonPage>
   );

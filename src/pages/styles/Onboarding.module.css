@@ -50,8 +50,8 @@
     width: 100%;
     background: linear-gradient(rgba(255, 255, 255, 0.15), rgba(0, 0, 0, 0.787)); /* Semi-transparent white */
  /* Smooth corners */
-    backdrop-filter: blur(4px) saturate(180%); /*Soft blur and color enhancement */
-    -webkit-backdrop-filter: blur(15px) saturate(180%); /* Support for Safari */
+    /* backdrop-filter: blur(4px) saturate(180%); Soft blur and color enhancement */
+    /* -webkit-backdrop-filter: blur(15px) saturate(180%); Support for Safari */
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); /*Subtle shadow for depth */
  /*   border: 1px solid rgba(255, 255, 255, 0.3);/* Light border for contrast */
     text-align: center;

@@ -3,7 +3,7 @@
     padding-block: 1rem;
     border-bottom-left-radius: 1rem;
     border-bottom-right-radius: 1rem;
-    background: linear-gradient(365deg, var(--ion-company-secondary), #fef500);
+    background: linear-gradient(365deg, var(--ion-company-wood), #fef500);
     box-shadow: 1px 1px 9px #e0cc91;
 }
 
@@ -132,3 +132,4 @@
     bottom: 90px;
     --color: #fef500;
 }
+

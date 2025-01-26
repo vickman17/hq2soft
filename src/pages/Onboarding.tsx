@@ -62,6 +62,7 @@ const Onboarding: React.FC = () => {
                     fontSize: '1.8rem',
                     fontFamily: 'Rubik',
                     fontWeight: '500',
+                    color: "whitesmoke",
                   }}
                 >
                   {slide.title}

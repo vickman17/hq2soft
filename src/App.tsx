@@ -24,7 +24,7 @@ import NotificationPage from './pages/NotificationPage';
 //import { messaging } from '../firebase/firebaseConfig';
 import { requestPermission, onMessageListener } from "./firebase/firebaseMessaging";
 import { getMessaging, onMessage } from "firebase/messaging";
-import { firebaseApp } from "./firebase/firebaseConfig"; 
+import { messaging, getToken } from './firebase/firebaseConfig';
 
 /* CSS imports */
 import '@ionic/react/css/core.css';
@@ -43,40 +43,37 @@ import ChatPage from './pages/ChatPage';
 import Withdrawal from './pages/Withdrawal';
 import Assets from "./pages/Assets";
 import About from "./pages/About";
+import DataPrivacy from './pages/DataPrivacy';
 
 import Chat from "./pages/Chat";
 import linkAccount from './pages/LinkAccount';
 import SlidingCard from './components/Sliding';
+import TermsOfService from './pages/TermsOfService';
 
 setupIonicReact();
 
 const App: React.FC = () => {
 
-
-  useEffect(() => {
-    const messaging = getMessaging(firebaseApp);
-
-    // Request permission for notifications
-    const requestPermission = async () => {
-      try {
-        const token = await Notification.requestPermission();
-        if (token === "granted") {
-          console.log("Notification permission granted.");
-        } else {
-          console.log("Notification permission denied.");
-        }
-      } catch (error) {
-        console.error("Error requesting notification permission: ", error);
+  const requestPushNotificationPermission = async () => {
+    try {
+      const currentToken = await getToken(messaging, {
+        vapidKey: "BKhchly4Dnm0NHV8rBdm1YIwuXI8A0IRAkkhTwO2sjByFskp4-Qef3UWIocHnu_uNjJ2pb4DLV3ZFOzv1HNOohQ" // Get this key from Firebase Console > Cloud Messaging > Web Push certificates
+      });
+  
+      if (currentToken) {
+        console.log("FCM Token:", currentToken); // Send this token to your server for sending notifications
+        // Save the token in the database or local storage
+      } else {
+        console.log("No registration token available.");
       }
-    };
+    } catch (error) {
+      console.error("Error getting FCM token:", error);
+    }
+  };
+  
+  // Call this function when the component mounts
+  requestPushNotificationPermission();
 
-    requestPermission();
-
-    // Listen for messages
-    onMessage(messaging, (payload) => {
-      console.log("Message received: ", payload);
-    });
-  }, []);
 
   // useEffect(() => {
   //   // Request permission for notifications
@@ -112,7 +109,7 @@ const App: React.FC = () => {
   const [showOnboarding, setShowOnboarding] = useState<boolean>(localStorage.getItem('hasSeenOnboarding') === null);
 
   const location = useLocation();
-  const pagesWithBottomNav = ['/dashboard', '/inbox', '/setting'];
+  const pagesWithBottomNav = ['/dashboard', '/inbox', '/notificationpage', '/setting'];
 
   useEffect(() => {
     document.body.style.fontFamily = 'Quicksand, sans-serif';
@@ -138,13 +135,15 @@ const App: React.FC = () => {
             <Route exact path="/confirmemail" component={ConfirmEmail} />
             <Route exact path="/otppage" component={OtpPage} />
             <Route exact path="/notificationpage" component={NotificationPage} />
-            <Route path="/chatpage/:clientId/:chatRoomId/:jobId" component={ChatPage} />
+            <Route path="/chatpage/:chatRoomId/:jobId" component={ChatPage} />
             <Route exact path="/chat" component={Chat} />
             <Route exact path="/linkaccount" component={linkAccount} />
             <Route exact path="/withdrawal" component={Withdrawal} />
             <Route exact path="/slidingcard" component={SlidingCard} />
             <Route exact path="/assets" component={Assets} />
             <Route exact path="/about" component={About} />
+            <Route exact path="/terms" component={TermsOfService} />
+            <Route exact path="/dataprivacy" component={DataPrivacy} />
       </IonRouterOutlet>
       {/* Bottom Nav visibility */}
       {pagesWithBottomNav.includes(location.pathname) && (

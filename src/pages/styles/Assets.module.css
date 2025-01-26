@@ -15,7 +15,7 @@
 .totalBal{
     font-size: 27px;
     font-weight: 900;
-    color: var(--ion-company-secondary);
+    color: var(--ion-company-wood);
     margin-top: 5px;
 }
 
@@ -25,7 +25,7 @@
     width: 95%;
     margin: auto;
     margin-top: 1rem;
-    background: var(--ion-company-secondary);
+    background: var(--ion-company-wood);
     color: white;
     padding-inline: 10px;
     border-radius: 12px;
@@ -70,6 +70,6 @@
     width: 20%;
     padding-block: 5px;
     border-radius: 12px;
-    color: var(--ion-company-secondary);
+    color: var(--ion-company-wood);
     background: white;
 }

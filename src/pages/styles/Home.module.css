@@ -5,6 +5,11 @@
   background-size: cover;
   height: 100vh;
   --overflow-y: hidden;
+  font-family: "Quicksand";
+}
+
+.content{
+  font-family: "Quicksand";
 }
 
 .videoContainer {
@@ -13,6 +18,7 @@
     /* height: 100vh; Full viewport height */
     overflow: hidden;
     --background: none;
+    font-family: "Quicksand";
   }
   
   /* Video Styling */
@@ -55,11 +61,11 @@
     /* justify-content: center;
     align-items: center; */
     width: 100%;
-    background: rgba(255, 255, 255, 0.15); /* Semi-transparent white */
+    background: rgba(74, 73, 73, 0.15); /* Semi-transparent white */
  /* Smooth corners */
-    backdrop-filter: blur(4px) saturate(180%); /*Soft blur and color enhancement */
-    -webkit-backdrop-filter: blur(15px) saturate(180%); /* Support for Safari */
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); /*Subtle shadow for depth */
+    /* backdrop-filter: blur(4px) saturate(180%); /*Soft blur and color enhancement */
+/*    -webkit-backdrop-filter: blur(15px) saturate(180%); Support for Safari */
+  /*  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); /*Subtle shadow for depth */
  /*   border: 1px solid rgba(255, 255, 255, 0.3);/* Light border for contrast */
     text-align: center;
      transition: all 0.3s ease-in-out;
@@ -117,7 +123,7 @@
 
   .writeup{
     font-size: 35px;
-    font-weight: bold; 
+    font-weight: 700; 
     color: white;
     margin-top: auto;
     padding-inline: 10px;
@@ -140,9 +146,11 @@
     width: 60%;
     margin: auto;
     padding-block: 10px;
-    font-size: 19px;
-    border-radius: .5rem;
+    font-size: 22px;
+    border-top-left-radius: .6rem;
+    border-bottom-right-radius: .6rem;
     color: white;
+    font-weight: 600;
     background: linear-gradient(270deg, #18c729, #fef500);
     box-shadow: 1px 1px 3px #fef60062;
   }
@@ -392,3 +400,18 @@
 
 /* Style for all browsers */
 
+.term{
+  border: 0px solid black;
+  width: 95%;
+  font-size: 13px;
+  color: rgb(58, 58, 58);
+  margin: auto;
+  text-align: center;
+  margin-top: .8rem;
+}
+
+.linkSpan{
+  font-weight: 800;
+  color: black;
+  text-decoration: underline;
+}

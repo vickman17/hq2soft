@@ -9,7 +9,7 @@ import Header from '../components/Header';
 import { flash } from 'ionicons/icons';
 
 const Withdrawal: React.FC = () => {
-  const [amount, setAmount] = useState<number>(0);
+  const [amount, setAmount] = useState<any>(0);
   const [showToast, setShowToast] = useState<boolean>(false);
   const [isPinModalOpen, setIsPinModalOpen] = useState<boolean>(false);
   const [toastMessage, setToastMessage] = useState<string>('');
@@ -27,6 +27,7 @@ const Withdrawal: React.FC = () => {
   const [status, setStatus] = useState(false);
   const [isProcessed, setIsProcessed] = useState(false)
   const history = useHistory();
+  const [insufficient, setInsufficient] = useState<boolean>(false);
 
   const success = "/assets/success.png";
 
@@ -100,6 +101,8 @@ const Withdrawal: React.FC = () => {
         ssp_id: ssp_id,
       });
 
+
+      
       if (response.data.success) {
         setToastMessage(response.data.message);
         setToastColor('success');
@@ -163,12 +166,14 @@ const close = ()=> {
 
     // If the user enters a new value, calculate the difference and deduct
     if (inputValue > 0) {
-      if (amount !== inputValue) {
+      if (amount <= inputValue) {
         setBal((prevBal) => prevBal - (inputValue - previousAmount)); // Deduct the difference
         setPreviousAmount(inputValue); // Track the current amount
       }
       setAmount(inputValue); // Update the amount
-    } else {
+    }else if(amount > inputValue){
+      setInsufficient(true);
+    }else {
       // If the input is cleared, add back the previously deducted amount
       setBal((prevBal) => prevBal + previousAmount);
       setPreviousAmount(0); // Reset the previous amount
@@ -193,9 +198,9 @@ const close = ()=> {
             />
           </div>
         </div>
-        <div className={style.bal}>Your active balance is : &#8358;{/*bal.toLocaleString()*/}</div>
+        <div className={style.bal}>Your active balance is : &#8358;{bal.toLocaleString()}</div>
         <div className={style.butCont}>
-          <button className={style.but} onClick={confirm}>
+          <button disabled={insufficient ? true : false} className={style.but} onClick={confirm}>
             Withdraw
           </button>
         </div>

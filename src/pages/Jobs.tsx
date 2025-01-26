@@ -43,16 +43,16 @@ const Jobs: React.FC = () => {
       <IonContent className={style.content}>
         <div className={style.seg}>
           <IonSegment className={style.segment} onIonChange={handleSegmentChange} value={selectedSegment} mode="ios" >
-            <IonSegmentButton  value="Completed">
-              <IonLabel>Completed</IonLabel>
+            <IonSegmentButton className={style.segBut}  value="Completed">
+              <IonLabel className={style.lab}>Completed</IonLabel>
             </IonSegmentButton>
-            <IonSegmentButton value="Pending">
-              <IonLabel>Pending</IonLabel>
+            <IonSegmentButton className={style.segBut} value="Pending">
+              <IonLabel className={style.lab}>Pending</IonLabel>
             </IonSegmentButton>
           </IonSegment>
         </div>
 
-        <div style={{ padding: '16px', border:"0px solid black" }}>
+        <div style={{ padding: '5px', border:"0px solid black" }}>
           {renderSegmentContent()}
         </div>
   

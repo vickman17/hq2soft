@@ -2,19 +2,12 @@
     width: 60px;
 }
 
-.activeTab {
-    padding: 1px;
-    border: 0px solid; /* Blue border color */
-    border-radius: 9px; /* Rounded corners *//* Optional: Adjust padding to fit your design */
-    transition: all 0.3s ease-in-out; /* Smooth transition for the border */
-    background-color: rgba(255, 255, 255, 0.447);
-  }
 
   
   .navbar{
     position: fixed;
-    bottom: 0;
-    border-radius: 10px;
+    bottom: -2px;
+    border-radius: 0;
     width: 100%;
     z-index: 1000;
     background: white;

@@ -15,9 +15,11 @@ const Earning: React.FC = () => {
   const empty = "/assets/empty.png";
   const ssp_id = parsed?.ssp_id;
 
+
+
   // Custom function to format the balance with commas
   const formatBalance = (balance: number) => {
-    //return balance.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return balance.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
 
   useEffect(() => {
