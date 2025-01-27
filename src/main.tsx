@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App';
 import { BrowserRouter as Router } from 'react-router-dom';
-import { NotificationProvider } from './context/NotificationProvider';
+// import { NotificationProvider } from './context/NotificationProvider';
 
 // Firebase 8 imports
 // import firebase from 'firebase/app';
@@ -65,11 +65,9 @@ import { NotificationProvider } from './context/NotificationProvider';
 //   }, []);
 
   return (
-    <NotificationProvider>
       <Router>
         <App />
       </Router>
-    </NotificationProvider>
   );
 };
 

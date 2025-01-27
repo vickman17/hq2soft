@@ -100,6 +100,7 @@ const ChatPage: React.FC = () => {
           timestamp: Timestamp.now(), // Firestore's timestamp
         });
         setNewMessage('');
+        messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
       } catch (error) {
         console.error("Error sending message:", error);
       }

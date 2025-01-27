@@ -54,25 +54,25 @@ setupIonicReact();
 
 const App: React.FC = () => {
 
-  const requestPushNotificationPermission = async () => {
-    try {
-      const currentToken = await getToken(messaging, {
-        vapidKey: "BKhchly4Dnm0NHV8rBdm1YIwuXI8A0IRAkkhTwO2sjByFskp4-Qef3UWIocHnu_uNjJ2pb4DLV3ZFOzv1HNOohQ" // Get this key from Firebase Console > Cloud Messaging > Web Push certificates
-      });
+  // const requestPushNotificationPermission = async () => {
+  //   try {
+  //     const currentToken = await getToken(messaging, {
+  //       vapidKey: "BKhchly4Dnm0NHV8rBdm1YIwuXI8A0IRAkkhTwO2sjByFskp4-Qef3UWIocHnu_uNjJ2pb4DLV3ZFOzv1HNOohQ" // Get this key from Firebase Console > Cloud Messaging > Web Push certificates
+  //     });
   
-      if (currentToken) {
-        console.log("FCM Token:", currentToken); // Send this token to your server for sending notifications
-        // Save the token in the database or local storage
-      } else {
-        console.log("No registration token available.");
-      }
-    } catch (error) {
-      console.error("Error getting FCM token:", error);
-    }
-  };
+  //     if (currentToken) {
+  //       console.log("FCM Token:", currentToken); // Send this token to your server for sending notifications
+  //       // Save the token in the database or local storage
+  //     } else {
+  //       console.log("No registration token available.");
+  //     }
+  //   } catch (error) {
+  //     console.error("Error getting FCM token:", error);
+  //   }
+  // };
   
-  // Call this function when the component mounts
-  requestPushNotificationPermission();
+  // // Call this function when the component mounts
+  // requestPushNotificationPermission();
 
 
   // useEffect(() => {
