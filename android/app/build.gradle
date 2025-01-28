@@ -44,8 +44,7 @@ dependencies {
     androidTestImplementation "androidx.test.ext:junit:$androidxJunitVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$androidxEspressoCoreVersion"
     implementation project(':capacitor-cordova-android-plugins')
-    implementation 'com.getcapacitor:capacitor-android:6.1.2'
-    implementation 'com.capacitorjs:local-notifications:6.1.2'
+    implementation 'com.getcapacitor:capacitor-android:6.0.0'
 
 }
 

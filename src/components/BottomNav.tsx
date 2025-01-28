@@ -8,14 +8,14 @@ import {
 import { useHistory } from 'react-router-dom';
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import edit from './BottomNav.module.css';
-import homeSolid from "/assets/svg/homeSolid.svg";
-import homeOutline from "/assets/svg/homeOutline.svg";
-import chatSolid from '/assets/svg/chatSolid.svg';
-import chatOutline from '/assets/svg/chatOutline.svg';
-import bellOutline from '/assets/svg/bellOutline.svg';
-import bellSolid from '/assets/svg/bellSolid.svg';
-import userOutline from '/assets/svg/userOutline.svg';
-import userSolid from '/assets/svg/userSolid.svg';
+import homeSolid from "/svgnew/homeSolid.svg";
+import homeOutline from "/svgnew/homeOutline.svg";
+import chatSolid from '/svgnew/chatSolid.svg';
+import chatOutline from '/svgnew/chatOutline.svg';
+import bellOutline from '/svgnew/bellOutline.svg';
+import bellSolid from '/svgnew/bellSolid.svg';
+import userOutline from '/svgnew/userOutline.svg';
+import userSolid from '/svgnew/userSolid.svg';
 // import setting from '/assets/svg/setting.svg';
 
 
@@ -74,10 +74,10 @@ const BottomNav: React.FC = () => {
             />
           ) : (
             
-            <img src={ activeTab === 'home' ? homeSolid : homeOutline}  width={25} height={25}/>
+            <img src={ activeTab === 'home' ? homeSolid : homeOutline}  width={20} height={20}/>
           )}
           </div>
-          <div style={{fontWeight: activeTab === 'home' ? "700" : ""}}>Home</div>
+          <div style={{fontWeight: activeTab === 'home' ? "700" : "", fontSize: "10px"}}>Home</div>
         </IonTabButton>
 
         {/* Chat Tab */}
@@ -96,10 +96,10 @@ const BottomNav: React.FC = () => {
             />
           ) : (
             
-            <img src={activeTab === "chat" ? chatSolid : chatOutline} width={25} height={25} />
+            <img src={activeTab === "chat" ? chatSolid : chatOutline} width={20} height={20} />
           )}
           </div>
-          <div style={{fontWeight: activeTab === 'chat' ? "700" : ""}}>Inbox</div>
+          <div style={{fontWeight: activeTab === 'chat' ? "700" : "", fontSize: "10px"}}>Inbox</div>
         </IonTabButton>
 
         {/* Settings Tab */}
@@ -117,10 +117,10 @@ const BottomNav: React.FC = () => {
             />
           ) : (
             
-          <img src={activeTab === 'notify' ? bellSolid : bellOutline} width={25} height={25}  />
+          <img src={activeTab === 'notify' ? bellSolid : bellOutline} width={20} height={20}  />
           )}
           </div>
-          <div style={{fontWeight: activeTab === 'notify' ? "700" : ""}}>Notification</div>
+          <div style={{fontWeight: activeTab === 'notify' ? "700" : "", fontSize: "10px"}}>Notification</div>
         </IonTabButton>
 
         {/* Settings Tab */}
@@ -138,10 +138,10 @@ const BottomNav: React.FC = () => {
             />
           ) : (
             
-          <img src={activeTab === 'settings' ? userSolid : userOutline} width={25} height={25}  />
+          <img src={activeTab === 'settings' ? userSolid : userOutline} width={20} height={20}  />
           )}
           </div>
-          <div style={{fontWeight: activeTab === 'settings' ? "700" : ""}}>Profile</div>
+          <div style={{fontWeight: activeTab === 'settings' ? "700" : "", fontSize: "10px"}}>Profile</div>
         </IonTabButton>
       </IonTabBar>
     </IonFooter>
