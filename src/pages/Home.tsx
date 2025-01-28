@@ -140,9 +140,9 @@ const LoginSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
       setToast(true);
     }
   } catch (error) {
-    setToastText(response.data.message);
+    setToastText("Error occured");
     setToast(true);
-    console.error("Login failed:", error.response?.data || error.message);
+    console.error("Login failed");
   } finally {
     setIsLoading(false); // Re-enable button
   }
