@@ -4,9 +4,9 @@ import { useHistory } from "react-router";
 import { mailSharp } from "ionicons/icons";
 import Profile from "../components/Profile";
 import BottomNav from "../components/BottomNav";
-import wallets from "/assets/svg/wallet.svg";
-import jobs from "/assets/svg/request.svg";
-import request from "/assets/svg/jobs.svg";
+import wallets from "/svgnew/wallet.svg";
+import jobs from "/svgnew/briefcase.svg";
+import request from "/svgnew/briefcase.svg";
 // import tool from "/assets/svg/tool-box.svg";
 import style from "./styles/Dashboard.module.css";
 
