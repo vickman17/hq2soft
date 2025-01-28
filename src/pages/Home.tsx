@@ -103,61 +103,50 @@ const updateDeviceToken = (userId: string) => {  // Explicitly typing userId
 
 
 /***************************Token function end**************************/
-  const LoginSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setIsLoading(true); // Disable button
+const LoginSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
+  setIsLoading(true); // Disable button
 
-    try {
-      const response = await axios.post("https://hq2soft.com/hq2sspapi/login.php", formData, {
-        headers: { "Content-Type": "application/json" },
-      });
-
-      if (response.data.status === "success") {
-        setToastText("Login successful");
-        setToast(true);
-        sessionStorage.setItem("Info", JSON.stringify(response.data.user));
-        const profession = response.data.user.category_id;
-        console.log(profession);
-
-        const verified = response.data.user.numberVerified;
-        const userId = response.data.user.ssp_id;
-        console.log(verified)
-
-        const navigateTo = () => {
-          let route = "";
-        
-          switch (true) {
-            case verified === null:
-              route = "/otppage";
-              break;
-            case profession === null:
-              route = "/completeprofile";
-              break;
-            default:
-              route = "/dashboard";
-              break;
-          }
-        
-          history.push(route);
-        };
-        updateDeviceToken(userId);
-        navigateTo();
-        
-        
-        // Redirect after toast
-      } else {
-        setToastText(response.data.message);
-        setToast(true);
+  try {
+    // Ensure formData is sent as a JSON string
+    const response = await axios.post(
+      "https://hq2soft.com/hq2sspapi/login.php",
+      JSON.stringify(formData), // Convert formData to JSON
+      {
+        headers: {
+          "Content-Type": "application/json", // Ensure content type is JSON
+        },
       }
-    } catch (error) {
-      setToastText("An error occurred during login.");
-      setToast(true);
-      console.error("Login failed:", error);
-    } finally {
-      setIsLoading(false); // Re-enable button
-    }
-  };
+    );
 
+    if (response.data.status === "success") {
+      setToastText("Login successful");
+      setToast(true);
+      sessionStorage.setItem("Info", JSON.stringify(response.data.user));
+
+      const profession = response.data.user.category_id;
+      const verified = response.data.user.numberVerified;
+
+      // Determine route based on user data
+      if (verified === null) {
+        history.push("/otppage");
+      } else if (profession === null) {
+        history.push("/completeprofile");
+      } else {
+        history.push("/dashboard");
+      }
+    } else {
+      setToastText(response.data.message);
+      setToast(true);
+    }
+  } catch (error) {
+    setToastText(response.data.message);
+    setToast(true);
+    console.error("Login failed:", error.response?.data || error.message);
+  } finally {
+    setIsLoading(false); // Re-enable button
+  }
+};
   /************************END OF LOGIN ****************************************/
 
   const [confirmPasswordError, setConfirmPasswordError] = useState(false);
