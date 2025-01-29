@@ -3,7 +3,6 @@ import {IonPage, IonContent, IonIcon} from "@ionic/react";
 import Header from "../components/Header";
 import style from "./styles/About.module.css";
 import { chevronForwardOutline, locationOutline, lockClosedOutline, languageOutline, moon, moonOutline, notificationsCircleOutline, eyeOffOutline } from "ionicons/icons";
-import logo from "/assets/Icon.png";
 import {version} from "../../package.json";
 import note from "/assets/svg/note.svg";
 import board from "/assets/svg/clipboard.svg";
@@ -19,7 +18,7 @@ const About: React.FC = () => {
             <IonContent>
                 <div className={style.logo}>
                     <div className={style.image}>
-                        <img src={logo} />
+                        <img src="/assets/Icon.png" />
                     </div>
                     <div className={style.version}>Version {version}</div>
                 </div>
