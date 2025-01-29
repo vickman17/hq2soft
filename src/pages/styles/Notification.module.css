@@ -3,6 +3,20 @@
     border: 0px solid black;
   }
   
+  .header{
+    border: none;
+    box-shadow: none;
+}
+
+.head{
+    border: 0px solid ;
+    width: 95%;
+    margin: auto;
+    margin-top: 2rem;
+    font-size: 30px;
+    font-weight: 800;
+}
+
   .notificationItem {
     margin: auto;
     margin-bottom: 15px;

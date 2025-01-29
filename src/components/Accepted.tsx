@@ -40,7 +40,7 @@ const Accepted: React.FC = () => {
       setError(null);
 
       try {
-        const response = await axios.post('https://hq2soft.com/hq2sspapi/fetchAcceptedJob.php', {
+        const response = await axios.post('http://localhost/hq2sspapi/fetchAcceptedJob.php', {
           ssp_id: providerId,
         }, {
           headers: {
@@ -79,7 +79,7 @@ const Accepted: React.FC = () => {
   
 
     try {
-      const response = await axios.post('https://hq2soft.com/hq2sspapi/joinChatRoom.php', {
+      const response = await axios.post('http://localhost/hq2sspapi/joinChatRoom.php', {
         ssp_id: sspId,
         chat_room_id: chatRoomId,
       });
@@ -122,20 +122,16 @@ const Accepted: React.FC = () => {
                 <div className={style.butCont}>
                   <div className={style.but}>
                     <button 
-                      style={{background: "var(--ion-company-wood)"}}
                       onClick={() => toggleExpand(job.job_assignment_id)} // Pass the job_assignment_id to toggle the specific job's details
                       className={style.button}
+                      style={{border: "1px solid grey"}}
                     >
-                      <IonIcon 
-                        className={style.icon} 
-                        icon={expandedJobId === job.job_assignment_id ? chevronUp : eyeSharp} 
-                      />
-                      {expandedJobId === job.job_assignment_id ? 'Hide' : 'View'}
+                      {expandedJobId === job.job_assignment_id ? 'Hide' : 'View Job'}
                     </button>
                   </div>
                   <div className={style.but}>
                     <button 
-                      style={{background: "var(--ion-company-primary)"}}
+                      style={{background: "var(--ion-company-wood)", border: "none", color: "white"}}
                       className={style.button}
                       onClick={() => contactClient(job.chat_room_id, job.client_id, job.job_request_id)}// Pass the specific chat room ID
                     >

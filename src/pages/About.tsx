@@ -3,7 +3,7 @@ import {IonPage, IonContent, IonIcon} from "@ionic/react";
 import Header from "../components/Header";
 import style from "./styles/About.module.css";
 import { chevronForwardOutline, locationOutline, lockClosedOutline, languageOutline, moon, moonOutline, notificationsCircleOutline, eyeOffOutline } from "ionicons/icons";
-import logo from "/assets/icon.png";
+import logo from "/assets/Icon.png";
 import {version} from "../../package.json";
 import note from "/assets/svg/note.svg";
 import board from "/assets/svg/clipboard.svg";

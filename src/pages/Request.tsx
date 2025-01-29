@@ -36,21 +36,23 @@ const Request: React.FC = () =>{
         <IonPage>
             <Header title='Requests' />
             <IonContent className={style.pageCont}>
-                <div className={style.seg}>
+                {/* <div className={style.seg}>
                   <IonSegment className={style.segment} onIonChange={handleSegmentChange} value={selectedSegment} mode="ios" >
-                      <IonSegmentButton class={style.segbut} value="Incoming">
+                      <IonSegmentButton class={style.segBut} value="Incoming">
                           <IonLabel>Incoming</IonLabel>
                       </IonSegmentButton>
-                      <IonSegmentButton class={style.segbut} value="Accepted">
+                      <IonSegmentButton class={style.segBut} value="Accepted">
                           <IonLabel>Accepted</IonLabel>
                       </IonSegmentButton>
                   </IonSegment>
                 </div>            
                 <div className={style.content}>
-                <div style={{ padding: '0', border:"0px solid black" }}>
+                <div style={{ padding: '5px', border:"0px solid black" }}>
                     {renderSegmentContent()}
                   </div>
-                </div>
+                </div> */}
+
+                <Incoming />
 
             </IonContent>
         </IonPage>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { IonPage, IonContent } from "@ionic/react";
+import { IonPage, IonContent, IonHeader } from "@ionic/react";
 import Header from "../components/Header";
 import style from "./styles/Notification.module.css";
 
@@ -66,7 +66,9 @@ const NotificationPage: React.FC = () => {
 
   return (
     <IonPage>
-      <Header title="Notification" />
+      <IonHeader className={style.header}>
+        <div className={style.head}>Notification</div>
+      </IonHeader>
       <IonContent className={style.content}>
         <div className={style.notificationList}>
           <ul className={style.ul}>

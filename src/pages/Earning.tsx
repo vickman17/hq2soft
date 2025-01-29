@@ -21,7 +21,10 @@ const Earning: React.FC = () => {
   }, [parsed]);
 
   // Custom function to format the balance with commas
-  const formatBalance = (balance: number) => {
+  const formatBalance = (balance: number | undefined) => {
+    if (balance === undefined || balance === null) {
+      return '0'; // Return a default value or handle it as needed
+    }
     return balance.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
 
@@ -30,7 +33,7 @@ const Earning: React.FC = () => {
     const fetchBalance = async () => {
       try {
         console.log('Fetching balance for SSP ID:', ssp_id);  // Debugging SSP ID
-        const response = await fetch(`https://hq2soft.com/hq2sspapi/fetchBal.php?ssp_id=${ssp_id}`);
+        const response = await fetch(`http://localhost/hq2sspapi/fetchBal.php?ssp_id=${ssp_id}`);
         const data = await response.json();
         console.log('Balance Response:', data); // Debugging API Response
         setBal(response.ok ? data.balance : 0);
@@ -49,7 +52,7 @@ const Earning: React.FC = () => {
     const fetchTransactions = async () => {
       try {
         console.log('Fetching transactions for SSP ID:', ssp_id); // Debugging SSP ID
-        const response = await fetch(`https://hq2soft.com/hq2sspapi/fetchTransactions.php?ssp_id=${ssp_id}`);
+        const response = await fetch(`http://localhost/hq2sspapi/fetchTransactions.php?ssp_id=${ssp_id}`);
         const data = await response.json();
         console.log('Transactions Response:', data); // Debugging API Response
         if (data.success) {

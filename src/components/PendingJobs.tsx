@@ -40,7 +40,7 @@ const PendingJobs: React.FC = () => {
       setError(null);
 
       try {
-        const response = await axios.post('https://hq2soft.com/hq2sspapi/fetchAcceptedJob.php', {
+        const response = await axios.post('http://localhost/hq2sspapi/fetchAcceptedJob.php', {
           ssp_id: providerId,
         }, {
           headers: {
@@ -79,7 +79,7 @@ const PendingJobs: React.FC = () => {
   
 
     try {
-      const response = await axios.post('https://hq2soft.com/hq2sspapi/joinChatRoom.php', {
+      const response = await axios.post('http://localhost/hq2sspapi/joinChatRoom.php', {
         ssp_id: sspId,
         chat_room_id: chatRoomId,
       });
@@ -95,6 +95,35 @@ const PendingJobs: React.FC = () => {
 
     setLoading(false);
   };
+
+
+  const markAsCompleted = async (jobRequestId: string) => {
+    setLoading(true);
+    try {
+      const response = await axios.post('http://localhost/hq2sspapi/jobUpdate.php', {
+        job_request_id: jobRequestId,
+      });
+  
+      if (response.data.status === 'success') {
+        console.log('Job marked as completed.');
+        // Optionally, refresh the jobs list
+        // setJobs((prevJobs) =>
+        //   prevJobs.map((job) =>
+        //     job.job_request_id === jobRequestId
+        //       ? { ...job, job_request_status: 'completed' }
+        //       : job
+        //   )
+        // );
+      } else {
+        console.error('Error:', response.data.message);
+      }
+    } catch (err) {
+      console.error('Failed to update job status.', err);
+    }
+    setLoading(false);
+  };
+  
+
 
   return (
     <div className={style.content}>
@@ -116,7 +145,7 @@ const PendingJobs: React.FC = () => {
               <div className={style.item}>
                 <div className={style.top}>
                   <div className={style.skill}>{job.skill}</div>
-                  <div className={style.tag}><IonBadge style={{background: job.job_request_status === "awaiting_approval" ? "var(--ion-company-gold)" : "var(--ion-company-wood)"}}>{job.job_request_status}</IonBadge></div>
+                  <div className={style.tag}><IonBadge style={{background: job.job_request_status === "awaiting_approval" ? "var(--ion-company-silver)" : "var(--ion-company-silver)", color: "var(--ion-company-wood)"}}>{job.job_request_status === "accepted" ? "Ongoing" : ""}</IonBadge></div>
                 </div>
                 <div className={style.time}><p>{job.job_assignment_created_at}</p></div>
                 <div className={style.butCont}>
@@ -125,18 +154,18 @@ const PendingJobs: React.FC = () => {
                    <button 
                   
                     className={style.button}
-                    onClick={() => contactClient(job.chat_room_id, job.client_id, job.job_request_id)}// Pass the specific chat room ID
+                    // Pass the specific chat room ID
                   >
-                    Details
+                    Close
                   </button>
                   </div>
                   <div>
                   <button 
                   
                   className={style.button}
-                  onClick={() => contactClient(job.chat_room_id, job.client_id, job.job_request_id)}// Pass the specific chat room ID
+                  onClick={() => markAsCompleted(job.job_request_id)}
                 >
-                  Contact Job
+                  Complete               
                 </button>
                   </div>
                 </div>

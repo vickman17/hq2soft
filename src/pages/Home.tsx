@@ -79,7 +79,7 @@ const updateDeviceToken = (userId: string) => {  // Explicitly typing userId
       console.log('Device token:', deviceToken);
 
       // Send device token to the server to update it in the database
-      fetch('https://hq2soft.com/hq2sspapi/updateDeviceToken.php', {
+      fetch('http://localhost/hq2sspapi/updateDeviceToken.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -110,7 +110,7 @@ const LoginSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
   try {
     // Ensure formData is sent as a JSON string
     const response = await axios.post(
-      "https://hq2soft.com/hq2sspapi/login.php",
+      "http://localhost/hq2sspapi/login.php",
       JSON.stringify(formData), // Convert formData to JSON
       {
         headers: {
@@ -182,7 +182,7 @@ const LoginSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     };
 
     try {
-      const response = await axios.post("https://hq2soft.com/hq2sspapi/signup.php",
+      const response = await axios.post("http://localhost/hq2sspapi/signup.php",
         JSON.stringify(dataToSend), {
         headers: {
           "Content-Type": "application/json",
@@ -222,7 +222,7 @@ setIsLoading(false);// Re-enable the button after submission
 
 
   /********************SIGN UP ******************/
-  const logo = "/assets/icon.png";
+  const logo = "/assets/Icon.png";
 
   return (
     <IonPage className={style.page}>
@@ -325,7 +325,7 @@ setIsLoading(false);// Re-enable the button after submission
                   Not a member?
                   <span
                     onClick={() => openModal('signup')}
-                    style={{ color: "#19fb04", cursor: "pointer" }}
+                    style={{ color: "#19fb04" }}
                   >
                     Signup
                   </span>

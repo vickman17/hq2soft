@@ -12,7 +12,7 @@
 
 .profile{
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
     margin: auto;
     background: rgba(47, 125, 50, 0.17);
@@ -23,6 +23,10 @@
     border-radius: 8px;
 }
 
+.cog{
+    border: 0px solid;
+    width: 10%;
+}
 
 .image{
     border: 0px solid;
@@ -107,8 +111,8 @@
 
 .icon{
     border: 0px solid;
-    width: 30px;
-    height: 30px;
+    width: 20px;
+    height: 20px;
     justify-content: center;
     align-items: center;
     display: flex;
@@ -117,6 +121,7 @@
 .cont{
     border: 0px solid black;
     position: relative;
+    font-family: "Quicksand";
 }
 
 .signOut{

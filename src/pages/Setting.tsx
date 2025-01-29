@@ -10,8 +10,10 @@ import Back from "../components/Back";
 import Header from "../components/Header";
 import {version} from "../../package.json";
 import exclamation from "/assets/svg/exclamation.svg";
-import customer from "/assets/svg/headset.svg";
-import key from "/assets/svg/key.svg";
+import customer from "/svgnew/headset.svg";
+import key from "/svgnew/key.svg";
+import bank from "/svgnew/bank.svg";
+import cog from "/svgnew/cogOutline.svg";
 //import {DotLottieReact} from "@lottie/dotlottie-react"
 
 
@@ -52,8 +54,8 @@ const Setting: React.FC = () => {
                             <div className={style.name}>{Name}</div>
                             <div className={style.badge}>{qualification}</div>
                         </div>
-                        <div className={style.chevron}>
-                            <IonIcon icon={chevronForwardOutline} />
+                        <div className={style.cog}>
+                            <img style={{width: "100%"}} src={cog} />
                         </div>
                     </div>
                     <div className={style.sets}>
@@ -74,7 +76,7 @@ const Setting: React.FC = () => {
                             <div className={style.demo}>
                                 <div className={style.demoIn}>
                                     <div className={style.icon}>
-                                        <IonIcon icon={lockClosedOutline} />
+                                        <img src={bank}/>
                                     </div>
                                     <div className={style.setName}>
                                         Payment Account

@@ -5,9 +5,18 @@
 
 .seg{
     margin: auto;
+    border: 0px solid black;
     margin-top: .5rem;
     width: 90%;
 }
 
+.segment{
+    border-radius: 1rem;
+}
 
-
+.segBut{
+    padding-block: .1rem;
+    --border-radius: 1rem;
+    font-size: 16px;
+    font-family: "Quicksand";
+}

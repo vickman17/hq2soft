@@ -1,4 +1,55 @@
+.page{
+    font-family: "Quicksand";
+}
+
+.modal{
+    font-family: "Quicksand";
+    font-weight: 600;
+}
+
+
 .bankBox{
     width: 100%;
     padding: 10px;
+}
+
+.head{
+    border: 0px solid ;
+    display: flex;
+    width: 95%;
+    margin: auto;
+    padding-block: 10px;
+    justify-content: space-between;
+    font-size: 17px;
+    margin-top: 10px;
+    align-items: center;
+}
+
+.close{
+    border: 1px solid;
+    padding-inline: 5px;
+    color: red;
+    border-radius: 2px;
+}
+
+.chatBox{
+    border-bottom: 0px solid var(--ion-company-wood);
+    width: 95%;
+    margin: auto;
+    margin-bottom: 2rem;
+    font-size: 18px;
+    font-family: "Quicksand";
+}
+
+.info{
+    width: 95%;
+    margin: auto;
+    margin-top: 1rem;
+    margin-bottom: 3rem;
+}
+
+
+.input{
+    border: none;
+    outline: none;
 }

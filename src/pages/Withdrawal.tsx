@@ -22,7 +22,7 @@ const Withdrawal: React.FC = () => {
   const [confirmModal, setConfirmModal] = useState<boolean>(false);
   const ssp_id = parsed?.ssp_id;
   const [accountDetails, setAccountDetails] = useState<any>(null);
-  const pin = parsed?.pin;
+  const pincode = parsed?.pin;
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [status, setStatus] = useState(false);
   const [isProcessed, setIsProcessed] = useState(false)
@@ -33,7 +33,7 @@ const Withdrawal: React.FC = () => {
 
 
   useEffect(() => {
-    if (!pin) {
+    if (!pincode) {
       setIsSetupModalOpen(true);
     }
   }, []);
@@ -42,9 +42,11 @@ const Withdrawal: React.FC = () => {
     if (ssp_id) {
       const fetchAccountDetails = async () => {
         try {
-          const response = await axios.get(`https://hq2soft.com/hq2sspapi/fetchBankDetails.php?ssp_id=${ssp_id}`);
+          const response = await axios.get(`http://localhost/hq2sspapi/fetchBankDetails.php?ssp_id=${ssp_id}`);
           if (response.data.success) {
             setAccountDetails(response.data.data);
+          }else{
+            history.push("/linkaccount")
           }
         } catch (err) {
         setToastMessage('Error fetching account details. Please try again later.');
@@ -65,7 +67,7 @@ const Withdrawal: React.FC = () => {
   useEffect(() => {
     const fetchBalance = async () => {
       try {
-        const response = await fetch(`https://hq2soft.com/hq2sspapi/fetchBal.php?ssp_id=${ssp_id}`);
+        const response = await fetch(`http://localhost/hq2sspapi/fetchBal.php?ssp_id=${ssp_id}`);
         const data = await response.json();
         setBal(response.ok ? data.balance : 0);
       } catch {
@@ -76,13 +78,16 @@ const Withdrawal: React.FC = () => {
   }, [ssp_id]);
 
   const handleWithdraw = async (pin: string) => {
+
+
     setIsPinModalOpen(false)
     setIsLoading(true)
     setIsProcessed(true)
 
+
     try {
       // Validate PIN
-      const pinValidationResponse = await axios.post('https://hq2soft.com/hq2sspapi/validatePin.php', {
+      const pinValidationResponse = await axios.post('http://localhost/hq2sspapi/validatePin.php', {
         ssp_id: ssp_id,
         pin: pin,
       });
@@ -96,7 +101,7 @@ const Withdrawal: React.FC = () => {
       }
 
       // Proceed with withdrawal
-      const response = await axios.post('https://hq2soft.com/hq2sspapi/withdrawal.php', {
+      const response = await axios.post('http://localhost/hq2sspapi/withdrawal.php', {
         amount: amount,
         ssp_id: ssp_id,
       });
@@ -129,7 +134,9 @@ const Withdrawal: React.FC = () => {
       setToastMessage('Withdrawal must be from minimun amount and above');
       setToastColor('danger');
       setShowToast(true);
-    } else {
+    } else if(!pincode) {
+        setIsSetupModalOpen(true);
+    }else {
       setIsPinModalOpen(true); // Open the PIN modal
     }
   };
@@ -198,7 +205,7 @@ const close = ()=> {
             />
           </div>
         </div>
-        <div className={style.bal}>Your active balance is : &#8358;{bal.toLocaleString()}</div>
+        <div className={style.bal}>Your active balance is : &#8358;{bal ? `${bal.toLocaleString()}` : 'Loading...'}</div>
         <div className={style.butCont}>
           <button disabled={insufficient ? true : false} className={style.but} onClick={confirm}>
             Withdraw

@@ -1,20 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import { IonContent, IonPage, IonList, IonItem, IonLabel, IonHeader, IonToolbar, IonText, IonIcon } from '@ionic/react';
+import { IonContent, IonPage, IonList, IonItem, IonLabel, IonHeader, IonIcon, IonSkeletonText } from '@ionic/react';
 import { useHistory } from 'react-router-dom';
 import { locationOutline } from "ionicons/icons";
 import style from "./styles/Inbox.module.css";
 import { db } from '../firebase/firebaseConfig';
-import { collection, query, where, getDocs, orderBy, limit, getDoc, doc, setDoc, onSnapshot, serverTimestamp, updateDoc } from 'firebase/firestore';
+import { collection, query, where, getDocs, orderBy, limit, onSnapshot, serverTimestamp, updateDoc, setDoc, doc, getDoc } from 'firebase/firestore';
 
-// Define the ChatRoom interface
 interface ChatRoom {
   roomId: string;
   jobId: string;
   userId: string;
   serviceProviderId: string;
-  lastMessage: string; // Store last message content
-  lastMessageTime: number; // Store timestamp of the last message
-  isUnread: boolean; // Flag for unread messages
+  lastMessage: string;
+  lastMessageTime: number;
+  isUnread: boolean;
 }
 
 interface JobDetails {
@@ -29,7 +28,8 @@ interface JobDetails {
 
 const Inbox: React.FC = () => {
   const [chatRooms, setChatRooms] = useState<ChatRoom[]>([]);
-  const [jobDetails, setJobDetails] = useState<{ [key: string]: JobDetails }>({}); // Store job details by jobId
+  const [jobDetails, setJobDetails] = useState<{ [key: string]: JobDetails }>({});
+  const [loading, setLoading] = useState(true); // Add loading state
   const storedInfo = sessionStorage.getItem('Info');
   const info = storedInfo ? JSON.parse(storedInfo) : {};
   const sspId = info?.ssp_id;
@@ -50,14 +50,12 @@ const Inbox: React.FC = () => {
 
         for (const docSnapshot of querySnapshot.docs) {
           const data = docSnapshot.data();
-
           const roomId = docSnapshot.id;
-
           const messagesRef = collection(doc(db, 'chatRooms', roomId), 'messages');
           const lastMessageListener = query(messagesRef, orderBy('timestamp', 'desc'), limit(1));
 
           // Set up a listener for real-time updates on the last message
-          const unsubscribe = onSnapshot(lastMessageListener, (snapshot) => {
+          onSnapshot(lastMessageListener, (snapshot) => {
             if (!snapshot.empty) {
               const lastMessageDoc = snapshot.docs[0].data();
               const lastMessage = lastMessageDoc?.message || '';
@@ -71,15 +69,13 @@ const Inbox: React.FC = () => {
                     ...updatedRooms[roomIndex],
                     lastMessage,
                     lastMessageTime,
-                    isUnread: updatedRooms[roomIndex].lastMessageTime < lastMessageTime, // Set unread flag
+                    isUnread: updatedRooms[roomIndex].lastMessageTime < lastMessageTime,
                   };
                 }
                 return updatedRooms;
               });
             }
           });
-
-          
 
           rooms.push({
             roomId,
@@ -88,19 +84,20 @@ const Inbox: React.FC = () => {
             serviceProviderId: data.serviceProviderId,
             lastMessage: '',
             lastMessageTime: 0,
-            isUnread: true, // Assume unread for demonstration; customize logic here
+            isUnread: true,
           });
         }
 
         rooms.sort((a, b) => b.lastMessageTime - a.lastMessageTime);
-
         setChatRooms(rooms);
-        fetchJobDetailsForRooms(rooms);
+        await fetchJobDetailsForRooms(rooms);
       } else {
         console.log('No chat rooms found for you:', sspId);
       }
     } catch (error) {
       console.error('Error fetching chat rooms:', error);
+    } finally {
+      setLoading(false); // Stop loading once data is fetched
     }
   };
 
@@ -108,7 +105,7 @@ const Inbox: React.FC = () => {
     try {
       const jobDetailsMap: { [key: string]: JobDetails } = {};
       for (const room of rooms) {
-        const response = await fetch('https://hq2soft.com/hq2sspapi/getJobDetails.php', {
+        const response = await fetch('http://localhost/hq2sspapi/getJobDetails.php', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -144,12 +141,9 @@ const Inbox: React.FC = () => {
       const docRef = doc(db, 'chatRooms', roomId, 'metadata', 'lastRead');
       const docSnap = await getDoc(docRef);
 
-      // Check if the document exists
       if (docSnap.exists()) {
-        // If it exists, update the document with server timestamp
         await updateDoc(docRef, { [userId]: serverTimestamp() });
       } else {
-        // If the document doesn't exist, create it with server timestamp
         await setDoc(docRef, { [userId]: serverTimestamp() });
       }
 
@@ -178,28 +172,49 @@ const Inbox: React.FC = () => {
         <div className={style.head}>Inbox</div>
       </IonHeader>
       <IonContent>
-        <IonList lines="none">
-          {chatRooms.map((chatRoom) => (
-            <IonItem   
-              style={{ "--backgroundColor": chatRoom.isUnread ? '#f0f8ff' : 'transparent'}}
-              key={chatRoom.roomId} onClick={() => openChat(chatRoom.roomId, chatRoom.jobId)}>
-              <IonLabel>
-                {jobDetails[chatRoom.jobId] && (
-                  <div style={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
-                    <div style={{fontSize: "19px", fontWeight: "600"}}> {jobDetails[chatRoom.jobId].skill}</div>
-                    <div style={{fontSize:"10px", alignItems:"center", display: "flex"}}> <IonIcon icon={locationOutline} /> {jobDetails[chatRoom.jobId].state}, {jobDetails[chatRoom.jobId].local_government}</div>
+        {loading ? (
+          <IonList lines="none">
+            {Array.from({ length: 13 }).map((_, index) => (
+              <IonItem key={index}>
+                <IonLabel>
+                  <div style={{display: "flex", justifyContent:"space-between", alignItems: "center"}}>
+                    <div style={{width: "70%"}}>
+                      <IonSkeletonText animated style={{ width: '60%',   height: "20px" }} />
+                      <IonSkeletonText animated style={{ width: '40%', height: "15px", marginTop: '8px' }} />
+                    </div>
+                    <div style={{width: "20%"}}>
+                    <IonSkeletonText animated style={{ width: '100%', }} />
+                    <IonSkeletonText animated style={{ width: '100%', marginTop: '8px' }} />
+                    </div>
                   </div>
-                )}
-                {chatRoom.lastMessage && (
-                  <div style={{display: "flex", justifyContent: "space-between", marginTop: "5px", alignItems: "center", border: "0px solid black"}}>
-                    <div style={{fontSize: "16px"}}> {chatRoom.lastMessage}</div>
-                    <div style={{fontSize: "10px", width: "40%", textAlign: "right"}}> {new Date(chatRoom.lastMessageTime * 1000).toLocaleString()}</div>
-                  </div>
-                )}
-              </IonLabel>
-            </IonItem>
-          ))}
-        </IonList>
+                </IonLabel>
+              </IonItem>
+            ))}
+          </IonList>
+        ) : (
+          <IonList lines="none">
+            {(chatRooms.map((chatRoom) => (
+              <IonItem   
+                style={{ "--backgroundColor": chatRoom.isUnread ? '#f0f8ff' : 'transparent'}}
+                key={chatRoom.roomId} onClick={() => openChat(chatRoom.roomId, chatRoom.jobId)}>
+                <IonLabel>
+                  {jobDetails[chatRoom.jobId] && (
+                    <div style={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
+                      <div style={{fontSize: "19px", fontWeight: "600"}}> {jobDetails[chatRoom.jobId].skill}</div>
+                      <div style={{fontSize:"10px", alignItems:"center", display: "flex"}}> <IonIcon icon={locationOutline} /> {jobDetails[chatRoom.jobId].state}, {jobDetails[chatRoom.jobId].local_government}</div>
+                    </div>
+                  )}
+                  {chatRoom.lastMessage && (
+                    <div style={{display: "flex", justifyContent: "space-between", marginTop: "5px", alignItems: "center", border: "0px solid black"}}>
+                      <div style={{fontSize: "16px"}}> {chatRoom.lastMessage}</div>
+                      <div style={{fontSize: "10px", width: "40%", textAlign: "right"}}> {new Date(chatRoom.lastMessageTime * 1000).toLocaleString()}</div>
+                    </div>
+                  )}
+                </IonLabel>
+              </IonItem>
+            )))}
+          </IonList>
+        )}
       </IonContent>
     </IonPage>
   );
