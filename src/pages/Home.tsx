@@ -79,7 +79,7 @@ const updateDeviceToken = (userId: string) => {  // Explicitly typing userId
       console.log('Device token:', deviceToken);
 
       // Send device token to the server to update it in the database
-      fetch('http://localhost/hq2sspapi/updateDeviceToken.php', {
+      fetch('https://hq2soft.com/hq2sspapi/updateDeviceToken.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -110,7 +110,7 @@ const LoginSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
   try {
     // Ensure formData is sent as a JSON string
     const response = await axios.post(
-      "http://localhost/hq2sspapi/login.php",
+      "https://hq2soft.com/hq2sspapi/login.php",
       JSON.stringify(formData), // Convert formData to JSON
       {
         headers: {
@@ -128,9 +128,9 @@ const LoginSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
       const verified = response.data.user.numberVerified;
 
       // Determine route based on user data
-      if (verified === null) {
+     if(verified === null){
         history.push("/otppage");
-      } else if (profession === null) {
+     }else if (profession === null) {
         history.push("/completeprofile");
       } else {
         history.push("/dashboard");
@@ -182,7 +182,7 @@ const LoginSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     };
 
     try {
-      const response = await axios.post("http://localhost/hq2sspapi/signup.php",
+      const response = await axios.post("https://hq2soft.com/hq2sspapi/signup.php",
         JSON.stringify(dataToSend), {
         headers: {
           "Content-Type": "application/json",
@@ -190,7 +190,7 @@ const LoginSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
       });
 
       if (response.data.status === "success") {
-        setToastText("Signup Successful!");
+        setToastText(response.data.message);
         setToast(true);
         openModal("login"); // Navigate to login page after successful signup
       } else {
@@ -222,7 +222,7 @@ setIsLoading(false);// Re-enable the button after submission
 
 
   /********************SIGN UP ******************/
-  const logo = "/assets/Icon.png";
+
 
   return (
     <IonPage className={style.page}>
@@ -235,7 +235,7 @@ setIsLoading(false);// Re-enable the button after submission
         <div onClick={closeModal} className={style.glass}>
           {/* Conditionally Rendered Logo */}
           <div className={`${style.logo} ${showLogo ? style.showLogo : ""}`}>
-            <img src={logo} alt="Logo" />
+            <img src="/assets/Icon.png" alt="Logo" />
           </div>
 
           {/* Content */}
@@ -329,6 +329,9 @@ setIsLoading(false);// Re-enable the button after submission
                   >
                     Signup
                   </span>
+                </div>
+                <div className={style.term}>
+                  By using our services you agree to our <span onClick={()=>history.push("/terms")} className={style.linkSpan}>Terms of Services</span> and <span className={style.linkSpan} onClick={()=>{history.push('/dataprivacy')}}>Data Privacy</span>
                 </div>
               </form>
             ) : (

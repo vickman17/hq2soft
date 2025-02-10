@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'http://localhost/hq2sspapi'; // Update this to your backend base URL.
+const API_BASE_URL = 'https://hq2soft.com/hq2sspapi'; // Update this to your backend base URL.
 
 export const fetchJobsForProvider = async (serviceProviderId: string) => {
   try {

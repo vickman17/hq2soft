@@ -8,41 +8,40 @@ const Profile: React.FC = () => {
     const storedInfo = sessionStorage.getItem("Info");
     const info = storedInfo ? JSON.parse(storedInfo) : {};
     const userId = info?.ssp_id;
+    const place = "/assets/goldplace.jpg";  // Default image
 
     useEffect(() => {
         const fetchProfilePicture = async () => {
             try {
-                const response = await axios.get('http://localhost/hq2sspapi/getProfile.php', {
+                const response = await axios.get('https://hq2soft.com/hq2sspapi/getProfile.php', {
                     params: { user_id: userId }, // Replace with actual user ID
                 });
 
-                if (response.data.success) {
-                    setProfilePicture('http://localhost/hq2sspapi/' + response.data.profile_picture);
+                if (response.data.success && response.data.profile_picture) {
+                    setProfilePicture('https://hq2soft.com/hq2sspapi/' + response.data.profile_picture);
                 } else {
-                    console.error('Failed to fetch profile picture:', response.data.message);
+                    setProfilePicture(null); // No profile picture, fallback to default
                 }
             } catch (error) {
                 console.error('Error fetching profile picture:', error);
+                setProfilePicture(null); // Fallback in case of error
             }
         };
 
-        fetchProfilePicture();
+        if (userId) {
+            fetchProfilePicture();
+        }
     }, [userId]);
-
-
-    console.log(userId)
 
     return (
         <div className={style.proCont}>
-                          {profilePicture ? (
+            <div>
                 <img 
                     className={style.image} 
-                    src={profilePicture || ""} 
-                    
+                    src={profilePicture || place}  // Use place image if profilePicture is null or empty
+                    alt="Profile" // Adding alt text for accessibility
                 />
-            ) : (
-                <div className={style.emptyImage}></div> // Empty div when no profile picture
-            )}
+            </div>
         </div>
     );
 };

@@ -40,7 +40,7 @@ const PendingJobs: React.FC = () => {
       setError(null);
 
       try {
-        const response = await axios.post('http://localhost/hq2sspapi/fetchCompletedJob.php', {
+        const response = await axios.post('https://hq2soft.com/hq2sspapi/fetchCompletedJob.php', {
           ssp_id: providerId,
         }, {
           headers: {
@@ -79,7 +79,7 @@ const PendingJobs: React.FC = () => {
   
 
     try {
-      const response = await axios.post('http://localhost/hq2sspapi/joinChatRoom.php', {
+      const response = await axios.post('https://hq2soft.com/hq2sspapi/joinChatRoom.php', {
         ssp_id: sspId,
         chat_room_id: chatRoomId,
       });
@@ -100,7 +100,7 @@ const PendingJobs: React.FC = () => {
   const markAsCompleted = async (jobRequestId: string) => {
     setLoading(true);
     try {
-      const response = await axios.post('http://localhost/hq2sspapi/jobUpdate.php', {
+      const response = await axios.post('https://hq2soft.com/hq2sspapi/jobUpdate.php', {
         job_request_id: jobRequestId,
       });
   
@@ -139,30 +139,67 @@ const PendingJobs: React.FC = () => {
         </div>
       )}
       {!loading && jobs.length > 0 && (
-        <IonList lines='none'>
-          {jobs.map((job) => (
-            <IonItem key={job.job_request_id}>
-              <div className={style.item}>
-                <div className={style.top}>
-                  <div className={style.skill}>{job.skill}</div>
-                  <div className={style.tag}><IonBadge style={{background: job.job_request_status === "awaiting_approval" ? "var(--ion-company-gold)" : "var(--ion-company-wood)"}}>{job.job_request_status === "awaiting_approval" ? "Under review" : "Completed"}</IonBadge></div>
-                </div>
-                <div className={style.time}><p>{job.job_assignment_created_at}</p></div>
-            
-                {expandedJobId === job.job_assignment_id && (
-                  <div className={`${style.details} ${expandedJobId === job.job_assignment_id ? style.visible : ''}`}>
-                    <p><strong>Client ID:</strong> {job.client_id}</p>
-                    <p><strong>State:</strong> {job.state}</p>
-                    <p><strong>Local Government:</strong> {job.local_government}</p>
-                    <p><strong>Address:</strong> {job.address}</p>
-                    <p><strong>Details:</strong> {job.additional_details}</p>
-                    <p><strong>Created At:</strong> {job.job_request_created_at}</p>
-                  </div>
-                )}
-              </div>
-            </IonItem>
-          ))}
-        </IonList>
+        <IonList lines="none">
+  {jobs.length > 0 ? (
+    jobs.map((job) => (
+      <IonItem key={job.job_request_id}>
+        <div className={style.item}>
+          <div className={style.top}>
+            <div className={style.skill}>{job.skill}</div>
+            <div className={style.tag}>
+              <IonBadge
+                style={{
+                  background:
+                    job.job_request_status === "awaiting_approval"
+                      ? "var(--ion-company-gold)"
+                      : "var(--ion-company-wood)",
+                }}
+              >
+                {job.job_request_status === "awaiting_approval"
+                  ? "Under review"
+                  : "Completed"}
+              </IonBadge>
+            </div>
+          </div>
+          <div className={style.time}>
+            <p>{job.job_assignment_created_at}</p>
+          </div>
+
+          {expandedJobId === job.job_assignment_id && (
+            <div
+              className={`${style.details} ${
+                expandedJobId === job.job_assignment_id ? style.visible : ""
+              }`}
+            >
+              <p>
+                <strong>Client ID:</strong> {job.client_id}
+              </p>
+              <p>
+                <strong>State:</strong> {job.state}
+              </p>
+              <p>
+                <strong>Local Government:</strong> {job.local_government}
+              </p>
+              <p>
+                <strong>Address:</strong> {job.address}
+              </p>
+              <p>
+                <strong>Details:</strong> {job.additional_details}
+              </p>
+              <p>
+                <strong>Created At:</strong> {job.job_request_created_at}
+              </p>
+            </div>
+          )}
+        </div>
+      </IonItem>
+    ))
+    ) : (
+      <div style={{ textAlign: "center", color: "grey", padding: "20px" }}>
+        <p>No jobs found.</p>
+      </div>
+    )}
+  </IonList>
       )}
     </div>
   );

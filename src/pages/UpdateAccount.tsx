@@ -3,12 +3,12 @@ import { IonPage, IonHeader, IonToolbar, IonTitle, IonModal, IonContent, IonInpu
 import axios from 'axios';
 import style from "./styles/LinkAccount.module.css";
 import Header from "../components/Header";
-import {useHistory} from "react-router";
 
-const LinkAccount: React.FC = () => {
+const UpdateAccount: React.FC = () => {
     const [name, setName] = useState('');
     const [accountNumber, setAccountNumber] = useState('');
     const [bankCode, setBankCode] = useState('');
+    const [loading, setLoading] = useState<boolean>(false);
     const [toastMessage, setToastMessage] = useState('');
     const [showToast, setShowToast] = useState<boolean>(false);
     const [banks, setBanks] = useState<any[]>([]);
@@ -19,9 +19,8 @@ const LinkAccount: React.FC = () => {
     const [bankName, setBankName] = useState('');
     const info = sessionStorage.getItem('Info');
     const parsed = info ? JSON.parse(info) : {};
-    const [loading, setLoading] = useState<boolean>(false);
+
     const ssp_id = parsed?.ssp_id;
-    const history = useHistory();
 
     console.log(ssp_id)
 
@@ -33,21 +32,17 @@ const LinkAccount: React.FC = () => {
         try {
             const response = await axios.get('https://hq2soft.com/hq2sspapi/fetchBank.php');
             const data = response.data;
-    
-            console.log('API Response:', data); // Debugging to verify response structure
-    
-            if (data?.requestSuccessful && Array.isArray(data.responseBody)) {
-                setBanks(data.responseBody); // Corrected to use 'responseBody'
-                setTotalPages(Math.ceil((data.totalRecords || data.responseBody.length) / 10)); 
+            if (Array.isArray(data.data)) {
+                setBanks(data.data);
+                setTotalPages(Math.ceil(data.total / 10)); // Assuming 'total' is the total number of records
             } else {
                 console.error('Invalid data format', data);
                 setBanks([]); // Reset banks to an empty array
-            }
+            }    
         } catch (error) {
             console.error('Error fetching banks', error);
         }
     };
-
 
     const filteredBanks = banks?.filter(bank =>
         bank.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -55,7 +50,8 @@ const LinkAccount: React.FC = () => {
     
 
     const handleSubmit = async () => {
-setLoading(true)
+    
+        setLoading(true);
 
         const recipientData = {
             name: name,
@@ -67,7 +63,7 @@ setLoading(true)
         };
     
         try {
-            const response = await fetch('https://hq2soft.com/hq2sspapi/linkAccount.php', {
+            const response = await fetch('https://hq2soft.com/hq2sspapi/updateAccount.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -79,7 +75,6 @@ setLoading(true)
             if (result.success) {
                 setShowToast(true)
                 setToastMessage('Account has been linked successfully');
-                history.push('/earning')
             } else {
                 setShowToast(true);
                 setToastMessage('Account linking failed, Try again')
@@ -88,7 +83,7 @@ setLoading(true)
             setShowToast(true);
             setToastMessage('Error please contact our support!');
         }finally{
-            setLoading(false);
+            setLoading(false)
         }
     };
 
@@ -108,10 +103,10 @@ setLoading(true)
 
     return (
         <IonPage>
-            <Header title="Link Accont" />
+            <Header title="Update Accont" />
             <IonContent className={style.page}>
                 <div className={style.info}>
-                    <div style={{fontSize: "25px", fontWeight: "700"}}>Connect payout account</div>
+                    <div style={{fontSize: "25px", fontWeight: "700"}}>Update payout account</div>
                     <div>Account name must match name on profile</div>
                 </div>
                 <div className={style.chatBox}>
@@ -138,7 +133,7 @@ setLoading(true)
                 </div>
                 <div style={{border: "0px solid black", textAlign: "center", marginTop: "3rem"}}>
                     <button style={{width: "90%", paddingBlock: "12px", fontSize: "18px", borderRadius: "20px", background: loading === true ? "grey" : "var(--ion-company-wood)", color: loading === true ? "var(--ion-company-gold)" : "white", fontWeight: "600"}} onClick={handleSubmit}>
-                        {loading === true ? "Processing" : "Add account"}
+                        {loading === true ? "Updating account" : "Update account"}
                     </button>
                 </div>
                 <IonToast
@@ -164,7 +159,7 @@ setLoading(true)
                         {filteredBanks.length > 0 ? (
                             filteredBanks.map((bank) => (
                                 <IonItem
-                                    key={bank.code}
+                                    key={bank.id}
                                     button
                                     onClick={() => {
                                         setBankCode(bank.code);
@@ -191,4 +186,4 @@ setLoading(true)
     );
 };
 
-export default LinkAccount;
+export default UpdateAccount;

@@ -15,6 +15,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import style from "./styles/CompleteProfile.module.css";
 import welcome from "/assets/welcome.jpeg";
+import { useHistory } from "react-router";
 
 interface Category {
   id: string;
@@ -37,8 +38,9 @@ const CompleteProfile: React.FC = () => {
   const sspId =  userData?.ssp_id;
   const [toast, setToast] = useState<boolean>(false);
   const [toastText, setToastText] = useState<string>("");
+  const history = useHistory();
 
-  const API_BASE_URL = "http://localhost/hq2sspapi";
+  const API_BASE_URL = "https://hq2soft.com/hq2sspapi";
 
   const stepTitles = ["Skills", "Address", "Onboard"];
 
@@ -109,10 +111,9 @@ const CompleteProfile: React.FC = () => {
   const handlePreviousStep = () => {
     if (currentStep > 0) setCurrentStep(currentStep - 1);
   };
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
+  
     const formData = {
       selectedCategory,
       selectedSubcategories,
@@ -125,21 +126,38 @@ const CompleteProfile: React.FC = () => {
       workSuite,
       sspId,
     };
-
+  
     axios
       .post(`${API_BASE_URL}/completeProfile.php`, formData)
-      .then(() => {
-        setToast(true)
-        setToastText("Onboarding successful!");
-        window.location.href = "/dashboard";
+      .then((response) => {
+        const { success, message, ssp } = response.data;
+  
+        if (success) {
+          setToast(true);
+          setToastText("Onboarding successful!");
+  
+          // Save updated SSP data to sessionStorage
+          if (ssp) {
+            sessionStorage.setItem("Info", JSON.stringify(ssp));
+            console.log("saved");
+            console.log(ssp);
+          }
+  
+          history.push("/dashboard");
+
+          // Redirect after update
+        } else {
+          setToast(true);
+          setToastText(message || "Failed to save profile. Please try again.");
+        }
       })
       .catch((error) => {
         console.error("Error saving profile:", error);
-        setToast(true)
+        setToast(true);
         setToastText("Failed to save profile. Please try again.");
       });
   };
-
+  
 
   /*******************location ************************/
   const [states, setStates] = useState<string[]>([]); // Stores list of states
@@ -343,15 +361,15 @@ const handleWorkSuiteChange = (e: React.ChangeEvent<HTMLInputElement>) => {
               >
                 <IonItem>
                   <IonLabel>Academic</IonLabel>
-                  <IonRadio id="academic" slot="start" value="academic" />
+                  <IonRadio className={style.check} id="academic" slot="start" value="academic" />
                 </IonItem>
-                <IonItem button>
+                <IonItem>
                   <IonLabel>Verified</IonLabel>
-                  <IonRadio slot="start" value="verified" />
+                  <IonRadio className={style.check} slot="start" value="verified" />
                 </IonItem>
-                <IonItem button>
+                <IonItem>
                   <IonLabel>Certified</IonLabel>
-                  <IonRadio slot="start" value="certified" />
+                  <IonRadio className={style.check} slot="start" value="certified" />
                 </IonItem>
               </IonRadioGroup>
               </IonList>

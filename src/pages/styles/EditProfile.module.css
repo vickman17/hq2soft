@@ -41,7 +41,7 @@
     border: none;
     border-bottom: 1px solid #e0cc91;
     text-align: center;
-    margin-top: 4rem;
+    margin-top: 2rem;
 }
 
 .input{
@@ -57,7 +57,7 @@
     width: 90%;
     margin: auto;
     display: flex;
-    margin-top: 8rem;
+    margin-top: 4rem;
     justify-content: space-between;
 }
 

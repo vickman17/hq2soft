@@ -40,6 +40,19 @@
     color: white;
     border-color: #4caf50;
   }
+
+
+  .check{
+    border-radius: 50%;
+    background: wheat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    padding-left: 2px;
+    color: white;
+  }
   
   .checkmark {
     font-size: 20px;

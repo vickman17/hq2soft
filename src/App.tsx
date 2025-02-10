@@ -3,8 +3,6 @@ import { IonApp, IonRouterOutlet, setupIonicReact } from '@ionic/react';
 import { Route, useLocation } from 'react-router-dom';
 import Home from './pages/Home';
 import Dashboard from './pages/Dashboard';
-import Signup from './pages/Signup';
-import Login from './pages/Login';
 import Profile from './components/Profile';
 import Earning from './pages/Earning';
 import Jobs from './pages/Jobs';
@@ -25,6 +23,9 @@ import NotificationPage from './pages/NotificationPage';
 import { requestPermission, onMessageListener } from "./firebase/firebaseMessaging";
 import { getMessaging, onMessage } from "firebase/messaging";
 import { messaging, getToken } from './firebase/firebaseConfig';
+import Security from "./pages/Security";
+import Account from './pages/Account';
+import SplashScreen from "./components/SplashScreen";
 
 /* CSS imports */
 import '@ionic/react/css/core.css';
@@ -49,6 +50,7 @@ import Chat from "./pages/Chat";
 import linkAccount from './pages/LinkAccount';
 import SlidingCard from './components/Sliding';
 import TermsOfService from './pages/TermsOfService';
+import UpdateAccount from './pages/UpdateAccount';
 
 setupIonicReact();
 
@@ -115,8 +117,14 @@ const App: React.FC = () => {
     document.body.style.fontFamily = 'Quicksand, sans-serif';
   }, []);
 
+
+  const [showSplash, setShowSplash] = useState(true);
+
   return (
     <IonApp>
+       {showSplash ? (
+        <SplashScreen onFinish={() => setShowSplash(false)} />
+      ) : (
       <IonRouterOutlet>
             <Route exact path="/" component={showOnboarding ? Onboarding : Home} />
             <Route exact path="/home" component={Home} />
@@ -124,6 +132,7 @@ const App: React.FC = () => {
             <Route exact path="/earning" component={Earning} />
             <Route exact path="/inbox" component={Inbox} />
             <Route exact path="/jobs" component={Jobs} />
+            <Route exact path="/splash" component={SplashScreen} />
             <Route exact path="/request" component={Request} />
             <Route exact path="/dashboard" component={Dashboard} />
             <Route exact path="/setting" component={Setting} />
@@ -144,11 +153,16 @@ const App: React.FC = () => {
             <Route exact path="/about" component={About} />
             <Route exact path="/terms" component={TermsOfService} />
             <Route exact path="/dataprivacy" component={DataPrivacy} />
+            <Route exact path="/security" component={Security} />
+            <Route exact path="/updateaccount" component={UpdateAccount} />
+            <Route exact path="/account" component={Account} />
       </IonRouterOutlet>
+      )}
       {/* Bottom Nav visibility */}
       {pagesWithBottomNav.includes(location.pathname) && (
         <BottomNav />
       )}
+      
     </IonApp>
   );
 };

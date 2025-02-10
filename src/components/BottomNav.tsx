@@ -37,6 +37,7 @@ const BottomNav: React.FC = () => {
     history.push(path);
   };
 
+
   return (
     <IonFooter className={edit.navbar} style={{ '--background': 'transparent', '--boxShadow': 'none', border: 'none' }}>
       <IonTabBar
@@ -52,7 +53,7 @@ const BottomNav: React.FC = () => {
           <div className={activeTab === 'home' ? edit.activeTab : ''}>
             <img src={activeTab === 'home' ? homeSolid : homeOutline} width={20} height={20} />
           </div>
-          <div style={{ fontWeight: activeTab === 'home' ? '700' : '', fontSize: '10px' }}>Home</div>
+          <div style={{ fontWeight: activeTab === 'home' ? '700' : '', fontSize: '10px', color: "var(--ion-company-wood)"}}>Home</div>
         </IonTabButton>
 
         {/* Chat Tab */}
@@ -64,7 +65,7 @@ const BottomNav: React.FC = () => {
           <div className={activeTab === 'chat' ? edit.activeTab : ''}>
             <img src={activeTab === 'chat' ? chatSolid : chatOutline} width={20} height={20} />
           </div>
-          <div style={{ fontWeight: activeTab === 'chat' ? '700' : '', fontSize: '10px' }}>Inbox</div>
+          <div style={{ fontWeight: activeTab === 'chat' ? '700' : '', fontSize: '10px', color: "var(--ion-company-wood)"}}>Inbox</div>
         </IonTabButton>
 
         {/* Notification Tab */}
@@ -76,7 +77,7 @@ const BottomNav: React.FC = () => {
           <div className={activeTab === 'notify' ? edit.activeTab : ''}>
             <img src={activeTab === 'notify' ? bellSolid : bellOutline} width={20} height={20} />
           </div>
-          <div style={{ fontWeight: activeTab === 'notify' ? '700' : '', fontSize: '10px' }}>Notification</div>
+          <div style={{ fontWeight: activeTab === 'notify' ? '700' : '', fontSize: '10px', color: "var(--ion-company-wood)"}}>Notification</div>
         </IonTabButton>
 
         {/* Profile Tab */}
@@ -88,7 +89,7 @@ const BottomNav: React.FC = () => {
           <div className={activeTab === 'settings' ? edit.activeTab : ''}>
             <img src={activeTab === 'settings' ? userSolid : userOutline} width={20} height={20} />
           </div>
-          <div style={{ fontWeight: activeTab === 'settings' ? '700' : '', fontSize: '10px' }}>Profile</div>
+          <div style={{ fontWeight: activeTab === 'settings' ? '700' : '', fontSize: '10px', color: "var(--ion-company-wood)" }}>Profile</div>
         </IonTabButton>
       </IonTabBar>
     </IonFooter>

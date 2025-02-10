@@ -105,7 +105,7 @@ const Inbox: React.FC = () => {
     try {
       const jobDetailsMap: { [key: string]: JobDetails } = {};
       for (const room of rooms) {
-        const response = await fetch('http://localhost/hq2sspapi/getJobDetails.php', {
+        const response = await fetch('https://hq2soft.com/hq2sspapi/getJobDetails.php', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -168,7 +168,7 @@ const Inbox: React.FC = () => {
 
   return (
     <IonPage className={style.content}>
-      <IonHeader className={style.header}>
+      <IonHeader style={{color: "var(--ion-company-wood)"}} className={style.header}>
         <div className={style.head}>Inbox</div>
       </IonHeader>
       <IonContent>
@@ -192,28 +192,46 @@ const Inbox: React.FC = () => {
             ))}
           </IonList>
         ) : (
-          <IonList lines="none">
-            {(chatRooms.map((chatRoom) => (
+        <IonList lines="none">
+          {chatRooms.length > 0 ? (
+            chatRooms.map((chatRoom) => (
               <IonItem   
-                style={{ "--backgroundColor": chatRoom.isUnread ? '#f0f8ff' : 'transparent'}}
-                key={chatRoom.roomId} onClick={() => openChat(chatRoom.roomId, chatRoom.jobId)}>
-                <IonLabel>
+                style={{ "--backgroundColor": chatRoom.isUnread ? '#f0f8ff' : 'transparent' }}
+                key={chatRoom.roomId} 
+                onClick={() => openChat(chatRoom.roomId, chatRoom.jobId)}
+              >
+                <IonLabel style={{ fontFamily: "Quicksand" }}>
                   {jobDetails[chatRoom.jobId] && (
-                    <div style={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
-                      <div style={{fontSize: "19px", fontWeight: "600"}}> {jobDetails[chatRoom.jobId].skill}</div>
-                      <div style={{fontSize:"10px", alignItems:"center", display: "flex"}}> <IonIcon icon={locationOutline} /> {jobDetails[chatRoom.jobId].state}, {jobDetails[chatRoom.jobId].local_government}</div>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                      <div style={{ fontSize: "19px", fontWeight: "600" }}> 
+                        {jobDetails[chatRoom.jobId].skill}
+                      </div>
+                      <div style={{ fontSize: "10px", alignItems: "center", display: "flex" }}> 
+                        <IonIcon icon={locationOutline} /> 
+                        {jobDetails[chatRoom.jobId].state}, {jobDetails[chatRoom.jobId].local_government}
+                      </div>
                     </div>
                   )}
                   {chatRoom.lastMessage && (
-                    <div style={{display: "flex", justifyContent: "space-between", marginTop: "5px", alignItems: "center", border: "0px solid black"}}>
-                      <div style={{fontSize: "16px"}}> {chatRoom.lastMessage}</div>
-                      <div style={{fontSize: "10px", width: "40%", textAlign: "right"}}> {new Date(chatRoom.lastMessageTime * 1000).toLocaleString()}</div>
+                    <div style={{ display: "flex", justifyContent: "space-between", marginTop: "5px", alignItems: "center" }}>
+                      <div style={{ fontSize: "16px" }}> {chatRoom.lastMessage}</div>
+                      <div style={{ fontSize: "10px", width: "40%", textAlign: "right" }}> 
+                        {new Date(chatRoom.lastMessageTime * 1000).toLocaleString()}
+                      </div>
                     </div>
                   )}
                 </IonLabel>
               </IonItem>
-            )))}
-          </IonList>
+            ))
+          ) : (
+            <div style={{ textAlign: "center", color: "gray", padding: "20px" }}>
+              <div>
+                <img src="/assets/empty.png" />
+              </div>
+              <p>No job conversation found</p>
+            </div>
+          )}
+        </IonList>
         )}
       </IonContent>
     </IonPage>

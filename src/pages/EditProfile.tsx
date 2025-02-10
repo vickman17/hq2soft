@@ -1,4 +1,4 @@
-import { IonContent, IonIcon, IonPage } from '@ionic/react';
+import { IonContent, IonToast, IonIcon, IonPage } from '@ionic/react';
 import React, { useRef, useState } from 'react';
 import Profile from '../components/Profile';
 import style from './styles/EditProfile.module.css';
@@ -10,7 +10,8 @@ import Header from '../components/Header';
 
 const EditProfile: React.FC = () => {
     const fileInputRef = useRef<HTMLInputElement | null>(null);
-
+    const [toast, setToast] = useState<boolean>(false);
+    const [toastMessage, setToastMessage] = useState<string>("");
     const storedInfo = sessionStorage.getItem("Info");
     const info = storedInfo ? JSON.parse(storedInfo) : {};
     const userId = info?.ssp_id;
@@ -54,7 +55,7 @@ const EditProfile: React.FC = () => {
             formData.append('user_id', userId); 
 
             try {
-                const response = await axios.post('http://localhost/hq2sspapi/uploadProfile.php', formData, {
+                const response = await axios.post('https://hq2soft.com/hq2sspapi/uploadProfile.php', formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                     },
@@ -102,13 +103,14 @@ const EditProfile: React.FC = () => {
             <Header title='Edit Profile' />
             <IonContent>
                 <div className={style.profile}>
-                    <div className={style.proCont}>
+                    <div className={style.proCont} onClick={handleIconClick}>
                         <Profile />
+                        <div style={{color: "grey", fontSize: "13px", marginTop: "7px"}}>Click to change profile photo</div>
                     </div>
 
-                    <div className={style.iconCont}>
-                        <IonIcon className={style.icon} icon={cameraOutline} onClick={handleIconClick} />
-                        {/* Hidden file input */}
+                    <div style={{display: "hidden"}}>
+                        {/* <IonIcon className={style.icon} icon={cameraOutline} /> */}
+                      
                         <input
                             type="file"
                             ref={fileInputRef}
@@ -176,6 +178,12 @@ const EditProfile: React.FC = () => {
                         </button>
                     </div>
                 </div>
+                <IonToast
+                    isOpen={toast}
+                    message={toastMessage}
+                    duration={3000}
+                    onDidDismiss={() => setToast(false)}
+                />
             </IonContent>
         </IonPage>
     );

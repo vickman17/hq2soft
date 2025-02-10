@@ -67,7 +67,7 @@ const NotificationPage: React.FC = () => {
   return (
     <IonPage>
       <IonHeader className={style.header}>
-        <div className={style.head}>Notification</div>
+        <div className={style.head} style={{color: "var(--ion-company-wood)"}}>Notification</div>
       </IonHeader>
       <IonContent className={style.content}>
         <div className={style.notificationList}>
@@ -96,7 +96,13 @@ const NotificationPage: React.FC = () => {
                 </li>
               ))
             ) : (
-              <img src={empty} />
+              <div style={{color: "grey", textAlign: "center"}}>
+                <img src={empty} />
+
+                <div>
+                  No notification
+                </div>
+              </div>
             )}
           </ul>
         </div>

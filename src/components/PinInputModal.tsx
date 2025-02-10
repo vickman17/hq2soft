@@ -13,16 +13,10 @@ const PinInputModal: React.FC<PinInputModalProps> = ({ isOpen, onClose, onSubmit
   const [inputPin, setInputPin] = useState<string[]>(['', '', '', '']);
   const [showToast, setShowToast] = useState(false);
   const [loading, setLoading] = useState(false);
-  const info = sessionStorage.getItem('Info');
-  const parsed = info ? JSON.parse(info) : {};
   const [toastMessage, setToastMessage] = useState<string>('');
-  const [status, setStatus] = useState<boolean>(false);
-  const [bal, setBal] = useState<number>(0);
-
-
 
   const handleInputChange = (value: string, index: number) => {
-    if (value.length <= 1) {
+    if (value.length <= 1 && /^[0-9]*$/.test(value)) {
       const newPin = [...inputPin];
       newPin[index] = value;
       setInputPin(newPin);
@@ -45,28 +39,28 @@ const PinInputModal: React.FC<PinInputModalProps> = ({ isOpen, onClose, onSubmit
 
   const handleSubmit = async () => {
     const pin = inputPin.join('');
-    if (pin.trim().length === 4) {
+    if (pin.length === 4) {
       setLoading(true);
       
       try {
-        // Send PIN and ssp_id to the backend for validation
-        const response = await fetch('http://localhost/hq2sspapi/validatePin.php', {
+        const response = await fetch('https://hq2soft.com/hq2sspapi/validatePin.php', {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ pin, ssp_id }),
         });
 
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+
         const data = await response.json();
-        
+
         if (data.success) {
           onSubmit(pin);
           setInputPin(['', '', '', '']);
-          setStatus(true);
-          onClose
+          onClose(); // Properly close the modal
         } else {
-          setShowToast(true)
+          setShowToast(true);
           setToastMessage('Invalid PIN');
         }
       } catch (error) {
@@ -77,7 +71,8 @@ const PinInputModal: React.FC<PinInputModalProps> = ({ isOpen, onClose, onSubmit
         setLoading(false);
       }
     } else {
-      alert('Please enter a valid 4-digit PIN.');
+      setShowToast(true);
+      setToastMessage('Please enter a valid 4-digit PIN.');
     }
   };
 
@@ -86,23 +81,24 @@ const PinInputModal: React.FC<PinInputModalProps> = ({ isOpen, onClose, onSubmit
       <IonContent className={style.content}>
         <h2 className="ion-text-center">Enter Your PIN</h2>
         <div className={style.inputCont}>
-            {inputPin.map((digit, index) => (
-              <input
-                key={index}
-                id={`pin-input-${index}`}
-                type="number"
-                maxLength={1}
-                value={digit}
-                onInput={(e) => handleInputChange(e.currentTarget.value, index)}
-                onKeyDown={(e) => handleKeyDown(e, index)}
-                className={style.pinInput}
-                inputMode="numeric"
-                autoFocus={index === 0} // Autofocus the first input
-              />
-            ))}
+          {inputPin.map((digit, index) => (
+            <input
+              key={index}
+              id={`pin-input-${index}`}
+              type="tel"
+              pattern="\d*"
+              maxLength={1}
+              value={digit}
+              onInput={(e) => handleInputChange(e.currentTarget.value, index)}
+              onKeyDown={(e) => handleKeyDown(e, index)}
+              className={style.pinInput}
+              inputMode="numeric"
+              autoFocus={index === 0}
+            />
+          ))}
         </div>
         <div className={style.butCont}>
-          <button className={style.but} onClick={handleSubmit} disabled={loading}>
+          <button className={style.but} onClick={handleSubmit} disabled={loading || inputPin.includes('')}>
             {loading ? 'Submitting...' : 'Submit'}
           </button>
         </div>

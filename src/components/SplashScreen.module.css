@@ -1,0 +1,29 @@
+.customSplashScreen {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background-color: #ffffff; /* Background color */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    z-index: 9999;
+    border: 0px solid black;
+  }
+  
+  .splashLogo {
+    width: 200px; /* Adjust size as needed */
+    height: auto;
+  }
+  
+  .customSplashScreen div:last-child {
+    font-size: 28px; /* Adjust font size */
+    font-weight: bold;
+    color: #333; /* Dark color for contrast */
+    bottom: 50px;
+    position: absolute;
+    font-family: "Poppins", sans-serif; /* Modern and sleek font */
+    letter-spacing: 2px;
+  }
+  

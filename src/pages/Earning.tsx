@@ -33,7 +33,7 @@ const Earning: React.FC = () => {
     const fetchBalance = async () => {
       try {
         console.log('Fetching balance for SSP ID:', ssp_id);  // Debugging SSP ID
-        const response = await fetch(`http://localhost/hq2sspapi/fetchBal.php?ssp_id=${ssp_id}`);
+        const response = await fetch(`https://hq2soft.com/hq2sspapi/fetchBal.php?ssp_id=${ssp_id}`);
         const data = await response.json();
         console.log('Balance Response:', data); // Debugging API Response
         setBal(response.ok ? data.balance : 0);
@@ -52,7 +52,7 @@ const Earning: React.FC = () => {
     const fetchTransactions = async () => {
       try {
         console.log('Fetching transactions for SSP ID:', ssp_id); // Debugging SSP ID
-        const response = await fetch(`http://localhost/hq2sspapi/fetchTransactions.php?ssp_id=${ssp_id}`);
+        const response = await fetch(`https://hq2soft.com/hq2sspapi/fetchTransactions.php?ssp_id=${ssp_id}`);
         const data = await response.json();
         console.log('Transactions Response:', data); // Debugging API Response
         if (data.success) {
@@ -109,28 +109,25 @@ const Earning: React.FC = () => {
           <div className={style.transactionList}>
             {transactions.length > 0 ? (
               <div className={style.transList}>
-                {transactions.map((trans: any) => (
-                  <li key={trans.transaction_reference} className={style.transItem}>
-                    <div className={style.listHead}>
-                      <div className={style.type}>
-                        {trans.transaction_type}
+                {transactions
+                  .slice() // Create a copy to avoid mutating the original array
+                  .sort((a: any, b: any) => new Date(b.transaction_date).getTime() - new Date(a.transaction_date).getTime())
+                  .map((trans: any) => (
+                    <li key={trans.transaction_reference} className={style.transItem}>
+                      <div className={style.listHead}>
+                        <div className={style.type}>{trans.transaction_type}</div>
+                        <div className={style.amount}>
+                          {trans.transaction_type.toLowerCase() === "withdrawal"
+                            ? `- ₦${parseInt(trans.amount).toLocaleString()}`
+                            : `+ ₦${parseInt(trans.amount).toLocaleString()}`}
+                        </div>
                       </div>
-                      <div className={style.amount}>
-                        {trans.transaction_type.toLowerCase() === "withdrawal" 
-                          ? `- ₦${parseInt(trans.amount).toLocaleString()}` 
-                          : `+ ₦${parseInt(trans.amount).toLocaleString()}`}
+                      <div className={style.below}>
+                        <div>{trans.status}</div>
+                        <div>{trans.transaction_date}</div>
                       </div>
-                    </div>
-                    <div className={style.below}>
-                      <div>
-                        {trans.status}
-                      </div>
-                      <div>
-                        {trans.transaction_date}
-                      </div>
-                    </div>
-                  </li>
-                ))}
+                    </li>
+                  ))}
               </div>
             ) : (
               <div style={{ textAlign: "center", color: "grey" }}>
@@ -139,6 +136,7 @@ const Earning: React.FC = () => {
               </div>
             )}
           </div>
+
         </div>
       </IonContent>
     </IonPage>

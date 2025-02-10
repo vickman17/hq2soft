@@ -1,5 +1,5 @@
 import { IonContent, IonFooter, IonIcon, IonItem, IonPage } from "@ionic/react";
-import React from "react";
+import React, {useState} from "react";
 import style from "./styles/Setting.module.css";
 import Profile from "../components/Profile";
 import SmallProfile from "../components/SmallProfile";
@@ -14,6 +14,7 @@ import customer from "/svgnew/headset.svg";
 import key from "/svgnew/key.svg";
 import bank from "/svgnew/bank.svg";
 import cog from "/svgnew/cogOutline.svg";
+import PinInputModal from "../components/PinInputModal"; // Import the Pin Modal
 //import {DotLottieReact} from "@lottie/dotlottie-react"
 
 
@@ -22,7 +23,8 @@ const Setting: React.FC = () => {
 
     const history = useHistory();
     const storedInfo = sessionStorage.getItem("Info");
-
+    const [isPinModalOpen, setIsPinModalOpen] = useState(false);
+    const [pendingAction, setPendingAction] = useState<(() => void) | null>(null);
     const info = storedInfo ? JSON.parse(storedInfo) : {};
 
     const userId = info?.ssp_id || "";
@@ -40,6 +42,18 @@ const Setting: React.FC = () => {
     const Name = `${capitalizeFirstLetter(info?.first_name || "")} ${capitalizeFirstLetter(info?.last_name || "")}`;
     const qualification = info?.qualification || "N/A";
 
+    const handleProtectedNavigation = (destination: string) => {
+        setPendingAction(() => () => history.push(destination));
+        setIsPinModalOpen(true); // Open the PIN modal
+      };
+    
+      const handlePinSubmit = (pin: string) => {
+        console.log("Authenticated with PIN:", pin);
+        if (pendingAction) {
+          pendingAction(); // Execute the stored navigation action after authentication
+        }
+        setIsPinModalOpen(false);
+      };
 
     return(
         <IonPage className="page">
@@ -65,7 +79,7 @@ const Setting: React.FC = () => {
                                     <div className={style.icon}>
                                         <img src={key} />
                                     </div>
-                                    <div className={style.setName}>
+                                    <div onClick={()=>history.push('/security')} className={style.setName}>
                                         Security Settings
                                     </div>
                                 </div>
@@ -73,7 +87,7 @@ const Setting: React.FC = () => {
                                     <IonIcon icon={chevronForwardOutline} />
                                 </div>
                             </div>
-                            <div className={style.demo}>
+                            <div onClick={() => handleProtectedNavigation("/account")} className={style.demo}>
                                 <div className={style.demoIn}>
                                     <div className={style.icon}>
                                         <img src={bank}/>
@@ -126,7 +140,13 @@ const Setting: React.FC = () => {
                         </div>
                     </div>
                 
-            </IonContent>            
+            </IonContent>      
+            <PinInputModal 
+                isOpen={isPinModalOpen}
+                onClose={() => setIsPinModalOpen(false)}
+                onSubmit={handlePinSubmit}
+                ssp_id={userId}
+            />      
         </IonPage>
     )
 }

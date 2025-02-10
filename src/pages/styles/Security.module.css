@@ -1,0 +1,42 @@
+.but{
+    border: 1px solid black;
+    display: flex;
+    align-items: center;
+    --background: transparent;
+    margin: auto;
+    padding-block: 9px;
+    padding-inline: 5px;
+    border: none;
+}
+
+.list{
+    border: 0px solid;
+    width: 95%;
+    background: rgba(47, 125, 50, 0.17);
+    margin: auto;
+    border-radius: 8px;
+    padding-block: 10px;
+    margin-top: 2rem;
+}
+
+.del{
+    border: 0px solid black;
+    display: flex;
+    align-items: center;
+    background: rgba(47, 125, 50, 0.17);
+    margin: auto;
+    padding-block: 9px;
+    color: red;
+    width: 95%;
+    margin-top: 2rem;
+    padding-inline: 5px;
+    border-radius: 5px;
+}
+
+/* .butIcon{
+    padding: 4px;
+} */
+
+.word{
+    padding-inline:  4px;
+}

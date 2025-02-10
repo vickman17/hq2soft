@@ -17,13 +17,21 @@ const Dashboard: React.FC = () => {
   const info = storedInfo ? JSON.parse(storedInfo) : {};
   const sspId = info?.ssp_id
   const empty = "/assets/empty.png";
+  const profession = info?.category_id;
+
 
 
   useEffect(()=>{
     if(!sspId){
       history.push("/home");
     }
+    if(profession === null){
+      history.push("/completeprofile")
+    }
   }, [])
+
+
+  
 
   // Capitalize the first letter and make the rest lowercase
   const capitalizeFirstLetter = (name: string) => {

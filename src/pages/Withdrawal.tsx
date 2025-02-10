@@ -9,7 +9,7 @@ import Header from '../components/Header';
 import { flash } from 'ionicons/icons';
 
 const Withdrawal: React.FC = () => {
-  const [amount, setAmount] = useState<any>(0);
+  const [amount, setAmount] = useState<number>(0);
   const [showToast, setShowToast] = useState<boolean>(false);
   const [isPinModalOpen, setIsPinModalOpen] = useState<boolean>(false);
   const [toastMessage, setToastMessage] = useState<string>('');
@@ -38,36 +38,42 @@ const Withdrawal: React.FC = () => {
     }
   }, []);
 
+
   useEffect(() => {
     if (ssp_id) {
       const fetchAccountDetails = async () => {
         try {
-          const response = await axios.get(`http://localhost/hq2sspapi/fetchBankDetails.php?ssp_id=${ssp_id}`);
+          const response = await axios.get(`https://hq2soft.com/hq2sspapi/fetchBankDetails.php?ssp_id=${ssp_id}`);
           if (response.data.success) {
-            setAccountDetails(response.data.data);
-          }else{
+            const accountData = response.data.data;
+            setAccountDetails(accountData);
+  
+            // Check if bank_code is null
+            if (accountData.bank_code === null) {
             history.push("/linkaccount")
+            }
           }
         } catch (err) {
-        setToastMessage('Error fetching account details. Please try again later.');
-        setShowToast(true)
-        } finally {
-          
+          setToastMessage('Error fetching account details. Please try again later.');
+          setShowToast(true);
         }
       };
-
+  
       fetchAccountDetails();
     } else {
       setToastMessage('ssp_id is not available');
       setShowToast(true);
     }
   }, [ssp_id]);
+  
+
+  
 
 
   useEffect(() => {
     const fetchBalance = async () => {
       try {
-        const response = await fetch(`http://localhost/hq2sspapi/fetchBal.php?ssp_id=${ssp_id}`);
+        const response = await fetch(`https://hq2soft.com/hq2sspapi/fetchBal.php?ssp_id=${ssp_id}`);
         const data = await response.json();
         setBal(response.ok ? data.balance : 0);
       } catch {
@@ -78,20 +84,20 @@ const Withdrawal: React.FC = () => {
   }, [ssp_id]);
 
   const handleWithdraw = async (pin: string) => {
-
-
-    setIsPinModalOpen(false)
-    setIsLoading(true)
-    setIsProcessed(true)
-
-
+    setIsPinModalOpen(false);
+    setIsLoading(true);
+    setIsProcessed(true);
+  
     try {
       // Validate PIN
-      const pinValidationResponse = await axios.post('http://localhost/hq2sspapi/validatePin.php', {
-        ssp_id: ssp_id,
-        pin: pin,
-      });
-
+      const pinValidationResponse = await axios.post<{ success: boolean }>(
+        'https://hq2soft.com/hq2sspapi/validatePin.php',
+        {
+          ssp_id: ssp_id,
+          pin: pin,
+        }
+      );
+  
       if (!pinValidationResponse.data.success) {
         setToastMessage('Invalid PIN. Please try again.');
         setToastColor('danger');
@@ -99,22 +105,24 @@ const Withdrawal: React.FC = () => {
         setShowToast(true);
         return; // Stop if PIN validation fails
       }
-
+  
       // Proceed with withdrawal
-      const response = await axios.post('http://localhost/hq2sspapi/withdrawal.php', {
-        amount: amount,
-        ssp_id: ssp_id,
-      });
-
-
-      
+      const response = await axios.post<{ success: boolean; message: string }>(
+        'https://hq2soft.com/hq2sspapi/withdrawal.php',
+        {
+          paystackAmount: amount * 100, // Convert amount to kobo (Paystack expects kobo)
+          amount: amount,
+          ssp_id: ssp_id,
+        }
+      );
+  
       if (response.data.success) {
         setToastMessage(response.data.message);
         setToastColor('success');
         setBal((prevBal) => prevBal - amount); // Update balance after withdrawal
         setIsPinModalOpen(false);
-        setStatus(true)
-        setIsProcessed(false)
+        setStatus(true);
+        setIsProcessed(false);
       } else {
         setToastMessage(response.data.message);
         setToastColor('danger');
@@ -129,6 +137,7 @@ const Withdrawal: React.FC = () => {
     setIsPinModalOpen(false); // Close the modal
   };
 
+  
   const openPinModal = () => {
     if (amount <= 4999.99 || !ssp_id) {
       setToastMessage('Withdrawal must be from minimun amount and above');
@@ -213,7 +222,6 @@ const close = ()=> {
         </div>
         <PinModal
           isOpen={isSetupModalOpen}
-          mode="setup"
           onClose={() => setIsSetupModalOpen(false)}
         />
         <PinInputModal
@@ -281,8 +289,13 @@ const close = ()=> {
               <IonContent className={style.loadModal}>
                 { isProcessed ? (
                   <div>
-                      loading
-                  </div>
+                    <div className={style.img}>
+                      <img src="/svgnew/ripple.svg" style={{width:"100%"}} />
+                    </div>
+                    <div className={style.successWrite}>
+                      Processing transaction
+                    </div> 
+                  </div>                 
                 ) : (
                   <div>
                     {status ? (

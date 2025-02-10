@@ -35,7 +35,7 @@ const Incoming: React.FC = () => {
       setError(null);
 
       try {
-        const response = await axios.get('http://localhost/hq2sspapi/jobHandler.php', {
+        const response = await axios.get('https://hq2soft.com/hq2sspapi/jobHandler.php', {
           params: { ssp_id: providerId },
           headers: {
             'Accept': 'application/json',
@@ -75,7 +75,7 @@ const Incoming: React.FC = () => {
   const acceptJob = async (jobId: number) => {
 
     try {
-      const response = await axios.post('http://localhost/hq2sspapi/acceptJob.php', {
+      const response = await axios.post('https://hq2soft.com/hq2sspapi/acceptJob.php', {
         job_id: jobId,
         ssp_id: sspId,
       });

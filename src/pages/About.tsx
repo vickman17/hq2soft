@@ -4,8 +4,9 @@ import Header from "../components/Header";
 import style from "./styles/About.module.css";
 import { chevronForwardOutline, locationOutline, lockClosedOutline, languageOutline, moon, moonOutline, notificationsCircleOutline, eyeOffOutline } from "ionicons/icons";
 import {version} from "../../package.json";
-import note from "/assets/svg/note.svg";
-import board from "/assets/svg/clipboard.svg";
+import note from "/svgnew/contract.svg";
+import safe from "/svgnew/safe.svg";
+import update from "/svgnew/update.svg";
 import { useHistory } from "react-router";
 
 const About: React.FC = () => {
@@ -41,7 +42,7 @@ const About: React.FC = () => {
                             <div  className={style.demo}>
                                 <div onClick={()=>history.push('/dataprivacy')} className={style.demoIn}>
                                     <div className={style.icon}>
-                                        <img src={board} />
+                                        <img src={safe} />
                                     </div>
                                     <div className={style.setName}>
                                         Data Privacy
@@ -58,7 +59,7 @@ const About: React.FC = () => {
                             <div className={style.demo}>
                                 <div className={style.demoIn}>
                                     <div className={style.icon}>
-                                        <IonIcon icon={moonOutline} />
+                                        <img src={update} />
                                     </div>
                                     <div className={style.setName}>
                                         Version Upgrade

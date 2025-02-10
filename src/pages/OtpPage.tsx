@@ -62,7 +62,7 @@ const OtpPage: React.FC = () => {
   };
 
   const sendOtpRequest = async () => {
-    const response = await fetch("http://localhost/hq2sspapi/handleOtp.php", {
+    const response = await fetch("https://hq2soft.com/hq2sspapi/handleOtp.php", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -137,7 +137,7 @@ const OtpPage: React.FC = () => {
 
     setIsSubmitting(true);
     try {
-      const response = await fetch("http://localhost/hq2sspapi/handleOtp.php", {
+      const response = await fetch("https://hq2soft.com/hq2sspapi/handleOtp.php", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
