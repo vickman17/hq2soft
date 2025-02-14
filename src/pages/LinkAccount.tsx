@@ -116,7 +116,7 @@ setLoading(true)
                 </div>
                 <div className={style.chatBox}>
                 <input
-                    placeholder="Account Name"
+                    placeholder="Enter account Name"
                     value={name}
                     onChange={(e) => setName(e.target.value!)}
                     className={style.input}
@@ -124,7 +124,7 @@ setLoading(true)
                 </div>
                 <div className={style.chatBox}>
                 <input
-                    placeholder="Account number"
+                    placeholder="Enter account number"
                     type="number"
                     value={accountNumber}
                     onChange={(e) => setAccountNumber(e.target.value!)}

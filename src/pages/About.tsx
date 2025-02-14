@@ -16,10 +16,10 @@ const About: React.FC = () => {
     return(
         <IonPage className="page">
             <Header title="About" />
-            <IonContent>
+            <IonContent style={{fontFamily: "Quicksand", fontWeight: "800"}}>
                 <div className={style.logo}>
                     <div className={style.image}>
-                        <img src="/assets/Icon.png" />
+                        <img src="/assets/Icon.svg" />
                     </div>
                     <div className={style.version}>Version {version}</div>
                 </div>

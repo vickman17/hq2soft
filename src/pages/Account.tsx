@@ -91,13 +91,13 @@ const Account: React.FC = () => {
                 </fieldset>
                 <div className={style.conButCont}>
                 <button onClick={()=>history.push('/updateaccount')}  className={style.conBut}>
-                    Update Account
+                    Request Account Update
                 </button>
                 </div>
 
                 <div className={style.conButCont} style={{marginTop: "2rem"}}>
                 <button onClick={()=>{history.push('/setting')}} className={style.conBut} style={{background: "wheat", color:"red",}}>
-                    Cancel
+                    Back
                 </button>
                 </div>
                 <IonToast

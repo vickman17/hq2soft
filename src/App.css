@@ -10,6 +10,18 @@
     transition: all 0.3s ease; /* Smooth transition for all properties */
   }
   
+  #tawkchat-container {
+    position: fixed !important;
+    bottom: 80px !important; /* Adjust based on navbar height */
+    z-index: 99999 !important;
+  }
+  
+  
+  #tawk-prechat-form-container {
+    bottom: 80px !important;
+  }
+  
+
   /* Active dot style */
   .slick-dots li.slick-active button::before {
     color: #cac301c0; /* Active dot color */
@@ -56,4 +68,43 @@
 
 .page{
   font-family: "Quicksand";
+}
+
+/* Shepherd Tour Custom Styles */
+.shepherd-element {
+  /* background: rgba(255, 255, 255, 0.95) !important; */
+  border-radius: 10px !important;
+  padding: 15px !important;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2) !important;
+}
+
+.shepherd-title {
+  font-size: 20px !important;
+  font-weight: bold !important;
+  color: var(--ion-company-wood) !important;
+  
+}
+
+.shepherd-text {
+  font-size: 16px !important;
+  color: #333 !important;
+}
+
+.shepherd-button {
+  font-size: 14px !important;
+  font-weight: bold !important;
+  padding: 8px 12px !important;
+  border-radius: 5px !important;
+}
+
+.shepherd-button:last-child {
+  background-color: var(--ion-company-wood) !important;
+  color: white !important;
+  border: none !important;
+}
+
+.shepherd-button:not(:last-child) {
+  background-color: transparent !important;
+  color: var(--ion-company-wood) !important;
+  border: 1px solid var(--ion-color-primary) !important;
 }

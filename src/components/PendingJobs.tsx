@@ -132,12 +132,13 @@ const PendingJobs: React.FC = () => {
           <IonSpinner name="crescent" />
         </div>
       )}
-      {!loading && error && (
+      {!loading && jobs.length === 0 && !error && (
         <div style={{ textAlign: 'center', color: 'grey' }}>
           <div><img src={empty} alt="No jobs" /></div>
-          <div>No Accepted job at the moment.</div>
+          <div>No pending jobs at the moment.</div>
         </div>
       )}
+
       {!loading && jobs.length > 0 && (
         <IonList lines='none'>
           {jobs.map((job) => (

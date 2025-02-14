@@ -8,6 +8,7 @@ const config: CapacitorConfig = {
   plugins: {
     SplashScreen: {
       launchShowDuration: 0, // Disable default splash screen
+      autoHide: true,
     }
   }
 };

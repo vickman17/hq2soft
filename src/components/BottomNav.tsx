@@ -3,7 +3,6 @@ import {
   IonFooter,
   IonTabBar,
   IonTabButton,
-  IonSkeletonText,
 } from '@ionic/react';
 import { useHistory, useLocation } from 'react-router-dom';
 import edit from './BottomNav.module.css';
@@ -18,10 +17,9 @@ import userSolid from '/svgnew/userSolid.svg';
 
 const BottomNav: React.FC = () => {
   const history = useHistory();
-  const location = useLocation(); // Get current location
-  const currentPath = location.pathname; // Get current URL path
+  const location = useLocation();
+  const currentPath = location.pathname;
 
-  // Determine the active tab based on the current path
   const getActiveTab = () => {
     if (currentPath === '/dashboard') return 'home';
     if (currentPath === '/inbox') return 'chat';
@@ -32,14 +30,12 @@ const BottomNav: React.FC = () => {
 
   const activeTab = getActiveTab();
 
-  // Handle tab click
   const handleTabClick = (tabName: string, path: string) => {
     history.push(path);
   };
 
-
   return (
-    <IonFooter className={edit.navbar} style={{ '--background': 'transparent', '--boxShadow': 'none', border: 'none' }}>
+    <IonFooter className={edit.navbar + " bottom-nav"} style={{ '--background': 'transparent', '--boxShadow': 'none', border: 'none' }}>
       <IonTabBar
         slot="bottom"
         style={{ boxShadow: 'none', '--background': 'transparent', border: 'none' }}
@@ -47,49 +43,57 @@ const BottomNav: React.FC = () => {
         {/* Home Tab */}
         <IonTabButton
           tab="home"
-          className={edit.tab}
+          className={edit.tab} // Added class for Joyride
           onClick={() => handleTabClick('home', '/dashboard')}
         >
-          <div className={activeTab === 'home' ? edit.activeTab : ''}>
-            <img src={activeTab === 'home' ? homeSolid : homeOutline} width={20} height={20} />
+          <div className="tab-home">
+            <div className={activeTab === 'home' ? edit.activeTab : ''}>
+              <img src={activeTab === 'home' ? homeSolid : homeOutline} width={20} height={20} />
+            </div>
+            <div style={{ fontWeight: activeTab === 'home' ? '700' : '', fontSize: '10px', color: "var(--ion-company-wood)" }}>Home</div>
           </div>
-          <div style={{ fontWeight: activeTab === 'home' ? '700' : '', fontSize: '10px', color: "var(--ion-company-wood)"}}>Home</div>
         </IonTabButton>
 
         {/* Chat Tab */}
         <IonTabButton
           tab="chat"
+          className={edit.tab} // Added class for Joyride
           onClick={() => handleTabClick('chat', '/inbox')}
-          className={edit.tab}
         >
-          <div className={activeTab === 'chat' ? edit.activeTab : ''}>
-            <img src={activeTab === 'chat' ? chatSolid : chatOutline} width={20} height={20} />
+          <div className="tab-chat">
+            <div className={activeTab === 'chat' ? edit.activeTab : ''}>
+              <img src={activeTab === 'chat' ? chatSolid : chatOutline} width={20} height={20} />
+            </div>
+            <div style={{ fontWeight: activeTab === 'chat' ? '700' : '', fontSize: '10px', color: "var(--ion-company-wood)" }}>Inbox</div>
           </div>
-          <div style={{ fontWeight: activeTab === 'chat' ? '700' : '', fontSize: '10px', color: "var(--ion-company-wood)"}}>Inbox</div>
         </IonTabButton>
 
         {/* Notification Tab */}
         <IonTabButton
           tab="notify"
+          className={edit.tab} // Added class for Joyride
           onClick={() => handleTabClick('notify', '/notificationpage')}
-          className={edit.tab}
         >
-          <div className={activeTab === 'notify' ? edit.activeTab : ''}>
-            <img src={activeTab === 'notify' ? bellSolid : bellOutline} width={20} height={20} />
+          <div className="tab-notify">
+            <div className={activeTab === 'notify' ? edit.activeTab : ''}>
+              <img src={activeTab === 'notify' ? bellSolid : bellOutline} width={20} height={20} />
+            </div>
+            <div style={{ fontWeight: activeTab === 'notify' ? '700' : '', fontSize: '10px', color: "var(--ion-company-wood)" }}>Notification</div>
           </div>
-          <div style={{ fontWeight: activeTab === 'notify' ? '700' : '', fontSize: '10px', color: "var(--ion-company-wood)"}}>Notification</div>
         </IonTabButton>
 
         {/* Profile Tab */}
         <IonTabButton
           tab="settings"
+          className={edit.tab} // Added class for Joyride
           onClick={() => handleTabClick('settings', '/setting')}
-          className={edit.tab}
         >
-          <div className={activeTab === 'settings' ? edit.activeTab : ''}>
-            <img src={activeTab === 'settings' ? userSolid : userOutline} width={20} height={20} />
+          <div className="tab-settings">
+            <div className={activeTab === 'settings' ? edit.activeTab : ''}>
+              <img src={activeTab === 'settings' ? userSolid : userOutline} width={20} height={20} />
+            </div>
+            <div style={{ fontWeight: activeTab === 'settings' ? '700' : '', fontSize: '10px', color: "var(--ion-company-wood)" }}>Profile</div>
           </div>
-          <div style={{ fontWeight: activeTab === 'settings' ? '700' : '', fontSize: '10px', color: "var(--ion-company-wood)" }}>Profile</div>
         </IonTabButton>
       </IonTabBar>
     </IonFooter>

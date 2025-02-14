@@ -15,6 +15,39 @@
     font-family: "Quicksand";
 }
 
+.modalContent{
+    border: 0px solid white;
+    position: absolute;
+    bottom: 50%;
+    margin: auto;
+    background: #2f7d32;
+    text-align: center;
+    padding: 10px;
+    color: white;
+    border-radius: 12px;
+}
+
+.butCont{
+    border: 0px solid black;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 17px;
+    width: 70%;
+    margin: auto;
+}
+
+.profile{
+    margin: auto;
+    border: 0px solid black;
+    width: 180px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    height: 180px;
+}
+
 .info{
     border: 0px solid black;
     margin-top: 2rem;

@@ -171,7 +171,7 @@ const Inbox: React.FC = () => {
       <IonHeader style={{color: "var(--ion-company-wood)"}} className={style.header}>
         <div className={style.head}>Inbox</div>
       </IonHeader>
-      <IonContent>
+      <IonContent style={{fontFamily: "Quicksand"}}>
         {loading ? (
           <IonList lines="none">
             {Array.from({ length: 13 }).map((_, index) => (

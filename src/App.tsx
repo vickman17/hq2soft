@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { IonApp, IonRouterOutlet, setupIonicReact } from '@ionic/react';
+import { IonApp, IonRouterOutlet, setupIonicReact, useIonRouter, useIonViewWillEnter } from '@ionic/react';
 import { Route, useLocation } from 'react-router-dom';
 import Home from './pages/Home';
 import Dashboard from './pages/Dashboard';
@@ -26,6 +26,9 @@ import { messaging, getToken } from './firebase/firebaseConfig';
 import Security from "./pages/Security";
 import Account from './pages/Account';
 import SplashScreen from "./components/SplashScreen";
+import { PluginListenerHandle } from '@capacitor/core';
+import OfflineBanner from "./components/OfflineBanner";
+
 
 /* CSS imports */
 import '@ionic/react/css/core.css';
@@ -45,12 +48,15 @@ import Withdrawal from './pages/Withdrawal';
 import Assets from "./pages/Assets";
 import About from "./pages/About";
 import DataPrivacy from './pages/DataPrivacy';
+import {useHistory} from 'react-router';
+import { App as CapacitorApp} from '@capacitor/app';
 
 import Chat from "./pages/Chat";
 import linkAccount from './pages/LinkAccount';
 import SlidingCard from './components/Sliding';
 import TermsOfService from './pages/TermsOfService';
 import UpdateAccount from './pages/UpdateAccount';
+import Support from './pages/Support';
 
 setupIonicReact();
 
@@ -117,6 +123,32 @@ const App: React.FC = () => {
     document.body.style.fontFamily = 'Quicksand, sans-serif';
   }, []);
 
+  const history = useHistory();
+  const ionRouter = useIonRouter();
+
+  useEffect(() => {
+    const setupBackButtonListener = async () => {
+      const backButtonListener = await CapacitorApp.addListener("backButton", () => {
+        if (!ionRouter.canGoBack()) {
+          CapacitorApp.exitApp(); // Exit app if no previous page
+        } else {
+          history.goBack(); // Go back to the previous page
+        }
+      });
+  
+      return backButtonListener;
+    };
+  
+    let listenerHandle: PluginListenerHandle | null = null;
+    setupBackButtonListener().then(handle => listenerHandle = handle);
+  
+    return () => {
+      if (listenerHandle) {
+        listenerHandle.remove();
+      }
+    };
+  }, [history, ionRouter]);
+  
 
   const [showSplash, setShowSplash] = useState(true);
 
@@ -156,13 +188,14 @@ const App: React.FC = () => {
             <Route exact path="/security" component={Security} />
             <Route exact path="/updateaccount" component={UpdateAccount} />
             <Route exact path="/account" component={Account} />
+            <Route exact path="/support" component={Support} />
       </IonRouterOutlet>
       )}
       {/* Bottom Nav visibility */}
       {pagesWithBottomNav.includes(location.pathname) && (
         <BottomNav />
       )}
-      
+      <OfflineBanner />
     </IonApp>
   );
 };

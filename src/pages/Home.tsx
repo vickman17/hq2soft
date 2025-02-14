@@ -235,7 +235,7 @@ setIsLoading(false);// Re-enable the button after submission
         <div onClick={closeModal} className={style.glass}>
           {/* Conditionally Rendered Logo */}
           <div className={`${style.logo} ${showLogo ? style.showLogo : ""}`}>
-            <img src="/assets/Icon.png" alt="Logo" />
+            <img src="/assets/Icon.svg" alt="Logo" />
           </div>
 
           {/* Content */}

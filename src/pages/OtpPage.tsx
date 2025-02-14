@@ -222,7 +222,7 @@ const OtpPage: React.FC = () => {
               OTP Verified
             </div>
             <div>
-              <img src={verified} className={style.image} alt="Verified" />
+              <img src="/svgnew/numberV.svg" className={style.image} alt="Verified" />
             </div>
             <div className={style.modalMessage}>
               Your phone number has been successfully verified!

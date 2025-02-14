@@ -505,13 +505,13 @@ const handleWorkSuiteChange = (e: React.ChangeEvent<HTMLInputElement>) => {
   {currentStep === 2 && (
     <div>
       <div className={style.vector}>
-        <img src={welcome} />
+        <img src="/svgnew/welcome.svg" />
       </div>
       <div className={style.welcome}>Welcome aboard, Artisan!</div>
     </div>
   )}
   <div className={style.butCont}>
-    {currentStep > 0 && (
+    {currentStep < 2 && (
       <button
         type="button"
         className={style.but}
@@ -529,12 +529,7 @@ const handleWorkSuiteChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         Next
       </button>
     ) : (
-      <button
-        type="submit"
-        className={style.butDone}
-      >
-        Get to work!
-      </button>
+      <div></div>
     )}
   </div>
 </form>

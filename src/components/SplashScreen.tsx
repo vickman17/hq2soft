@@ -10,7 +10,7 @@ const SplashScreen = ({ onFinish }: { onFinish: () => void }) => {
     setTimeout(() => {
       setIsVisible(false);
       onFinish(); // Call the function to hide the splash screen
-    }, 5000); // Change duration as needed
+    }, 4500); // Change duration as needed
   }, [onFinish]);
 
   return isVisible ? (

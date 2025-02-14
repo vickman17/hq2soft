@@ -14,13 +14,14 @@ import customer from "/svgnew/headset.svg";
 import key from "/svgnew/key.svg";
 import bank from "/svgnew/bank.svg";
 import cog from "/svgnew/cogOutline.svg";
+import tech from "/svgnew/robot.svg";
 import PinInputModal from "../components/PinInputModal"; // Import the Pin Modal
 //import {DotLottieReact} from "@lottie/dotlottie-react"
-
+import useTawk from "../hooks/useTawk";
 
 
 const Setting: React.FC = () => {
-
+    // useTawk();
     const history = useHistory();
     const storedInfo = sessionStorage.getItem("Info");
     const [isPinModalOpen, setIsPinModalOpen] = useState(false);
@@ -93,20 +94,20 @@ const Setting: React.FC = () => {
                                         <img src={bank}/>
                                     </div>
                                     <div className={style.setName}>
-                                        Payment Account
+                                        Beneficiary Account
                                     </div>
                                 </div>
                                 <div className={style.enter}>
                                     <IonIcon icon={chevronForwardOutline} />
                                 </div>
                             </div>
-                            <div className={style.demo}>
+                            <div onClick={()=>history.push('/support')} className={style.demo}>
                                 <div className={style.demoIn}>
                                     <div className={style.icon}>
-                                        <img src={customer} />
+                                        <img src={tech} />
                                     </div>
                                     <div className={style.setName}>
-                                        Customer Service
+                                        Support Center
                                     </div>
                                 </div>
                                 <div className={style.enter}>

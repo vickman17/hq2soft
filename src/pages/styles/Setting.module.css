@@ -118,9 +118,15 @@
     display: flex;
 }
 
+#tawkchat-container {
+    bottom: 160px !important; /* Adjust this value based on your BottomNav height */
+}
+
+
 .cont{
     border: 0px solid black;
     position: relative;
+    font-weight: 500;
     font-family: "Quicksand";
 }
 

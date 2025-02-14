@@ -16,7 +16,7 @@
     "@capacitor-community/fcm": "^6.0.0",
     "@capacitor/android": "^6.0.0",
     "@capacitor/app": "6.0.2",
-    "@capacitor/core": "^6.0.0",
+    "@capacitor/core": "^6.2.0",
     "@capacitor/haptics": "6.0.2",
     "@capacitor/keyboard": "6.0.3",
     "@capacitor/push-notifications": "^6.0.4",
@@ -44,6 +44,7 @@
     "react-tooltip": "^5.28.0",
     "react-typewriter-effect": "^1.1.0",
     "reactour": "^1.19.4",
+    "shepherd.js": "^14.4.0",
     "slick-carousel": "^1.8.1",
     "socket.io-client": "^4.8.1"
   },
