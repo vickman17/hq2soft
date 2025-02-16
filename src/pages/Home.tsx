@@ -164,6 +164,7 @@ const LoginSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsLoading(true);
 
     // Check if passwords match befnore proceeding
     if (signData.password !== signData.confirmpassword) {
@@ -180,6 +181,8 @@ const LoginSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
       confirmpassword: signData.confirmpassword,
       password: signData.password,
     };
+
+    setIsLoading(true);
 
     try {
       const response = await axios.post("https://hq2soft.com/hq2sspapi/signup.php",

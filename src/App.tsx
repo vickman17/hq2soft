@@ -28,6 +28,9 @@ import Account from './pages/Account';
 import SplashScreen from "./components/SplashScreen";
 import { PluginListenerHandle } from '@capacitor/core';
 import OfflineBanner from "./components/OfflineBanner";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
 
 
 /* CSS imports */
@@ -125,6 +128,23 @@ const App: React.FC = () => {
 
   const history = useHistory();
   const ionRouter = useIonRouter();
+
+  useEffect(() => {
+    const tawkScript = document.createElement("script");
+    tawkScript.src = "https://embed.tawk.to/67aac34d3a842732607cc42a/1ijpglpnl";
+    tawkScript.async = true;
+    tawkScript.onload = () => {
+      if (window.Tawk_API && typeof window.Tawk_API.hideWidget === "function") {
+        window.Tawk_API.hideWidget(); // Hide the widget on page load
+      }
+    };
+    document.body.appendChild(tawkScript);
+  
+    return () => {
+      document.body.removeChild(tawkScript);
+    };
+  }, []);
+    
 
   useEffect(() => {
     const setupBackButtonListener = async () => {

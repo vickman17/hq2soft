@@ -25,6 +25,8 @@ const OtpPage: React.FC = () => {
   const email = info?.email || null;
   const formattedPhone = phone?.startsWith("0") ? "+234" + phone.slice(1) : phone;
   const history = useHistory();
+  const profession = info?.category_id;
+
 
   useEffect(() => {
     sendOtp();
@@ -156,6 +158,10 @@ const OtpPage: React.FC = () => {
       if (result.status === "success") {
         setShowToast({ message: "OTP verified successfully!", color: "success" });
         setIsModalOpen(true);
+      
+          if (profession === null) {
+            history.push("/completeprofile");
+          }
       } else {
         setShowToast({ message: result.message || "Invalid OTP.", color: "danger" });
       }

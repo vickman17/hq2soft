@@ -18,11 +18,6 @@ const Dashboard: React.FC = () => {
   const info = storedInfo ? JSON.parse(storedInfo) : {};
   const profession = info?.category_id;
 
-  useEffect(() => {
-    if (profession === null) {
-      history.push("/completeprofile");
-    }
-  }, []);
 
   const capitalizeFirstLetter = (name: string) => {
     if (!name) return "";

@@ -25,6 +25,15 @@ const Support: React.FC = () =>{
     window.location.href = `tel:${phoneNumber}`;
   };
 
+  const openTawkChat = () => {
+    if (window.Tawk_API && typeof (window.Tawk_API as any).maximize === "function") {
+      (window.Tawk_API as any).maximize(); // Opens the chat window
+    } else {
+      console.warn("Tawk.to is not loaded yet.");
+    }
+  };
+  
+
     return(
         <IonPage>
             <Header title="Support Center" />
@@ -51,6 +60,14 @@ const Support: React.FC = () =>{
                     </div>
                     <div>
                         Call Support
+                    </div>
+                </div>
+                <div onClick={openTawkChat} className={style.item}>
+                    <div className={style.iconCont}>
+                    <img src={phone} />
+                    </div>
+                    <div>
+                      Live agent 24/7 support
                     </div>
                 </div>
             </IonContent>

@@ -140,6 +140,22 @@
 
   /*****************MAIN STYLE**********************/
 
+.go{
+  border: 0px solid black;
+  text-align: center;
+  padding: 6px;
+  margin-top: 4rem;
+  border-radius: 15px;
+  background: var(--ion-company-gold);
+  color: white;
+}
+
+  .content{
+    font-family: "Quicksand";
+    font-weight: 600;
+  }
+
+
   .single{
     border: 0px solid;
     width: 90%;
@@ -258,7 +274,7 @@
   }
 
   .welcome{
-    font-family: "fredoka";
+    font-family: "";
     font-size: 40px;
     text-align: center;
     font-weight: 700;

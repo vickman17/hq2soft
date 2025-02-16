@@ -1,7 +1,12 @@
 {
-  "name": "hq2ssp",
+  "name": "HQ2 SOFT",
   "integrations": {
+    "vite": {},
     "capacitor": {}
   },
-  "type": "react-vite"
+  "scripts": {
+    "ionic:serve": "vite"
+  },
+  "type": "react",
+  "id": "3ffdfee8"
 }

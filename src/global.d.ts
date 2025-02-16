@@ -1,5 +1,7 @@
 export {};
 
+declare module "*.module.css";
+
 declare global {
   interface Window {
     Tawk_API?: {

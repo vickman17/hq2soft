@@ -16,6 +16,7 @@ import bank from "/svgnew/bank.svg";
 import cog from "/svgnew/cogOutline.svg";
 import tech from "/svgnew/robot.svg";
 import PinInputModal from "../components/PinInputModal"; // Import the Pin Modal
+import PinModal from "../components/PinModal";
 //import {DotLottieReact} from "@lottie/dotlottie-react"
 import useTawk from "../hooks/useTawk";
 
@@ -27,6 +28,8 @@ const Setting: React.FC = () => {
     const [isPinModalOpen, setIsPinModalOpen] = useState(false);
     const [pendingAction, setPendingAction] = useState<(() => void) | null>(null);
     const info = storedInfo ? JSON.parse(storedInfo) : {};
+    const [isPinSetupModalOpen, setIsPinSetupModalOpen] = useState(false); // New state for Pin setup modal
+
 
     const userId = info?.ssp_id || "";
 
@@ -44,10 +47,19 @@ const Setting: React.FC = () => {
     const qualification = info?.qualification || "N/A";
 
     const handleProtectedNavigation = (destination: string) => {
-        setPendingAction(() => () => history.push(destination));
-        setIsPinModalOpen(true); // Open the PIN modal
-      };
-    
+        const storedInfo = sessionStorage.getItem("Info");
+        const info = storedInfo ? JSON.parse(storedInfo) : {};
+        
+        if (info?.pin) {
+            // If PIN is set, open the PIN input modal
+            setPendingAction(() => () => history.push(destination));
+            setIsPinModalOpen(true);
+        } else {
+            // If PIN is not set, open the PIN setup modal
+            setIsPinSetupModalOpen(true);
+        }
+    };
+
       const handlePinSubmit = (pin: string) => {
         console.log("Authenticated with PIN:", pin);
         if (pendingAction) {
@@ -80,7 +92,7 @@ const Setting: React.FC = () => {
                                     <div className={style.icon}>
                                         <img src={key} />
                                     </div>
-                                    <div onClick={()=>history.push('/security')} className={style.setName}>
+                                    <div onClick={() => handleProtectedNavigation("/account")} className={style.setName}>
                                         Security Settings
                                     </div>
                                 </div>
@@ -148,6 +160,11 @@ const Setting: React.FC = () => {
                 onSubmit={handlePinSubmit}
                 ssp_id={userId}
             />      
+            <PinModal 
+                isOpen={isPinSetupModalOpen} 
+                onClose={() => setIsPinSetupModalOpen(false)} 
+            />
+
         </IonPage>
     )
 }

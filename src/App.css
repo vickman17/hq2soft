@@ -1,6 +1,4 @@
 /* Correct way to import Slick Carousel styles in Vite */
-@import 'node_modules/slick-carousel/slick/slick.css';
-@import 'node_modules/slick-carousel/slick/slick-theme.css';
 
 /* Default dot style */
 .slick-dots li button::before {
@@ -11,9 +9,8 @@
   }
   
   #tawkchat-container {
-    position: fixed !important;
-    bottom: 80px !important; /* Adjust based on navbar height */
-    z-index: 99999 !important;
+    display: none !important;
+    border: 1px solid black;
   }
   
   

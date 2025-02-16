@@ -178,25 +178,19 @@ const close = ()=> {
 
   // Update balance dynamically when the user types or clears the input
   const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const inputValue = Number(e.target.value);
-
-    // If the user enters a new value, calculate the difference and deduct
+    const inputValue = e.target.value === "" ? 0 : Number(e.target.value); // Handle empty input case
+  
     if (inputValue > 0) {
-      if (amount <= inputValue) {
-        setBal((prevBal) => prevBal - (inputValue - previousAmount)); // Deduct the difference
-        setPreviousAmount(inputValue); // Track the current amount
-      }
+      setBal((prevBal) => prevBal - (inputValue - previousAmount)); // Deduct the difference
+      setPreviousAmount(inputValue); // Track the current amount
       setAmount(inputValue); // Update the amount
-    }else if(amount > inputValue){
-      setInsufficient(true);
-    }else {
-      // If the input is cleared, add back the previously deducted amount
-      setBal((prevBal) => prevBal + previousAmount);
-      setPreviousAmount(0); // Reset the previous amount
-      setAmount(0); // Clear the amount
+    } else {
+      setBal((prevBal) => prevBal + previousAmount); // Restore balance when cleared
+      setPreviousAmount(0); // Reset previous amount
+      setAmount(0); // Reset input field
     }
   };
-
+  
   return (
     <IonPage className={style.page}>
       <Header title="Withdrawal" />

@@ -85,9 +85,9 @@ const CompleteProfile: React.FC = () => {
     // Validate inputs before proceeding to the next step
     if (currentStep === 0) {
       // Ensure category and subcategories are selected
-      if (!selectedCategory || selectedSubcategories.some(sub => !sub)) {
+      if (!selectedCategory || selectedSubcategories.some(sub => !sub) || !qualification) {
         setToast(true);
-        setToastText("Please select a profession and all skills.");
+        setToastText("Please select a skills and qualification.");
         return;
       }
     }
@@ -131,7 +131,7 @@ const CompleteProfile: React.FC = () => {
       .post(`${API_BASE_URL}/completeProfile.php`, formData)
       .then((response) => {
         const { success, message, ssp } = response.data;
-  
+        console.log(response)
         if (success) {
           setToast(true);
           setToastText("Onboarding successful!");
@@ -436,6 +436,7 @@ const handleWorkSuiteChange = (e: React.ChangeEvent<HTMLInputElement>) => {
              <input type="text" 
               value={residentialSuite} 
               onChange={handleResidentialSuiteChange}
+              placeholder="House & Street Address E.g No 3, oluda street"
              className={style.input} />
            </fieldset>
          </div>
@@ -495,6 +496,7 @@ const handleWorkSuiteChange = (e: React.ChangeEvent<HTMLInputElement>) => {
              <legend className={style.legend}>Suite</legend>
              <input type="text" className={style.input}
                 value={workSuite} 
+                placeholder="House & Street Address E.g No 3, oluda street"
               onChange={handleWorkSuiteChange}
              />
            </fieldset>
@@ -529,7 +531,9 @@ const handleWorkSuiteChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         Next
       </button>
     ) : (
-      <div></div>
+      <div className={style.go} onClick={handleSubmit}>
+        Go to Dashboard
+      </div>
     )}
   </div>
 </form>

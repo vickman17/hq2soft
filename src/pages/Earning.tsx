@@ -2,7 +2,7 @@ import { IonContent, IonHeader, IonIcon, IonPage } from "@ionic/react";
 import React, { useState, useEffect } from "react";
 import Back from "../components/Back";
 import style from './styles/Earning.module.css';
-import { eyeOutline, eyeOffOutline } from "ionicons/icons"; // Import both icons
+import { eyeOutline, eyeOffOutline, chevronBackOutline } from "ionicons/icons"; // Import both icons
 import Header from "../components/Header";
 import { useHistory } from "react-router";
 
@@ -80,7 +80,16 @@ const Earning: React.FC = () => {
     <IonPage className={style.page}>
       <IonContent className={style.content}>
         <div className={style.earnings}>
-          <Header title="" />
+        <div className={style.head}>
+        <div>
+          <div style={{margin:"auto", paddingBlock: ".3rem", fontSize: "1.8rem", border:"0px solid black"}}>
+              <IonIcon onClick={()=>history.push('/dashboard')} icon={chevronBackOutline} />
+          </div>
+        </div>
+        <div className={style.title}>
+          Earning
+        </div>
+      </div>
           <div className={style.acct}>
             <div className={style.earnHead}>Active Earnings</div>
             <div className={style.place}>
@@ -98,9 +107,9 @@ const Earning: React.FC = () => {
               Withdraw
             </div>
 
-            <div onClick={() => history.push('/assets')} className={style.add}>
+            {/* <div onClick={() => history.push('/assets')} className={style.add}>
               Assets
-            </div>
+            </div> */}
           </div>
         </div>
         
