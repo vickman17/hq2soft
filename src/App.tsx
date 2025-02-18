@@ -130,21 +130,30 @@ const App: React.FC = () => {
   const ionRouter = useIonRouter();
 
   useEffect(() => {
+    if (document.getElementById("tawk-script")) return; // Prevent duplicate script
+  
     const tawkScript = document.createElement("script");
+    tawkScript.id = "tawk-script";
     tawkScript.src = "https://embed.tawk.to/67aac34d3a842732607cc42a/1ijpglpnl";
     tawkScript.async = true;
+  
     tawkScript.onload = () => {
-      if (window.Tawk_API && typeof window.Tawk_API.hideWidget === "function") {
-        window.Tawk_API.hideWidget(); // Hide the widget on page load
-      }
+      setTimeout(() => {
+        if (window.Tawk_API && typeof window.Tawk_API.hideWidget === "function") {
+          window.Tawk_API.hideWidget();
+        }
+      }, 1000);
     };
+  
     document.body.appendChild(tawkScript);
   
     return () => {
-      document.body.removeChild(tawkScript);
+      if (tawkScript.parentNode) {
+        tawkScript.parentNode.removeChild(tawkScript);
+      }
     };
   }, []);
-    
+  
 
   useEffect(() => {
     const setupBackButtonListener = async () => {
