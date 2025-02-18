@@ -23,10 +23,9 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8  // Use VERSION_11 if you prefer Java 11
-        targetCompatibility JavaVersion.VERSION_1_8  // or VERSION_11
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
-
 }
 
 repositories {
