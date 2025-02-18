@@ -5,6 +5,7 @@ import whatsapp from "/svgnew/whatsapp.svg";
 import mail from "/svgnew/envelope.svg";
 import phone from "/svgnew/phone.svg";
 import Header from "../components/Header";
+import useTawk from "../services/useTawk";
 
 const Support: React.FC = () =>{
 
@@ -24,12 +25,11 @@ const Support: React.FC = () =>{
     const phoneNumber = "+2348032365280"; // Replace with your phone number
     window.location.href = `tel:${phoneNumber}`;
   };
+  useTawk();
 
-  const openTawkChat = () => {
-    if (window.Tawk_API && typeof (window.Tawk_API as any).maximize === "function") {
-      (window.Tawk_API as any).maximize(); // Opens the chat window
-    } else {
-      console.warn("Tawk.to is not loaded yet.");
+  const openChat = () => {
+    if (window.Tawk_API && typeof window.Tawk_API.maximize === "function") {
+      window.Tawk_API.maximize(); // Opens the chat manually
     }
   };
   
@@ -62,7 +62,7 @@ const Support: React.FC = () =>{
                         Call Support
                     </div>
                 </div>
-                <div onClick={openTawkChat} className={style.item}>
+                <div onClick={openChat} className={style.item}>
                     <div className={style.iconCont}>
                     <img src={phone} />
                     </div>
